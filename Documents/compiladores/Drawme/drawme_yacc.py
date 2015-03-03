@@ -186,7 +186,14 @@ def p_WID2(p):
 | funCall'''
 
 def p_assigment(p):
-	'''assigment : EQ exp SC'''
+	'''assigment : EQ tipeAss'''
+
+def p_tipeAss(p):
+	'''tipeAss : varAss
+| listAss'''
+
+def p_varAss(p):
+	'''varAss : exp SC'''
 
 def p_funCall(p):
 	'''funCall : LP func2 RP SC'''
@@ -200,7 +207,10 @@ def p_func3(p):
 | empty'''
 
 def p_list(p):
-	'''list : L type ID EQ LB lista3 RB SC'''
+	'''list : L type ID EQ listAss'''
+
+def p_listAss(p):
+	'''listAss : LB lista3 RB SC'''
 
 def p_lista2(p):
 	'''lista2 : val 
@@ -214,7 +224,15 @@ def p_li4(p):
 | empty'''
 
 def p_lab(p):
-	'''lab : LA LP STR RP SC'''
+	'''lab : LA LP stExp lab2 RP SC'''
+
+def p_lab2(p):
+	'''lab2 : ADD stExp lab2
+| empty'''
+
+def p_stExp(p):
+	'''stExp : STR
+| exp'''
 
 def p_condition(p):
 	'''condition : IF LP expresion RP block con2'''
