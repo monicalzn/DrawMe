@@ -33,14 +33,11 @@ def p_fun4(p):
 | empty'''
 
 def p_vars(p): 
-	'''vars : V var2 var5 SC 
+	'''vars : V var2 var5
 | empty'''
 
 def p_var2(p):
-        '''var2 : type var3  var22'''
-
-def p_var22(p):
-        '''var22 : C type var3 var22
+        '''var2 : type var3 SC var2
 | empty'''
 
 def p_var3(p):
@@ -60,11 +57,11 @@ def p_var5(p):
 
 def p_type(p):
 	'''type : INT 
-			| FLOAT  '''
+| FLOAT  '''
 
 def p_val(p):
 	'''val : VALI 
-			| VALF  '''
+| VALF  '''
 
 def p_position(p):
 	'''position : PENP LP exp C exp RP SC'''
@@ -198,7 +195,7 @@ def p_func3(p):
 | empty'''
 
 def p_list(p):
-	'''list : L type ID EQ LP lista3 RP SC'''
+	'''list : L type ID EQ LB lista3 RB SC'''
 
 def p_lista2(p):
 	'''lista2 : val 

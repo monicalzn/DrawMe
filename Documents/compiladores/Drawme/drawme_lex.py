@@ -30,7 +30,7 @@ reserved = {
    'back' : 'B',
    'angle' : 'A',
    'repeat' : 'RE',
-   'lista' : 'L',
+   'list' : 'L',
    'label' : 'LA'
 }
 
