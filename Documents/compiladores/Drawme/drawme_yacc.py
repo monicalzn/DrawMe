@@ -48,7 +48,7 @@ def p_var33(p):
 | empty '''
 
 def p_var4(p):
-        '''var4 : EQ val 
+        '''var4 : EQ exp 
 | empty'''
 
 def p_var5(p):
@@ -106,10 +106,15 @@ def p_opar2(p):
 	'''opar2 : LP exp p_fill RP SC'''
 
 def p_poly(p):
-	'''poly : POL LP list p_fill RP SC'''
+	'''poly : POL LP idList p_fill RP SC'''
 
 def p_lstrip(p):
-	'''lstrip : LS LP list RP SC'''
+	'''lstrip : LS LP idList RP SC'''
+
+def p_idList(p):
+	'''idList : list 
+| ID'''
+#id debe ser tipo list not var
 
 def p_p_arc(p):
 	'''p_arc : ARC LP exp RP SC'''

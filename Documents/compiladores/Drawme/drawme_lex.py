@@ -26,7 +26,7 @@ reserved = {
    'polygon' : 'POL',
    'angle' : 'A',
    'arc' : 'ARC',
-   'linestrip' : 'LS',
+   'lineStrip' : 'LS',
    'back' : 'B',
    'angle' : 'A',
    'repeat' : 'RE',
