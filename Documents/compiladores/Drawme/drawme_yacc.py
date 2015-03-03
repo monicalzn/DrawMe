@@ -12,7 +12,7 @@ def p_p2(p):
 | empty'''
 
 def p_p3(p):
-	'''p3 : functions 
+	'''p3 : functions p3
 | empty'''
 
 def p_globals(p):
@@ -22,10 +22,11 @@ def p_functions(p):
 	'''functions : FUN ID fun2 DP vars block SC'''
 
 def p_fun2(p):
-        '''fun2 : LP fun3 RP'''
+        '''fun2 : LP fun3'''
 
 def p_fun3(p):
-	'''fun3 : type ID fun4 '''
+	'''fun3 : type ID fun4 RP
+| RP'''
 
 def p_fun4(p):
 	'''fun4 : C type ID fun4  
@@ -54,7 +55,7 @@ def p_var4(p):
 | empty'''
 
 def p_var5(p):
-	'''var5 : list 
+	'''var5 : list var5
 | empty'''
 
 def p_type(p):
