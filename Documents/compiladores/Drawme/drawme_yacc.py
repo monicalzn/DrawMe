@@ -186,7 +186,7 @@ def p_WID2(p):
 | funCall'''
 
 def p_assigment(p):
-	'''assigment : EQ expresion SC'''
+	'''assigment : EQ exp SC'''
 
 def p_funCall(p):
 	'''funCall : LP func2 RP SC'''
@@ -217,7 +217,7 @@ def p_lab(p):
 	'''lab : LA LP STR RP SC'''
 
 def p_condition(p):
-	'''condition : IF LP expresion RP block con2 SC'''
+	'''condition : IF LP expresion RP block con2'''
 
 def p_con2(p):
 	'''con2 : empty  
