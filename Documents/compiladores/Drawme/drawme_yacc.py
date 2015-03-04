@@ -176,7 +176,7 @@ def p_fact4(p):
 | ID'''
 
 def p_rep(p):
-	'''rep : RE exp block SC'''
+	'''rep : RE exp block'''
 
 def p_WID(p):
 	'''WID : ID WID2'''
@@ -203,7 +203,7 @@ def p_func2(p):
 | empty'''
 
 def p_func3(p):
-	'''func3 : C exp 
+	'''func3 : C exp func3
 | empty'''
 
 def p_list(p):
