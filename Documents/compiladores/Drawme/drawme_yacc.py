@@ -207,7 +207,11 @@ def p_func3(p):
 | empty'''
 
 def p_list(p):
-	'''list : L type ID EQ listAss'''
+	'''list : L type ID prelistAss'''
+
+def p_prelistAss(p):
+	'''prelistAss : EQ listAss
+| SC'''
 
 def p_listAss(p):
 	'''listAss : LB lista3 RB SC'''
