@@ -6,30 +6,44 @@ import re
 from has import HashTable
 
 tokens = drawme_lex.tokens
-ht = HashTable()
+ht = dict()
 vType = None
+proDict = dict()
+scope = None
 
 def p_prog(p):
 	'''prog : PR p2 p3 MAIN vars block'''
-	for entry in ht.entries():
-		if(entry == None):
-			pass
-		else:
-			print entry.value(), entry.key()
+	proDict[scope] = ht
+	print "ALL"
+	print proDict
 
 def p_p2(p):
 	'''p2 : globals 
 | empty'''
+	global scope
+	scope = "main"
 
 def p_p3(p):
 	'''p3 : functions p3
 | empty'''
+	if(len(p) < 3):
+		global scope
+		scope = "main"
 
 def p_globals(p):
 	'''globals : GL vars'''
+	vaDict = dict(ht)
+	proDict["globals"] = vaDict
+	ht.clear()
 
 def p_functions(p): 
 	'''functions : FUN ID fun2 DP vars block SC'''
+	global scope
+	scope = p[2]
+	print scope
+	vaDict = dict(ht)
+	proDict[scope] = vaDict
+	ht.clear()	
 
 def p_fun2(p):
         '''fun2 : LP fun3'''
@@ -52,13 +66,13 @@ def p_var2(p):
 
 def p_var3(p):
 	'''var3 : ID var4 var33 '''
-	ht.put(p[1], vType)
+	ht[p[1]] = vType
 
 def p_var33(p):
 	'''var33 : C ID var4 var33 
 | empty '''
 	if(len(p) == 5):
-		ht.put(p[2], vType)
+		ht[p[2]] = vType
 
 def p_var4(p):
         '''var4 : EQ exp 
@@ -188,11 +202,7 @@ def p_fact3(p):
 
 def p_fact4(p):
 	'''fact4 : val 
-| ID'''
-	if(p[1] != None):
-		if(ht.get(p[1]) == None):
-			print "Undeclared variable. ", p[1] 
-			
+| ID'''			
 
 def p_rep(p):
 	'''rep : RE exp block'''
@@ -200,7 +210,7 @@ def p_rep(p):
 def p_WID(p):
 	'''WID : ID WID2'''
 	if(p[1] != None):
-		if(ht.get(p[1]) == None):
+		if(ht[p[1]] == None):
 			print "Undeclared variable. ", p[1] 
 
 def p_WID2(p):
