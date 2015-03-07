@@ -1,0 +1,10 @@
+program
+ main 
+var int j;
+{
+pendown;
+square(23);
+triangle(45,7898);
+rectangle(10,24,fill);
+penup;
+}

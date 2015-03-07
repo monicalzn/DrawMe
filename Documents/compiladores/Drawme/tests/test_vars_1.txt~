@@ -1,0 +1,12 @@
+program
+global var 
+int j, k=2.0 ;
+float f = k, h = 9;
+function hola(int k, float f):
+var float h;
+list int g = {23, d};
+list int g = {23, d};
+{};
+ main 
+{
+}

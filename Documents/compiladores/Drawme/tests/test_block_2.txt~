@@ -1,0 +1,40 @@
+program
+global var 
+int j, k=2.0 ;
+float f = k, h = 9;
+list float h = {2};
+function hola(int k, float f):
+var float h;
+list int g = {23, d};
+list int g = {23, d};
+{ 
+	penUp;
+	forward(34, angle 56*7);
+	if(r > 5){
+		penColor(255, 245, 235);
+		if(35*7 < d){
+			setColor((12-2),10*4,20/r);
+		} else {
+			backgroundColor(r,y,j);
+		}
+	}
+	penDown;
+	penWidth(k);
+};
+ main {
+	penPos(f, 7);
+	rectangle( 34*5, d/(9+2),fill);
+	triangle(23, f-2, g);
+	circle(34.6);
+	square(k, fill);
+	polygon(list int g = {23, f};, fill);
+	polygon(g);
+	lineStrip(list int g = {23, f};);
+	lineStrip(g);
+	arc(67*(8/6));
+	back(k, angle l);
+	label('hello');
+	b = 23;
+	b = d;
+	b = d/3;
+}

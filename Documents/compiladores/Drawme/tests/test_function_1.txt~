@@ -1,0 +1,8 @@
+program
+global var int j;
+function hola(int k, float f):
+var float h;
+{};
+ main 
+{
+}
