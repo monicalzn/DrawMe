@@ -2,7 +2,12 @@ import ply.yacc as yacc
 import drawme_lex 
 import sys
 
+from has import HashTable
+
 tokens = drawme_lex.tokens
+ht = HashTable()
+word = "l"
+vType = "nada"
 
 def p_prog(p):
 	'''prog : PR p2 p3 MAIN vars block'''
@@ -10,6 +15,7 @@ def p_prog(p):
 def p_p2(p):
 	'''p2 : globals 
 | empty'''
+	ht.put(word, 1)
 
 def p_p3(p):
 	'''p3 : functions p3
@@ -35,29 +41,38 @@ def p_fun4(p):
 def p_vars(p): 
 	'''vars : V var2 var5
 | empty'''
+	print 1
 
 def p_var2(p):
         '''var2 : type var3 SC var2
 | empty'''
+	print 2
 
 def p_var3(p):
 	'''var3 : ID var4 var33 '''
+	print 3, vType
 
 def p_var33(p):
 	'''var33 : C ID var4 var33 
 | empty '''
+	print 4
 
 def p_var4(p):
         '''var4 : EQ exp 
 | empty'''
+	print 5
 
 def p_var5(p):
 	'''var5 : list var5
 | empty'''
+	print 6
 
 def p_type(p):
 	'''type : INT 
 | FLOAT  '''
+	global vType
+	vType = p[1]
+	print 7
 
 def p_val(p):
 	'''val : VALI 
@@ -247,7 +262,6 @@ def p_con2(p):
 
 def p_block(p):
 	'''block : LB block3 RB'''
-
 
 def p_block3(p):
 	'''block3 : block2 block3
