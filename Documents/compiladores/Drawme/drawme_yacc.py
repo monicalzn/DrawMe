@@ -204,35 +204,33 @@ def p_rep(p):
 
 def p_WID(p):
 	'''WID : ID WID2'''
-	global idFunc
-	idFunc = p[1]			 
+	if(idFunc == "ass"):
+		declared_variables(p[1])
+	else:
+		if(p[1] not in proDict):
+			print "Undeclared function"
+			sys.exit(0)		 
 
 def p_WID2(p):
 	'''WID2 : assigment
 | funCall'''
-	print 0
 
 def p_assigment(p):
 	'''assigment : EQ tipeAss'''
-	print "1"
-	declared_variables(idFunc)
+	global idFunc
+	idFunc = "ass"
 
 def p_tipeAss(p):
 	'''tipeAss : varAss
 | listAss'''
-	print 2
 
 def p_varAss(p):
 	'''varAss : exp SC'''
 
 def p_funCall(p):
 	'''funCall : LP func2 RP SC'''
-	print 4
-	print idFunc
-	if(p[1] == "("):
-		if(idFunc not in proDict):
-			print "not in"
-			sys.exit()
+	global idFunc
+	idFunc = "func"
 	
 def p_func2(p):
 	'''func2 : exp func3 

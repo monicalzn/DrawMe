@@ -5,7 +5,7 @@ float f, h = 9;
 function ko():
 var float g;
 {
-j = 0;
+jp = 0;
 
 };
 function kolllll():

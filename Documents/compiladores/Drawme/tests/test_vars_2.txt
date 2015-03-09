@@ -12,7 +12,7 @@ function kolllll():
 var float g;
 int lll;
 {
-kko();
+koo();
 };
  main 
 var int n;
