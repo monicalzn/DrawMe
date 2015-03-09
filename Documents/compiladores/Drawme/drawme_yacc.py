@@ -10,25 +10,21 @@ ht = dict()
 vType = None
 proDict = dict()
 scope = None
+idFunc = None
 
 def p_prog(p):
 	'''prog : PR p2 p3 MAIN vars block'''
-	proDict[scope] = ht
+	proDict["main"] = ht
 	print "ALL"
 	print proDict
 
 def p_p2(p):
 	'''p2 : globals 
 | empty'''
-	global scope
-	scope = "main"
 
 def p_p3(p):
 	'''p3 : functions p3
 | empty'''
-	if(len(p) < 3):
-		global scope
-		scope = "main"
 
 def p_globals(p):
 	'''globals : GL vars'''
@@ -38,11 +34,8 @@ def p_globals(p):
 
 def p_functions(p): 
 	'''functions : FUN ID fun2 DP vars block SC'''
-	global scope
-	scope = p[2]
-	print scope
 	vaDict = dict(ht)
-	proDict[scope] = vaDict
+	proDict[p[2]] = vaDict
 	ht.clear()	
 
 def p_fun2(p):
@@ -66,13 +59,13 @@ def p_var2(p):
 
 def p_var3(p):
 	'''var3 : ID var4 var33 '''
-	ht[p[1]] = vType
+	ht[p[1]] = [vType, "var"]
 
 def p_var33(p):
 	'''var33 : C ID var4 var33 
 | empty '''
 	if(len(p) == 5):
-		ht[p[2]] = vType
+		ht[p[2]] = [vType, "var"]
 
 def p_var4(p):
         '''var4 : EQ exp 
@@ -202,37 +195,49 @@ def p_fact3(p):
 
 def p_fact4(p):
 	'''fact4 : val 
-| ID'''			
+| ID'''	
+	declared_variables(p[1])
+			
 
 def p_rep(p):
 	'''rep : RE exp block'''
 
 def p_WID(p):
 	'''WID : ID WID2'''
-	if(p[1] != None):
-		if(ht[p[1]] == None):
-			print "Undeclared variable. ", p[1] 
+	global idFunc
+	idFunc = p[1]			 
 
 def p_WID2(p):
 	'''WID2 : assigment
 | funCall'''
+	print 0
 
 def p_assigment(p):
 	'''assigment : EQ tipeAss'''
+	print "1"
+	declared_variables(idFunc)
 
 def p_tipeAss(p):
 	'''tipeAss : varAss
 | listAss'''
+	print 2
 
 def p_varAss(p):
 	'''varAss : exp SC'''
 
 def p_funCall(p):
 	'''funCall : LP func2 RP SC'''
-
+	print 4
+	print idFunc
+	if(p[1] == "("):
+		if(idFunc not in proDict):
+			print "not in"
+			sys.exit()
+	
 def p_func2(p):
 	'''func2 : exp func3 
 | empty'''
+	
 
 def p_func3(p):
 	'''func3 : C exp func3
@@ -240,6 +245,7 @@ def p_func3(p):
 
 def p_list(p):
 	'''list : L type ID prelistAss'''
+	ht[p[3]] = [vType, "list"]
 
 def p_prelistAss(p):
 	'''prelistAss : EQ listAss
@@ -310,6 +316,17 @@ def p_block2(p):
 
 def p_empty(p):
     '''empty : '''
+
+def declared_variables(p):
+	if(p != None):
+		if(p not in ht):
+			if("globals" in proDict):
+				if(p not in proDict["globals"]):
+					print "Undeclared variable. ", p
+					sys.exit(0)
+			else:
+				print "Undeclared variable. ", p
+				sys.exit(0)
 
 # Error rule for syntax errors
 def p_error(p):

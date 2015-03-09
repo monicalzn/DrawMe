@@ -1,15 +1,21 @@
 program
 global var 
 int j, k=2.0 ;
-float f = p, h = 9;
+float f, h = 9;
 function ko():
 var float g;
-{};
+{
+j = 0;
+
+};
 function kolllll():
 var float g;
 int lll;
-{};
+{
+kko();
+};
  main 
 var int n;
 {
+list int g = {23, d};
 }
