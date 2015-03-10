@@ -6,16 +6,16 @@ function ko():
 var float g;
 {
 j = 0;
-
-};
+ko();
+}
 function kolllll():
 var float g;
 int lll;
 {
-koo();
-};
+ko();
+}
  main 
 var int n;
 {
-list int g = {23, d};
+rectangle(9,g);
 }

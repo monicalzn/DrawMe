@@ -33,17 +33,17 @@ def p_globals(p):
 	ht.clear()
 
 def p_functions(p): 
-	'''functions : FUN ID fun2 DP vars block SC'''
-	vaDict = dict(ht)
-	proDict[p[2]] = vaDict
-	ht.clear()	
+	'''functions : fun2 DP vars block'''	
 
 def p_fun2(p):
-        '''fun2 : LP fun3'''
+        '''fun2 : FUN ID LP fun3 RP'''
+	vaDict = dict(ht)
+	proDict[p[2]] = vaDict
+	ht.clear()
 
 def p_fun3(p):
-	'''fun3 : type ID fun4 RP
-| RP'''
+	'''fun3 : type ID fun4
+| empty'''
 
 def p_fun4(p):
 	'''fun4 : C type ID fun4  
@@ -208,7 +208,7 @@ def p_WID(p):
 		declared_variables(p[1])
 	else:
 		if(p[1] not in proDict):
-			print "Undeclared function"
+			print "Undeclared function", p[1]
 			sys.exit(0)		 
 
 def p_WID2(p):
