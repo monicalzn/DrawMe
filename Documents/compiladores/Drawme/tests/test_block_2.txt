@@ -1,7 +1,7 @@
 program
 global var 
 int j, k=2.0, d,b ;
-float f = k, h = 9,c,y;
+float f = k, c, y;
 list float h = {2};
 list int g = {23, d};
 function hola(int k, float f):
@@ -27,9 +27,9 @@ list int g = {23, d};
 	triangle(23, f-2, h);
 	circle(34.6);
 	square(k, fill);
-	polygon(list int g = {23, f};, fill);
+	polygon(g, fill);
 	polygon(g);
-	lineStrip(list int g = {23, f};);
+	lineStrip(g);
 	lineStrip(g);
 	arc(67*(8/6));
 	back(k, angle k);

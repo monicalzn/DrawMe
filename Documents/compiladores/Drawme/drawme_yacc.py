@@ -15,8 +15,6 @@ idFunc = None
 def p_prog(p):
 	'''prog : PR p2 p3 MAIN vars block'''
 	proDict["main"] = ht
-	print "ALL"
-	print proDict
 
 def p_p2(p):
 	'''p2 : globals 
@@ -59,13 +57,19 @@ def p_var2(p):
 
 def p_var3(p):
 	'''var3 : ID var4 var33 '''
-	ht[p[1]] = [vType, "var"]
+	if p[1] in ht:
+		print "Existing var, ", p[1]
+	else:
+		ht[p[1]] = [vType, "var"]
 
 def p_var33(p):
 	'''var33 : C ID var4 var33 
 | empty '''
 	if(len(p) == 5):
-		ht[p[2]] = [vType, "var"]
+		if p[2] in ht:
+			print "Existing var, ", p[2]
+		else:
+			ht[p[2]] = [vType, "var"]
 
 def p_var4(p):
         '''var4 : EQ exp 
@@ -248,7 +252,10 @@ def p_func3(p):
 
 def p_list(p):
 	'''list : L type ID prelistAss'''
-	ht[p[3]] = [vType, "list"]
+	if p[3] in ht:
+		print "Existing var, ", p[3]
+	else:
+		ht[p[3]] = [vType, "list"]
 
 def p_prelistAss(p):
 	'''prelistAss : EQ listAss
