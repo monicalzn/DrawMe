@@ -136,10 +136,9 @@ def p_lstrip(p):
 def p_idList(p):
 	'''idList : list 
 | ID'''
-	if(p != None):
+	if(p[1] != None):
 		declared_variables(p[1])
 		type_variable(p[1], "list")
-		print p[1]
 #id debe ser tipo list not var
 
 def p_p_arc(p):
@@ -200,7 +199,10 @@ def p_fact3(p):
 def p_fact4(p):
 	'''fact4 : val 
 | ID'''	
-	declared_variables(p[1])			
+	if(p[1] != None):
+		declared_variables(p[1])
+		type_variable(p[1], "var")
+					
 
 def p_rep(p):
 	'''rep : RE exp block'''
@@ -333,12 +335,12 @@ def declared_variables(p):
 def type_variable(p, type_v):
 	if p in ht:
 		if(ht[p][1] != type_v):
-			print "Type miss match.", p
+			print "Type miss match.", type_v, " " ,p
 			sys.exit(0)
 	else:
 		if("globals" in proDict):
 			if(proDict["globals"][p][1] != type_v):
-				print "Type miss match.", p
+				print "Type miss match.", type_v, " " , p
 				sys.exit(0)
 
 def p_error(p):
