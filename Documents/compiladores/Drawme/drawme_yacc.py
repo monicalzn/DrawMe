@@ -3,7 +3,7 @@ import drawme_lex
 import sys
 import re
 
-from has import HashTable
+from stack import Stack
 
 tokens = drawme_lex.tokens
 ht = dict()
@@ -11,10 +11,16 @@ vType = None
 proDict = dict()
 scope = None
 idFunc = None
+OStack = Stack()
+TStack = Stack()
+OpStack = Stack()
+cuads = []
+numCuad = 0
 
 def p_prog(p):
 	'''prog : PR p2 p3 MAIN vars block'''
 	proDict["main"] = ht
+	print cuads
 
 def p_p2(p):
 	'''p2 : globals 
@@ -169,24 +175,47 @@ def p_exp(p):
 def p_exp2(p):
 	'''exp2 : exp3 exp 
 | empty'''
-
+	if(OpStack.size() > 0):
+		if(OpStack.peek() == '+' or OpStack.peek() == '-'):
+			#checar tipos
+			global numCuad
+			numCuad += 1
+			tem = 'T'+ str(numCuad)
+			spCuad = [OpStack.pop(), OStack.pop(), OStack.pop(), tem]
+			cuads.append(spCuad)	
+			#meter temporal
+			OStack.push(tem)
+	
 def p_exp3(p):
 	'''exp3 : ADD 
 | SUB'''
 #/*mete a poper*/
+	OpStack.push(p[1])
 
 def p_term(p):
 	'''term : fact term2'''
 #/*une a poper * o / */
+	
 
 def p_term2(p):
 	'''term2 : term3 term 
 | empty'''
+	if(OpStack.size() > 0):
+		if(OpStack.peek() == '*' or OpStack.peek() == '/'):
+			#checar tipos
+			global numCuad
+			numCuad += 1
+			tem = 'T'+ str(numCuad)
+			spCuad = [OpStack.pop(), OStack.pop(), OStack.pop(), tem]
+			cuads.append(spCuad)
+			#meter temporal
+			OStack.push(tem)			
 
 def p_term3(p):
 	'''term3 : M 
 | DIV'''
 #/*mete a poper*/
+	OpStack.push(p[1])
 
 def p_fact(p):
 	'''fact : LP exp RP 
@@ -201,12 +230,18 @@ def p_fact3(p):
 | empty'''
 
 def p_fact4(p):
-	'''fact4 : val 
+	'''fact4 : valExp 
 | ID'''	
 	if(p[1] != None):
 		declared_variables(p[1])
 		type_variable(p[1], "var")
+		OStack.push(p[1])
 					
+def p_valExp(p):
+	'''valExp : VALI 
+| VALF  '''
+	OStack.push(p[1])
+
 
 def p_rep(p):
 	'''rep : RE exp block'''

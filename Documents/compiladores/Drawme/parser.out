@@ -76,87 +76,89 @@ Rule 70    fact2 -> fact3 fact4
 Rule 71    fact3 -> ADD
 Rule 72    fact3 -> SUB
 Rule 73    fact3 -> empty
-Rule 74    fact4 -> val
+Rule 74    fact4 -> valExp
 Rule 75    fact4 -> ID
-Rule 76    rep -> RE exp block
-Rule 77    WID -> ID WID2
-Rule 78    WID2 -> assigment
-Rule 79    WID2 -> funCall
-Rule 80    assigment -> EQ tipeAss
-Rule 81    tipeAss -> varAss
-Rule 82    tipeAss -> listAss
-Rule 83    varAss -> exp SC
-Rule 84    funCall -> LP func2 RP SC
-Rule 85    func2 -> exp func3
-Rule 86    func2 -> empty
-Rule 87    func3 -> C exp func3
-Rule 88    func3 -> empty
-Rule 89    list -> L type ID prelistAss
-Rule 90    prelistAss -> EQ listAss
-Rule 91    prelistAss -> SC
-Rule 92    listAss -> LB lista3 RB SC
-Rule 93    lista2 -> val
-Rule 94    lista2 -> ID
-Rule 95    lista3 -> lista2 li4
-Rule 96    li4 -> C lista2 li4
-Rule 97    li4 -> empty
-Rule 98    lab -> LA LP stExp lab2 RP SC
-Rule 99    lab2 -> ADD stExp lab2
-Rule 100   lab2 -> empty
-Rule 101   stExp -> STR
-Rule 102   stExp -> exp
-Rule 103   condition -> IF LP expresion RP block con2
-Rule 104   con2 -> empty
-Rule 105   con2 -> ELSE block
-Rule 106   block -> LB block3 RB
-Rule 107   block3 -> block2 block3
-Rule 108   block3 -> empty
-Rule 109   figure -> rect
-Rule 110   figure -> tria
-Rule 111   figure -> poly
-Rule 112   figure -> lstrip
-Rule 113   figure -> one_par
-Rule 114   figure -> p_arc
-Rule 115   pen -> colors
-Rule 116   pen -> p_width
-Rule 117   pen -> move
-Rule 118   pen -> position
-Rule 119   pen -> penwrite
-Rule 120   block2 -> figure
-Rule 121   block2 -> condition
-Rule 122   block2 -> pen
-Rule 123   block2 -> lab
-Rule 124   block2 -> list
-Rule 125   block2 -> WID
-Rule 126   block2 -> rep
-Rule 127   empty -> <empty>
+Rule 76    valExp -> VALI
+Rule 77    valExp -> VALF
+Rule 78    rep -> RE exp block
+Rule 79    WID -> ID WID2
+Rule 80    WID2 -> assigment
+Rule 81    WID2 -> funCall
+Rule 82    assigment -> EQ tipeAss
+Rule 83    tipeAss -> varAss
+Rule 84    tipeAss -> listAss
+Rule 85    varAss -> exp SC
+Rule 86    funCall -> LP func2 RP SC
+Rule 87    func2 -> exp func3
+Rule 88    func2 -> empty
+Rule 89    func3 -> C exp func3
+Rule 90    func3 -> empty
+Rule 91    list -> L type ID prelistAss
+Rule 92    prelistAss -> EQ listAss
+Rule 93    prelistAss -> SC
+Rule 94    listAss -> LB lista3 RB SC
+Rule 95    lista2 -> val
+Rule 96    lista2 -> ID
+Rule 97    lista3 -> lista2 li4
+Rule 98    li4 -> C lista2 li4
+Rule 99    li4 -> empty
+Rule 100   lab -> LA LP stExp lab2 RP SC
+Rule 101   lab2 -> ADD stExp lab2
+Rule 102   lab2 -> empty
+Rule 103   stExp -> STR
+Rule 104   stExp -> exp
+Rule 105   condition -> IF LP expresion RP block con2
+Rule 106   con2 -> empty
+Rule 107   con2 -> ELSE block
+Rule 108   block -> LB block3 RB
+Rule 109   block3 -> block2 block3
+Rule 110   block3 -> empty
+Rule 111   figure -> rect
+Rule 112   figure -> tria
+Rule 113   figure -> poly
+Rule 114   figure -> lstrip
+Rule 115   figure -> one_par
+Rule 116   figure -> p_arc
+Rule 117   pen -> colors
+Rule 118   pen -> p_width
+Rule 119   pen -> move
+Rule 120   pen -> position
+Rule 121   pen -> penwrite
+Rule 122   block2 -> figure
+Rule 123   block2 -> condition
+Rule 124   block2 -> pen
+Rule 125   block2 -> lab
+Rule 126   block2 -> list
+Rule 127   block2 -> WID
+Rule 128   block2 -> rep
+Rule 129   empty -> <empty>
 
 Terminals, with rules where they appear
 
 A                    : 38
-ADD                  : 61 71 99
+ADD                  : 61 71 101
 ARC                  : 50
 B                    : 37
 BACO                 : 31
-C                    : 11 18 28 32 32 38 39 40 42 42 87 96
+C                    : 11 18 28 32 32 38 39 40 42 42 89 98
 CIR                  : 43
 D                    : 56
 DIV                  : 67
 DP                   : 7
-ELSE                 : 105
-EQ                   : 20 80 90
+ELSE                 : 107
+EQ                   : 20 82 92
 F                    : 36
 FILL                 : 40
 FLOAT                : 25
 FUN                  : 8
 GL                   : 6
-ID                   : 8 9 11 17 18 49 75 77 89 94
-IF                   : 103
+ID                   : 8 9 11 17 18 49 75 79 91 96
+IF                   : 105
 INT                  : 24
-L                    : 89
-LA                   : 98
-LB                   : 92 106
-LP                   : 8 28 32 33 38 39 42 45 46 47 50 68 84 98 103
+L                    : 91
+LA                   : 100
+LB                   : 94 108
+LP                   : 8 28 32 33 38 39 42 45 46 47 50 68 86 100 105
 LS                   : 47
 LT                   : 54
 M                    : 66
@@ -169,94 +171,95 @@ PENU                 : 34
 PENW                 : 33
 POL                  : 46
 PR                   : 1
-RB                   : 92 106
-RE                   : 76
+RB                   : 94 108
+RE                   : 78
 REC                  : 39
-RP                   : 8 28 32 33 38 39 42 45 46 47 50 68 84 98 103
-SC                   : 15 28 32 33 34 35 38 39 42 45 46 47 50 83 84 91 92 98
+RP                   : 8 28 32 33 38 39 42 45 46 47 50 68 86 100 105
+SC                   : 15 28 32 33 34 35 38 39 42 45 46 47 50 85 86 93 94 100
 SEQ                  : 57
 SETC                 : 30
 SQ                   : 44
-STR                  : 101
+STR                  : 103
 SUB                  : 62 72
 TRI                  : 42
 V                    : 13
-VALF                 : 27
-VALI                 : 26
+VALF                 : 27 77
+VALI                 : 26 76
 error                : 
 
 Nonterminals, with rules where they appear
 
-WID                  : 125
-WID2                 : 77
-assigment            : 78
-block                : 1 7 76 103 105
-block2               : 107
-block3               : 106 107
-colors               : 115
+WID                  : 127
+WID2                 : 79
+assigment            : 80
+block                : 1 7 78 105 107
+block2               : 109
+block3               : 108 109
+colors               : 117
 colors2              : 29 30 31
-con2                 : 103
-condition            : 121
-empty                : 3 5 10 12 14 16 19 21 23 41 53 60 65 73 86 88 97 100 104 108
+con2                 : 105
+condition            : 123
+empty                : 3 5 10 12 14 16 19 21 23 41 53 60 65 73 88 90 99 102 106 110
 ex2                  : 51
 ex3                  : 52
-exp                  : 20 28 28 32 32 32 33 38 38 39 39 42 42 42 45 50 51 52 59 68 76 83 85 87 102
+exp                  : 20 28 28 32 32 32 33 38 38 39 39 42 42 42 45 50 51 52 59 68 78 85 87 89 104
 exp2                 : 58
 exp3                 : 59
-expresion            : 103
+expresion            : 105
 fact                 : 63
 fact2                : 69
 fact3                : 70
 fact4                : 70
-figure               : 120
+figure               : 122
 fun2                 : 7
 fun3                 : 8
 fun4                 : 9 11
-funCall              : 79
-func2                : 84
-func3                : 85 87
+funCall              : 81
+func2                : 86
+func3                : 87 89
 functions            : 4
 globals              : 2
 idList               : 46 47
-lab                  : 123
-lab2                 : 98 99
-li4                  : 95 96
-list                 : 22 48 124
-listAss              : 82 90
-lista2               : 95 96
-lista3               : 92
-lstrip               : 112
-move                 : 117
+lab                  : 125
+lab2                 : 100 101
+li4                  : 97 98
+list                 : 22 48 126
+listAss              : 84 92
+lista2               : 97 98
+lista3               : 94
+lstrip               : 114
+move                 : 119
 mueve2               : 36 37
-one_par              : 113
+one_par              : 115
 opar2                : 43 44
 p2                   : 1
 p3                   : 1 4
-p_arc                : 114
+p_arc                : 116
 p_fill               : 39 42 45 46
-p_width              : 116
-pen                  : 122
-penwrite             : 119
-poly                 : 111
-position             : 118
-prelistAss           : 89
+p_width              : 118
+pen                  : 124
+penwrite             : 121
+poly                 : 113
+position             : 120
+prelistAss           : 91
 prog                 : 0
-rect                 : 109
-rep                  : 126
-stExp                : 98 99
+rect                 : 111
+rep                  : 128
+stExp                : 100 101
 term                 : 58 64
 term2                : 63
 term3                : 64
-tipeAss              : 80
-tria                 : 110
-type                 : 9 11 15 89
-val                  : 74 93
+tipeAss              : 82
+tria                 : 112
+type                 : 9 11 15 91
+val                  : 95
+valExp               : 74
 var2                 : 13 15
 var3                 : 15
 var33                : 17 18
 var4                 : 17 18
 var5                 : 13 22
-varAss               : 81
+varAss               : 83
 vars                 : 1 6 7
 
 Parsing method: LALR
@@ -276,11 +279,11 @@ state 1
     (2) p2 -> . globals
     (3) p2 -> . empty
     (6) globals -> . GL vars
-    (127) empty -> .
+    (129) empty -> .
 
     GL              shift and go to state 4
-    FUN             reduce using rule 127 (empty -> .)
-    MAIN            reduce using rule 127 (empty -> .)
+    FUN             reduce using rule 129 (empty -> .)
+    MAIN            reduce using rule 129 (empty -> .)
 
     p2                             shift and go to state 3
     globals                        shift and go to state 5
@@ -298,10 +301,10 @@ state 3
     (4) p3 -> . functions p3
     (5) p3 -> . empty
     (7) functions -> . fun2 DP vars block
-    (127) empty -> .
+    (129) empty -> .
     (8) fun2 -> . FUN ID LP fun3 RP
 
-    MAIN            reduce using rule 127 (empty -> .)
+    MAIN            reduce using rule 129 (empty -> .)
     FUN             shift and go to state 11
 
     p3                             shift and go to state 8
@@ -314,11 +317,11 @@ state 4
     (6) globals -> GL . vars
     (13) vars -> . V var2 var5
     (14) vars -> . empty
-    (127) empty -> .
+    (129) empty -> .
 
     V               shift and go to state 13
-    FUN             reduce using rule 127 (empty -> .)
-    MAIN            reduce using rule 127 (empty -> .)
+    FUN             reduce using rule 129 (empty -> .)
+    MAIN            reduce using rule 129 (empty -> .)
 
     empty                          shift and go to state 14
     vars                           shift and go to state 12
@@ -345,10 +348,10 @@ state 7
     (4) p3 -> . functions p3
     (5) p3 -> . empty
     (7) functions -> . fun2 DP vars block
-    (127) empty -> .
+    (129) empty -> .
     (8) fun2 -> . FUN ID LP fun3 RP
 
-    MAIN            reduce using rule 127 (empty -> .)
+    MAIN            reduce using rule 129 (empty -> .)
     FUN             shift and go to state 11
 
     p3                             shift and go to state 15
@@ -399,14 +402,14 @@ state 13
     (16) var2 -> . empty
     (24) type -> . INT
     (25) type -> . FLOAT
-    (127) empty -> .
+    (129) empty -> .
 
     INT             shift and go to state 20
     FLOAT           shift and go to state 21
-    L               reduce using rule 127 (empty -> .)
-    FUN             reduce using rule 127 (empty -> .)
-    MAIN            reduce using rule 127 (empty -> .)
-    LB              reduce using rule 127 (empty -> .)
+    L               reduce using rule 129 (empty -> .)
+    FUN             reduce using rule 129 (empty -> .)
+    MAIN            reduce using rule 129 (empty -> .)
+    LB              reduce using rule 129 (empty -> .)
 
     type                           shift and go to state 22
     empty                          shift and go to state 23
@@ -433,10 +436,10 @@ state 16
     (1) prog -> PR p2 p3 MAIN . vars block
     (13) vars -> . V var2 var5
     (14) vars -> . empty
-    (127) empty -> .
+    (129) empty -> .
 
     V               shift and go to state 13
-    LB              reduce using rule 127 (empty -> .)
+    LB              reduce using rule 129 (empty -> .)
 
     vars                           shift and go to state 24
     empty                          shift and go to state 14
@@ -446,10 +449,10 @@ state 17
     (7) functions -> fun2 DP . vars block
     (13) vars -> . V var2 var5
     (14) vars -> . empty
-    (127) empty -> .
+    (129) empty -> .
 
     V               shift and go to state 13
-    LB              reduce using rule 127 (empty -> .)
+    LB              reduce using rule 129 (empty -> .)
 
     vars                           shift and go to state 25
     empty                          shift and go to state 14
@@ -466,13 +469,13 @@ state 19
     (13) vars -> V var2 . var5
     (22) var5 -> . list var5
     (23) var5 -> . empty
-    (89) list -> . L type ID prelistAss
-    (127) empty -> .
+    (91) list -> . L type ID prelistAss
+    (129) empty -> .
 
     L               shift and go to state 29
-    FUN             reduce using rule 127 (empty -> .)
-    MAIN            reduce using rule 127 (empty -> .)
-    LB              reduce using rule 127 (empty -> .)
+    FUN             reduce using rule 129 (empty -> .)
+    MAIN            reduce using rule 129 (empty -> .)
+    LB              reduce using rule 129 (empty -> .)
 
     var5                           shift and go to state 27
     list                           shift and go to state 28
@@ -514,7 +517,7 @@ state 23
 state 24
 
     (1) prog -> PR p2 p3 MAIN vars . block
-    (106) block -> . LB block3 RB
+    (108) block -> . LB block3 RB
 
     LB              shift and go to state 33
 
@@ -523,7 +526,7 @@ state 24
 state 25
 
     (7) functions -> fun2 DP vars . block
-    (106) block -> . LB block3 RB
+    (108) block -> . LB block3 RB
 
     LB              shift and go to state 33
 
@@ -536,11 +539,11 @@ state 26
     (10) fun3 -> . empty
     (24) type -> . INT
     (25) type -> . FLOAT
-    (127) empty -> .
+    (129) empty -> .
 
     INT             shift and go to state 20
     FLOAT           shift and go to state 21
-    RP              reduce using rule 127 (empty -> .)
+    RP              reduce using rule 129 (empty -> .)
 
     type                           shift and go to state 37
     empty                          shift and go to state 38
@@ -560,13 +563,13 @@ state 28
     (22) var5 -> list . var5
     (22) var5 -> . list var5
     (23) var5 -> . empty
-    (89) list -> . L type ID prelistAss
-    (127) empty -> .
+    (91) list -> . L type ID prelistAss
+    (129) empty -> .
 
     L               shift and go to state 29
-    FUN             reduce using rule 127 (empty -> .)
-    MAIN            reduce using rule 127 (empty -> .)
-    LB              reduce using rule 127 (empty -> .)
+    FUN             reduce using rule 129 (empty -> .)
+    MAIN            reduce using rule 129 (empty -> .)
+    LB              reduce using rule 129 (empty -> .)
 
     var5                           shift and go to state 39
     list                           shift and go to state 28
@@ -574,7 +577,7 @@ state 28
 
 state 29
 
-    (89) list -> L . type ID prelistAss
+    (91) list -> L . type ID prelistAss
     (24) type -> . INT
     (25) type -> . FLOAT
 
@@ -604,44 +607,44 @@ state 32
     (17) var3 -> ID . var4 var33
     (20) var4 -> . EQ exp
     (21) var4 -> . empty
-    (127) empty -> .
+    (129) empty -> .
 
     EQ              shift and go to state 43
-    C               reduce using rule 127 (empty -> .)
-    SC              reduce using rule 127 (empty -> .)
+    C               reduce using rule 129 (empty -> .)
+    SC              reduce using rule 129 (empty -> .)
 
     var4                           shift and go to state 42
     empty                          shift and go to state 44
 
 state 33
 
-    (106) block -> LB . block3 RB
-    (107) block3 -> . block2 block3
-    (108) block3 -> . empty
-    (120) block2 -> . figure
-    (121) block2 -> . condition
-    (122) block2 -> . pen
-    (123) block2 -> . lab
-    (124) block2 -> . list
-    (125) block2 -> . WID
-    (126) block2 -> . rep
-    (127) empty -> .
-    (109) figure -> . rect
-    (110) figure -> . tria
-    (111) figure -> . poly
-    (112) figure -> . lstrip
-    (113) figure -> . one_par
-    (114) figure -> . p_arc
-    (103) condition -> . IF LP expresion RP block con2
-    (115) pen -> . colors
-    (116) pen -> . p_width
-    (117) pen -> . move
-    (118) pen -> . position
-    (119) pen -> . penwrite
-    (98) lab -> . LA LP stExp lab2 RP SC
-    (89) list -> . L type ID prelistAss
-    (77) WID -> . ID WID2
-    (76) rep -> . RE exp block
+    (108) block -> LB . block3 RB
+    (109) block3 -> . block2 block3
+    (110) block3 -> . empty
+    (122) block2 -> . figure
+    (123) block2 -> . condition
+    (124) block2 -> . pen
+    (125) block2 -> . lab
+    (126) block2 -> . list
+    (127) block2 -> . WID
+    (128) block2 -> . rep
+    (129) empty -> .
+    (111) figure -> . rect
+    (112) figure -> . tria
+    (113) figure -> . poly
+    (114) figure -> . lstrip
+    (115) figure -> . one_par
+    (116) figure -> . p_arc
+    (105) condition -> . IF LP expresion RP block con2
+    (117) pen -> . colors
+    (118) pen -> . p_width
+    (119) pen -> . move
+    (120) pen -> . position
+    (121) pen -> . penwrite
+    (100) lab -> . LA LP stExp lab2 RP SC
+    (91) list -> . L type ID prelistAss
+    (79) WID -> . ID WID2
+    (78) rep -> . RE exp block
     (39) rect -> . REC LP exp C exp p_fill RP SC
     (42) tria -> . TRI LP exp C exp C exp p_fill RP SC
     (46) poly -> . POL LP idList p_fill RP SC
@@ -659,7 +662,7 @@ state 33
     (34) penwrite -> . PENU SC
     (35) penwrite -> . PEND SC
 
-    RB              reduce using rule 127 (empty -> .)
+    RB              reduce using rule 129 (empty -> .)
     IF              shift and go to state 75
     LA              shift and go to state 57
     L               shift and go to state 29
@@ -751,7 +754,7 @@ state 39
 
 state 40
 
-    (89) list -> L type . ID prelistAss
+    (91) list -> L type . ID prelistAss
 
     ID              shift and go to state 88
 
@@ -763,14 +766,14 @@ state 41
     (16) var2 -> . empty
     (24) type -> . INT
     (25) type -> . FLOAT
-    (127) empty -> .
+    (129) empty -> .
 
     INT             shift and go to state 20
     FLOAT           shift and go to state 21
-    L               reduce using rule 127 (empty -> .)
-    FUN             reduce using rule 127 (empty -> .)
-    MAIN            reduce using rule 127 (empty -> .)
-    LB              reduce using rule 127 (empty -> .)
+    L               reduce using rule 129 (empty -> .)
+    FUN             reduce using rule 129 (empty -> .)
+    MAIN            reduce using rule 129 (empty -> .)
+    LB              reduce using rule 129 (empty -> .)
 
     type                           shift and go to state 22
     empty                          shift and go to state 23
@@ -781,10 +784,10 @@ state 42
     (17) var3 -> ID var4 . var33
     (18) var33 -> . C ID var4 var33
     (19) var33 -> . empty
-    (127) empty -> .
+    (129) empty -> .
 
     C               shift and go to state 91
-    SC              reduce using rule 127 (empty -> .)
+    SC              reduce using rule 129 (empty -> .)
 
     var33                          shift and go to state 90
     empty                          shift and go to state 92
@@ -800,14 +803,14 @@ state 43
     (71) fact3 -> . ADD
     (72) fact3 -> . SUB
     (73) fact3 -> . empty
-    (127) empty -> .
+    (129) empty -> .
 
     LP              shift and go to state 94
     ADD             shift and go to state 95
     SUB             shift and go to state 96
-    ID              reduce using rule 127 (empty -> .)
-    VALI            reduce using rule 127 (empty -> .)
-    VALF            reduce using rule 127 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    VALI            reduce using rule 129 (empty -> .)
+    VALF            reduce using rule 129 (empty -> .)
 
     term                           shift and go to state 93
     empty                          shift and go to state 97
@@ -833,40 +836,40 @@ state 45
 
 state 46
 
-    (106) block -> LB block3 . RB
+    (108) block -> LB block3 . RB
 
     RB              shift and go to state 103
 
 
 state 47
 
-    (107) block3 -> block2 . block3
-    (107) block3 -> . block2 block3
-    (108) block3 -> . empty
-    (120) block2 -> . figure
-    (121) block2 -> . condition
-    (122) block2 -> . pen
-    (123) block2 -> . lab
-    (124) block2 -> . list
-    (125) block2 -> . WID
-    (126) block2 -> . rep
-    (127) empty -> .
-    (109) figure -> . rect
-    (110) figure -> . tria
-    (111) figure -> . poly
-    (112) figure -> . lstrip
-    (113) figure -> . one_par
-    (114) figure -> . p_arc
-    (103) condition -> . IF LP expresion RP block con2
-    (115) pen -> . colors
-    (116) pen -> . p_width
-    (117) pen -> . move
-    (118) pen -> . position
-    (119) pen -> . penwrite
-    (98) lab -> . LA LP stExp lab2 RP SC
-    (89) list -> . L type ID prelistAss
-    (77) WID -> . ID WID2
-    (76) rep -> . RE exp block
+    (109) block3 -> block2 . block3
+    (109) block3 -> . block2 block3
+    (110) block3 -> . empty
+    (122) block2 -> . figure
+    (123) block2 -> . condition
+    (124) block2 -> . pen
+    (125) block2 -> . lab
+    (126) block2 -> . list
+    (127) block2 -> . WID
+    (128) block2 -> . rep
+    (129) empty -> .
+    (111) figure -> . rect
+    (112) figure -> . tria
+    (113) figure -> . poly
+    (114) figure -> . lstrip
+    (115) figure -> . one_par
+    (116) figure -> . p_arc
+    (105) condition -> . IF LP expresion RP block con2
+    (117) pen -> . colors
+    (118) pen -> . p_width
+    (119) pen -> . move
+    (120) pen -> . position
+    (121) pen -> . penwrite
+    (100) lab -> . LA LP stExp lab2 RP SC
+    (91) list -> . L type ID prelistAss
+    (79) WID -> . ID WID2
+    (78) rep -> . RE exp block
     (39) rect -> . REC LP exp C exp p_fill RP SC
     (42) tria -> . TRI LP exp C exp C exp p_fill RP SC
     (46) poly -> . POL LP idList p_fill RP SC
@@ -884,7 +887,7 @@ state 47
     (34) penwrite -> . PENU SC
     (35) penwrite -> . PEND SC
 
-    RB              reduce using rule 127 (empty -> .)
+    RB              reduce using rule 129 (empty -> .)
     IF              shift and go to state 75
     LA              shift and go to state 57
     L               shift and go to state 29
@@ -931,170 +934,170 @@ state 47
 
 state 48
 
-    (120) block2 -> figure .
+    (122) block2 -> figure .
 
-    IF              reduce using rule 120 (block2 -> figure .)
-    LA              reduce using rule 120 (block2 -> figure .)
-    L               reduce using rule 120 (block2 -> figure .)
-    ID              reduce using rule 120 (block2 -> figure .)
-    RE              reduce using rule 120 (block2 -> figure .)
-    REC             reduce using rule 120 (block2 -> figure .)
-    TRI             reduce using rule 120 (block2 -> figure .)
-    POL             reduce using rule 120 (block2 -> figure .)
-    LS              reduce using rule 120 (block2 -> figure .)
-    CIR             reduce using rule 120 (block2 -> figure .)
-    SQ              reduce using rule 120 (block2 -> figure .)
-    ARC             reduce using rule 120 (block2 -> figure .)
-    PENC            reduce using rule 120 (block2 -> figure .)
-    SETC            reduce using rule 120 (block2 -> figure .)
-    BACO            reduce using rule 120 (block2 -> figure .)
-    PENW            reduce using rule 120 (block2 -> figure .)
-    F               reduce using rule 120 (block2 -> figure .)
-    B               reduce using rule 120 (block2 -> figure .)
-    PENP            reduce using rule 120 (block2 -> figure .)
-    PENU            reduce using rule 120 (block2 -> figure .)
-    PEND            reduce using rule 120 (block2 -> figure .)
-    RB              reduce using rule 120 (block2 -> figure .)
+    IF              reduce using rule 122 (block2 -> figure .)
+    LA              reduce using rule 122 (block2 -> figure .)
+    L               reduce using rule 122 (block2 -> figure .)
+    ID              reduce using rule 122 (block2 -> figure .)
+    RE              reduce using rule 122 (block2 -> figure .)
+    REC             reduce using rule 122 (block2 -> figure .)
+    TRI             reduce using rule 122 (block2 -> figure .)
+    POL             reduce using rule 122 (block2 -> figure .)
+    LS              reduce using rule 122 (block2 -> figure .)
+    CIR             reduce using rule 122 (block2 -> figure .)
+    SQ              reduce using rule 122 (block2 -> figure .)
+    ARC             reduce using rule 122 (block2 -> figure .)
+    PENC            reduce using rule 122 (block2 -> figure .)
+    SETC            reduce using rule 122 (block2 -> figure .)
+    BACO            reduce using rule 122 (block2 -> figure .)
+    PENW            reduce using rule 122 (block2 -> figure .)
+    F               reduce using rule 122 (block2 -> figure .)
+    B               reduce using rule 122 (block2 -> figure .)
+    PENP            reduce using rule 122 (block2 -> figure .)
+    PENU            reduce using rule 122 (block2 -> figure .)
+    PEND            reduce using rule 122 (block2 -> figure .)
+    RB              reduce using rule 122 (block2 -> figure .)
 
 
 state 49
 
-    (112) figure -> lstrip .
+    (114) figure -> lstrip .
 
-    IF              reduce using rule 112 (figure -> lstrip .)
-    LA              reduce using rule 112 (figure -> lstrip .)
-    L               reduce using rule 112 (figure -> lstrip .)
-    ID              reduce using rule 112 (figure -> lstrip .)
-    RE              reduce using rule 112 (figure -> lstrip .)
-    REC             reduce using rule 112 (figure -> lstrip .)
-    TRI             reduce using rule 112 (figure -> lstrip .)
-    POL             reduce using rule 112 (figure -> lstrip .)
-    LS              reduce using rule 112 (figure -> lstrip .)
-    CIR             reduce using rule 112 (figure -> lstrip .)
-    SQ              reduce using rule 112 (figure -> lstrip .)
-    ARC             reduce using rule 112 (figure -> lstrip .)
-    PENC            reduce using rule 112 (figure -> lstrip .)
-    SETC            reduce using rule 112 (figure -> lstrip .)
-    BACO            reduce using rule 112 (figure -> lstrip .)
-    PENW            reduce using rule 112 (figure -> lstrip .)
-    F               reduce using rule 112 (figure -> lstrip .)
-    B               reduce using rule 112 (figure -> lstrip .)
-    PENP            reduce using rule 112 (figure -> lstrip .)
-    PENU            reduce using rule 112 (figure -> lstrip .)
-    PEND            reduce using rule 112 (figure -> lstrip .)
-    RB              reduce using rule 112 (figure -> lstrip .)
+    IF              reduce using rule 114 (figure -> lstrip .)
+    LA              reduce using rule 114 (figure -> lstrip .)
+    L               reduce using rule 114 (figure -> lstrip .)
+    ID              reduce using rule 114 (figure -> lstrip .)
+    RE              reduce using rule 114 (figure -> lstrip .)
+    REC             reduce using rule 114 (figure -> lstrip .)
+    TRI             reduce using rule 114 (figure -> lstrip .)
+    POL             reduce using rule 114 (figure -> lstrip .)
+    LS              reduce using rule 114 (figure -> lstrip .)
+    CIR             reduce using rule 114 (figure -> lstrip .)
+    SQ              reduce using rule 114 (figure -> lstrip .)
+    ARC             reduce using rule 114 (figure -> lstrip .)
+    PENC            reduce using rule 114 (figure -> lstrip .)
+    SETC            reduce using rule 114 (figure -> lstrip .)
+    BACO            reduce using rule 114 (figure -> lstrip .)
+    PENW            reduce using rule 114 (figure -> lstrip .)
+    F               reduce using rule 114 (figure -> lstrip .)
+    B               reduce using rule 114 (figure -> lstrip .)
+    PENP            reduce using rule 114 (figure -> lstrip .)
+    PENU            reduce using rule 114 (figure -> lstrip .)
+    PEND            reduce using rule 114 (figure -> lstrip .)
+    RB              reduce using rule 114 (figure -> lstrip .)
 
 
 state 50
 
-    (117) pen -> move .
+    (119) pen -> move .
 
-    IF              reduce using rule 117 (pen -> move .)
-    LA              reduce using rule 117 (pen -> move .)
-    L               reduce using rule 117 (pen -> move .)
-    ID              reduce using rule 117 (pen -> move .)
-    RE              reduce using rule 117 (pen -> move .)
-    REC             reduce using rule 117 (pen -> move .)
-    TRI             reduce using rule 117 (pen -> move .)
-    POL             reduce using rule 117 (pen -> move .)
-    LS              reduce using rule 117 (pen -> move .)
-    CIR             reduce using rule 117 (pen -> move .)
-    SQ              reduce using rule 117 (pen -> move .)
-    ARC             reduce using rule 117 (pen -> move .)
-    PENC            reduce using rule 117 (pen -> move .)
-    SETC            reduce using rule 117 (pen -> move .)
-    BACO            reduce using rule 117 (pen -> move .)
-    PENW            reduce using rule 117 (pen -> move .)
-    F               reduce using rule 117 (pen -> move .)
-    B               reduce using rule 117 (pen -> move .)
-    PENP            reduce using rule 117 (pen -> move .)
-    PENU            reduce using rule 117 (pen -> move .)
-    PEND            reduce using rule 117 (pen -> move .)
-    RB              reduce using rule 117 (pen -> move .)
+    IF              reduce using rule 119 (pen -> move .)
+    LA              reduce using rule 119 (pen -> move .)
+    L               reduce using rule 119 (pen -> move .)
+    ID              reduce using rule 119 (pen -> move .)
+    RE              reduce using rule 119 (pen -> move .)
+    REC             reduce using rule 119 (pen -> move .)
+    TRI             reduce using rule 119 (pen -> move .)
+    POL             reduce using rule 119 (pen -> move .)
+    LS              reduce using rule 119 (pen -> move .)
+    CIR             reduce using rule 119 (pen -> move .)
+    SQ              reduce using rule 119 (pen -> move .)
+    ARC             reduce using rule 119 (pen -> move .)
+    PENC            reduce using rule 119 (pen -> move .)
+    SETC            reduce using rule 119 (pen -> move .)
+    BACO            reduce using rule 119 (pen -> move .)
+    PENW            reduce using rule 119 (pen -> move .)
+    F               reduce using rule 119 (pen -> move .)
+    B               reduce using rule 119 (pen -> move .)
+    PENP            reduce using rule 119 (pen -> move .)
+    PENU            reduce using rule 119 (pen -> move .)
+    PEND            reduce using rule 119 (pen -> move .)
+    RB              reduce using rule 119 (pen -> move .)
 
 
 state 51
 
-    (110) figure -> tria .
+    (112) figure -> tria .
 
-    IF              reduce using rule 110 (figure -> tria .)
-    LA              reduce using rule 110 (figure -> tria .)
-    L               reduce using rule 110 (figure -> tria .)
-    ID              reduce using rule 110 (figure -> tria .)
-    RE              reduce using rule 110 (figure -> tria .)
-    REC             reduce using rule 110 (figure -> tria .)
-    TRI             reduce using rule 110 (figure -> tria .)
-    POL             reduce using rule 110 (figure -> tria .)
-    LS              reduce using rule 110 (figure -> tria .)
-    CIR             reduce using rule 110 (figure -> tria .)
-    SQ              reduce using rule 110 (figure -> tria .)
-    ARC             reduce using rule 110 (figure -> tria .)
-    PENC            reduce using rule 110 (figure -> tria .)
-    SETC            reduce using rule 110 (figure -> tria .)
-    BACO            reduce using rule 110 (figure -> tria .)
-    PENW            reduce using rule 110 (figure -> tria .)
-    F               reduce using rule 110 (figure -> tria .)
-    B               reduce using rule 110 (figure -> tria .)
-    PENP            reduce using rule 110 (figure -> tria .)
-    PENU            reduce using rule 110 (figure -> tria .)
-    PEND            reduce using rule 110 (figure -> tria .)
-    RB              reduce using rule 110 (figure -> tria .)
+    IF              reduce using rule 112 (figure -> tria .)
+    LA              reduce using rule 112 (figure -> tria .)
+    L               reduce using rule 112 (figure -> tria .)
+    ID              reduce using rule 112 (figure -> tria .)
+    RE              reduce using rule 112 (figure -> tria .)
+    REC             reduce using rule 112 (figure -> tria .)
+    TRI             reduce using rule 112 (figure -> tria .)
+    POL             reduce using rule 112 (figure -> tria .)
+    LS              reduce using rule 112 (figure -> tria .)
+    CIR             reduce using rule 112 (figure -> tria .)
+    SQ              reduce using rule 112 (figure -> tria .)
+    ARC             reduce using rule 112 (figure -> tria .)
+    PENC            reduce using rule 112 (figure -> tria .)
+    SETC            reduce using rule 112 (figure -> tria .)
+    BACO            reduce using rule 112 (figure -> tria .)
+    PENW            reduce using rule 112 (figure -> tria .)
+    F               reduce using rule 112 (figure -> tria .)
+    B               reduce using rule 112 (figure -> tria .)
+    PENP            reduce using rule 112 (figure -> tria .)
+    PENU            reduce using rule 112 (figure -> tria .)
+    PEND            reduce using rule 112 (figure -> tria .)
+    RB              reduce using rule 112 (figure -> tria .)
 
 
 state 52
 
-    (111) figure -> poly .
+    (113) figure -> poly .
 
-    IF              reduce using rule 111 (figure -> poly .)
-    LA              reduce using rule 111 (figure -> poly .)
-    L               reduce using rule 111 (figure -> poly .)
-    ID              reduce using rule 111 (figure -> poly .)
-    RE              reduce using rule 111 (figure -> poly .)
-    REC             reduce using rule 111 (figure -> poly .)
-    TRI             reduce using rule 111 (figure -> poly .)
-    POL             reduce using rule 111 (figure -> poly .)
-    LS              reduce using rule 111 (figure -> poly .)
-    CIR             reduce using rule 111 (figure -> poly .)
-    SQ              reduce using rule 111 (figure -> poly .)
-    ARC             reduce using rule 111 (figure -> poly .)
-    PENC            reduce using rule 111 (figure -> poly .)
-    SETC            reduce using rule 111 (figure -> poly .)
-    BACO            reduce using rule 111 (figure -> poly .)
-    PENW            reduce using rule 111 (figure -> poly .)
-    F               reduce using rule 111 (figure -> poly .)
-    B               reduce using rule 111 (figure -> poly .)
-    PENP            reduce using rule 111 (figure -> poly .)
-    PENU            reduce using rule 111 (figure -> poly .)
-    PEND            reduce using rule 111 (figure -> poly .)
-    RB              reduce using rule 111 (figure -> poly .)
+    IF              reduce using rule 113 (figure -> poly .)
+    LA              reduce using rule 113 (figure -> poly .)
+    L               reduce using rule 113 (figure -> poly .)
+    ID              reduce using rule 113 (figure -> poly .)
+    RE              reduce using rule 113 (figure -> poly .)
+    REC             reduce using rule 113 (figure -> poly .)
+    TRI             reduce using rule 113 (figure -> poly .)
+    POL             reduce using rule 113 (figure -> poly .)
+    LS              reduce using rule 113 (figure -> poly .)
+    CIR             reduce using rule 113 (figure -> poly .)
+    SQ              reduce using rule 113 (figure -> poly .)
+    ARC             reduce using rule 113 (figure -> poly .)
+    PENC            reduce using rule 113 (figure -> poly .)
+    SETC            reduce using rule 113 (figure -> poly .)
+    BACO            reduce using rule 113 (figure -> poly .)
+    PENW            reduce using rule 113 (figure -> poly .)
+    F               reduce using rule 113 (figure -> poly .)
+    B               reduce using rule 113 (figure -> poly .)
+    PENP            reduce using rule 113 (figure -> poly .)
+    PENU            reduce using rule 113 (figure -> poly .)
+    PEND            reduce using rule 113 (figure -> poly .)
+    RB              reduce using rule 113 (figure -> poly .)
 
 
 state 53
 
-    (115) pen -> colors .
+    (117) pen -> colors .
 
-    IF              reduce using rule 115 (pen -> colors .)
-    LA              reduce using rule 115 (pen -> colors .)
-    L               reduce using rule 115 (pen -> colors .)
-    ID              reduce using rule 115 (pen -> colors .)
-    RE              reduce using rule 115 (pen -> colors .)
-    REC             reduce using rule 115 (pen -> colors .)
-    TRI             reduce using rule 115 (pen -> colors .)
-    POL             reduce using rule 115 (pen -> colors .)
-    LS              reduce using rule 115 (pen -> colors .)
-    CIR             reduce using rule 115 (pen -> colors .)
-    SQ              reduce using rule 115 (pen -> colors .)
-    ARC             reduce using rule 115 (pen -> colors .)
-    PENC            reduce using rule 115 (pen -> colors .)
-    SETC            reduce using rule 115 (pen -> colors .)
-    BACO            reduce using rule 115 (pen -> colors .)
-    PENW            reduce using rule 115 (pen -> colors .)
-    F               reduce using rule 115 (pen -> colors .)
-    B               reduce using rule 115 (pen -> colors .)
-    PENP            reduce using rule 115 (pen -> colors .)
-    PENU            reduce using rule 115 (pen -> colors .)
-    PEND            reduce using rule 115 (pen -> colors .)
-    RB              reduce using rule 115 (pen -> colors .)
+    IF              reduce using rule 117 (pen -> colors .)
+    LA              reduce using rule 117 (pen -> colors .)
+    L               reduce using rule 117 (pen -> colors .)
+    ID              reduce using rule 117 (pen -> colors .)
+    RE              reduce using rule 117 (pen -> colors .)
+    REC             reduce using rule 117 (pen -> colors .)
+    TRI             reduce using rule 117 (pen -> colors .)
+    POL             reduce using rule 117 (pen -> colors .)
+    LS              reduce using rule 117 (pen -> colors .)
+    CIR             reduce using rule 117 (pen -> colors .)
+    SQ              reduce using rule 117 (pen -> colors .)
+    ARC             reduce using rule 117 (pen -> colors .)
+    PENC            reduce using rule 117 (pen -> colors .)
+    SETC            reduce using rule 117 (pen -> colors .)
+    BACO            reduce using rule 117 (pen -> colors .)
+    PENW            reduce using rule 117 (pen -> colors .)
+    F               reduce using rule 117 (pen -> colors .)
+    B               reduce using rule 117 (pen -> colors .)
+    PENP            reduce using rule 117 (pen -> colors .)
+    PENU            reduce using rule 117 (pen -> colors .)
+    PEND            reduce using rule 117 (pen -> colors .)
+    RB              reduce using rule 117 (pen -> colors .)
 
 
 state 54
@@ -1120,37 +1123,37 @@ state 56
 
 state 57
 
-    (98) lab -> LA . LP stExp lab2 RP SC
+    (100) lab -> LA . LP stExp lab2 RP SC
 
     LP              shift and go to state 108
 
 
 state 58
 
-    (126) block2 -> rep .
+    (128) block2 -> rep .
 
-    IF              reduce using rule 126 (block2 -> rep .)
-    LA              reduce using rule 126 (block2 -> rep .)
-    L               reduce using rule 126 (block2 -> rep .)
-    ID              reduce using rule 126 (block2 -> rep .)
-    RE              reduce using rule 126 (block2 -> rep .)
-    REC             reduce using rule 126 (block2 -> rep .)
-    TRI             reduce using rule 126 (block2 -> rep .)
-    POL             reduce using rule 126 (block2 -> rep .)
-    LS              reduce using rule 126 (block2 -> rep .)
-    CIR             reduce using rule 126 (block2 -> rep .)
-    SQ              reduce using rule 126 (block2 -> rep .)
-    ARC             reduce using rule 126 (block2 -> rep .)
-    PENC            reduce using rule 126 (block2 -> rep .)
-    SETC            reduce using rule 126 (block2 -> rep .)
-    BACO            reduce using rule 126 (block2 -> rep .)
-    PENW            reduce using rule 126 (block2 -> rep .)
-    F               reduce using rule 126 (block2 -> rep .)
-    B               reduce using rule 126 (block2 -> rep .)
-    PENP            reduce using rule 126 (block2 -> rep .)
-    PENU            reduce using rule 126 (block2 -> rep .)
-    PEND            reduce using rule 126 (block2 -> rep .)
-    RB              reduce using rule 126 (block2 -> rep .)
+    IF              reduce using rule 128 (block2 -> rep .)
+    LA              reduce using rule 128 (block2 -> rep .)
+    L               reduce using rule 128 (block2 -> rep .)
+    ID              reduce using rule 128 (block2 -> rep .)
+    RE              reduce using rule 128 (block2 -> rep .)
+    REC             reduce using rule 128 (block2 -> rep .)
+    TRI             reduce using rule 128 (block2 -> rep .)
+    POL             reduce using rule 128 (block2 -> rep .)
+    LS              reduce using rule 128 (block2 -> rep .)
+    CIR             reduce using rule 128 (block2 -> rep .)
+    SQ              reduce using rule 128 (block2 -> rep .)
+    ARC             reduce using rule 128 (block2 -> rep .)
+    PENC            reduce using rule 128 (block2 -> rep .)
+    SETC            reduce using rule 128 (block2 -> rep .)
+    BACO            reduce using rule 128 (block2 -> rep .)
+    PENW            reduce using rule 128 (block2 -> rep .)
+    F               reduce using rule 128 (block2 -> rep .)
+    B               reduce using rule 128 (block2 -> rep .)
+    PENP            reduce using rule 128 (block2 -> rep .)
+    PENU            reduce using rule 128 (block2 -> rep .)
+    PEND            reduce using rule 128 (block2 -> rep .)
+    RB              reduce using rule 128 (block2 -> rep .)
 
 
 state 59
@@ -1162,7 +1165,7 @@ state 59
 
 state 60
 
-    (76) rep -> RE . exp block
+    (78) rep -> RE . exp block
     (58) exp -> . term exp2
     (63) term -> . fact term2
     (68) fact -> . LP exp RP
@@ -1171,14 +1174,14 @@ state 60
     (71) fact3 -> . ADD
     (72) fact3 -> . SUB
     (73) fact3 -> . empty
-    (127) empty -> .
+    (129) empty -> .
 
     LP              shift and go to state 94
     ADD             shift and go to state 95
     SUB             shift and go to state 96
-    ID              reduce using rule 127 (empty -> .)
-    VALI            reduce using rule 127 (empty -> .)
-    VALF            reduce using rule 127 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    VALI            reduce using rule 129 (empty -> .)
+    VALF            reduce using rule 129 (empty -> .)
 
     term                           shift and go to state 93
     empty                          shift and go to state 97
@@ -1189,30 +1192,30 @@ state 60
 
 state 61
 
-    (122) block2 -> pen .
+    (124) block2 -> pen .
 
-    IF              reduce using rule 122 (block2 -> pen .)
-    LA              reduce using rule 122 (block2 -> pen .)
-    L               reduce using rule 122 (block2 -> pen .)
-    ID              reduce using rule 122 (block2 -> pen .)
-    RE              reduce using rule 122 (block2 -> pen .)
-    REC             reduce using rule 122 (block2 -> pen .)
-    TRI             reduce using rule 122 (block2 -> pen .)
-    POL             reduce using rule 122 (block2 -> pen .)
-    LS              reduce using rule 122 (block2 -> pen .)
-    CIR             reduce using rule 122 (block2 -> pen .)
-    SQ              reduce using rule 122 (block2 -> pen .)
-    ARC             reduce using rule 122 (block2 -> pen .)
-    PENC            reduce using rule 122 (block2 -> pen .)
-    SETC            reduce using rule 122 (block2 -> pen .)
-    BACO            reduce using rule 122 (block2 -> pen .)
-    PENW            reduce using rule 122 (block2 -> pen .)
-    F               reduce using rule 122 (block2 -> pen .)
-    B               reduce using rule 122 (block2 -> pen .)
-    PENP            reduce using rule 122 (block2 -> pen .)
-    PENU            reduce using rule 122 (block2 -> pen .)
-    PEND            reduce using rule 122 (block2 -> pen .)
-    RB              reduce using rule 122 (block2 -> pen .)
+    IF              reduce using rule 124 (block2 -> pen .)
+    LA              reduce using rule 124 (block2 -> pen .)
+    L               reduce using rule 124 (block2 -> pen .)
+    ID              reduce using rule 124 (block2 -> pen .)
+    RE              reduce using rule 124 (block2 -> pen .)
+    REC             reduce using rule 124 (block2 -> pen .)
+    TRI             reduce using rule 124 (block2 -> pen .)
+    POL             reduce using rule 124 (block2 -> pen .)
+    LS              reduce using rule 124 (block2 -> pen .)
+    CIR             reduce using rule 124 (block2 -> pen .)
+    SQ              reduce using rule 124 (block2 -> pen .)
+    ARC             reduce using rule 124 (block2 -> pen .)
+    PENC            reduce using rule 124 (block2 -> pen .)
+    SETC            reduce using rule 124 (block2 -> pen .)
+    BACO            reduce using rule 124 (block2 -> pen .)
+    PENW            reduce using rule 124 (block2 -> pen .)
+    F               reduce using rule 124 (block2 -> pen .)
+    B               reduce using rule 124 (block2 -> pen .)
+    PENP            reduce using rule 124 (block2 -> pen .)
+    PENU            reduce using rule 124 (block2 -> pen .)
+    PEND            reduce using rule 124 (block2 -> pen .)
+    RB              reduce using rule 124 (block2 -> pen .)
 
 
 state 62
@@ -1233,30 +1236,30 @@ state 63
 
 state 64
 
-    (121) block2 -> condition .
+    (123) block2 -> condition .
 
-    IF              reduce using rule 121 (block2 -> condition .)
-    LA              reduce using rule 121 (block2 -> condition .)
-    L               reduce using rule 121 (block2 -> condition .)
-    ID              reduce using rule 121 (block2 -> condition .)
-    RE              reduce using rule 121 (block2 -> condition .)
-    REC             reduce using rule 121 (block2 -> condition .)
-    TRI             reduce using rule 121 (block2 -> condition .)
-    POL             reduce using rule 121 (block2 -> condition .)
-    LS              reduce using rule 121 (block2 -> condition .)
-    CIR             reduce using rule 121 (block2 -> condition .)
-    SQ              reduce using rule 121 (block2 -> condition .)
-    ARC             reduce using rule 121 (block2 -> condition .)
-    PENC            reduce using rule 121 (block2 -> condition .)
-    SETC            reduce using rule 121 (block2 -> condition .)
-    BACO            reduce using rule 121 (block2 -> condition .)
-    PENW            reduce using rule 121 (block2 -> condition .)
-    F               reduce using rule 121 (block2 -> condition .)
-    B               reduce using rule 121 (block2 -> condition .)
-    PENP            reduce using rule 121 (block2 -> condition .)
-    PENU            reduce using rule 121 (block2 -> condition .)
-    PEND            reduce using rule 121 (block2 -> condition .)
-    RB              reduce using rule 121 (block2 -> condition .)
+    IF              reduce using rule 123 (block2 -> condition .)
+    LA              reduce using rule 123 (block2 -> condition .)
+    L               reduce using rule 123 (block2 -> condition .)
+    ID              reduce using rule 123 (block2 -> condition .)
+    RE              reduce using rule 123 (block2 -> condition .)
+    REC             reduce using rule 123 (block2 -> condition .)
+    TRI             reduce using rule 123 (block2 -> condition .)
+    POL             reduce using rule 123 (block2 -> condition .)
+    LS              reduce using rule 123 (block2 -> condition .)
+    CIR             reduce using rule 123 (block2 -> condition .)
+    SQ              reduce using rule 123 (block2 -> condition .)
+    ARC             reduce using rule 123 (block2 -> condition .)
+    PENC            reduce using rule 123 (block2 -> condition .)
+    SETC            reduce using rule 123 (block2 -> condition .)
+    BACO            reduce using rule 123 (block2 -> condition .)
+    PENW            reduce using rule 123 (block2 -> condition .)
+    F               reduce using rule 123 (block2 -> condition .)
+    B               reduce using rule 123 (block2 -> condition .)
+    PENP            reduce using rule 123 (block2 -> condition .)
+    PENU            reduce using rule 123 (block2 -> condition .)
+    PEND            reduce using rule 123 (block2 -> condition .)
+    RB              reduce using rule 123 (block2 -> condition .)
 
 
 state 65
@@ -1270,9 +1273,9 @@ state 65
 
 state 66
 
-    (108) block3 -> empty .
+    (110) block3 -> empty .
 
-    RB              reduce using rule 108 (block3 -> empty .)
+    RB              reduce using rule 110 (block3 -> empty .)
 
 
 state 67
@@ -1309,67 +1312,67 @@ state 70
 
 state 71
 
-    (123) block2 -> lab .
+    (125) block2 -> lab .
 
-    IF              reduce using rule 123 (block2 -> lab .)
-    LA              reduce using rule 123 (block2 -> lab .)
-    L               reduce using rule 123 (block2 -> lab .)
-    ID              reduce using rule 123 (block2 -> lab .)
-    RE              reduce using rule 123 (block2 -> lab .)
-    REC             reduce using rule 123 (block2 -> lab .)
-    TRI             reduce using rule 123 (block2 -> lab .)
-    POL             reduce using rule 123 (block2 -> lab .)
-    LS              reduce using rule 123 (block2 -> lab .)
-    CIR             reduce using rule 123 (block2 -> lab .)
-    SQ              reduce using rule 123 (block2 -> lab .)
-    ARC             reduce using rule 123 (block2 -> lab .)
-    PENC            reduce using rule 123 (block2 -> lab .)
-    SETC            reduce using rule 123 (block2 -> lab .)
-    BACO            reduce using rule 123 (block2 -> lab .)
-    PENW            reduce using rule 123 (block2 -> lab .)
-    F               reduce using rule 123 (block2 -> lab .)
-    B               reduce using rule 123 (block2 -> lab .)
-    PENP            reduce using rule 123 (block2 -> lab .)
-    PENU            reduce using rule 123 (block2 -> lab .)
-    PEND            reduce using rule 123 (block2 -> lab .)
-    RB              reduce using rule 123 (block2 -> lab .)
+    IF              reduce using rule 125 (block2 -> lab .)
+    LA              reduce using rule 125 (block2 -> lab .)
+    L               reduce using rule 125 (block2 -> lab .)
+    ID              reduce using rule 125 (block2 -> lab .)
+    RE              reduce using rule 125 (block2 -> lab .)
+    REC             reduce using rule 125 (block2 -> lab .)
+    TRI             reduce using rule 125 (block2 -> lab .)
+    POL             reduce using rule 125 (block2 -> lab .)
+    LS              reduce using rule 125 (block2 -> lab .)
+    CIR             reduce using rule 125 (block2 -> lab .)
+    SQ              reduce using rule 125 (block2 -> lab .)
+    ARC             reduce using rule 125 (block2 -> lab .)
+    PENC            reduce using rule 125 (block2 -> lab .)
+    SETC            reduce using rule 125 (block2 -> lab .)
+    BACO            reduce using rule 125 (block2 -> lab .)
+    PENW            reduce using rule 125 (block2 -> lab .)
+    F               reduce using rule 125 (block2 -> lab .)
+    B               reduce using rule 125 (block2 -> lab .)
+    PENP            reduce using rule 125 (block2 -> lab .)
+    PENU            reduce using rule 125 (block2 -> lab .)
+    PEND            reduce using rule 125 (block2 -> lab .)
+    RB              reduce using rule 125 (block2 -> lab .)
 
 
 state 72
 
-    (113) figure -> one_par .
+    (115) figure -> one_par .
 
-    IF              reduce using rule 113 (figure -> one_par .)
-    LA              reduce using rule 113 (figure -> one_par .)
-    L               reduce using rule 113 (figure -> one_par .)
-    ID              reduce using rule 113 (figure -> one_par .)
-    RE              reduce using rule 113 (figure -> one_par .)
-    REC             reduce using rule 113 (figure -> one_par .)
-    TRI             reduce using rule 113 (figure -> one_par .)
-    POL             reduce using rule 113 (figure -> one_par .)
-    LS              reduce using rule 113 (figure -> one_par .)
-    CIR             reduce using rule 113 (figure -> one_par .)
-    SQ              reduce using rule 113 (figure -> one_par .)
-    ARC             reduce using rule 113 (figure -> one_par .)
-    PENC            reduce using rule 113 (figure -> one_par .)
-    SETC            reduce using rule 113 (figure -> one_par .)
-    BACO            reduce using rule 113 (figure -> one_par .)
-    PENW            reduce using rule 113 (figure -> one_par .)
-    F               reduce using rule 113 (figure -> one_par .)
-    B               reduce using rule 113 (figure -> one_par .)
-    PENP            reduce using rule 113 (figure -> one_par .)
-    PENU            reduce using rule 113 (figure -> one_par .)
-    PEND            reduce using rule 113 (figure -> one_par .)
-    RB              reduce using rule 113 (figure -> one_par .)
+    IF              reduce using rule 115 (figure -> one_par .)
+    LA              reduce using rule 115 (figure -> one_par .)
+    L               reduce using rule 115 (figure -> one_par .)
+    ID              reduce using rule 115 (figure -> one_par .)
+    RE              reduce using rule 115 (figure -> one_par .)
+    REC             reduce using rule 115 (figure -> one_par .)
+    TRI             reduce using rule 115 (figure -> one_par .)
+    POL             reduce using rule 115 (figure -> one_par .)
+    LS              reduce using rule 115 (figure -> one_par .)
+    CIR             reduce using rule 115 (figure -> one_par .)
+    SQ              reduce using rule 115 (figure -> one_par .)
+    ARC             reduce using rule 115 (figure -> one_par .)
+    PENC            reduce using rule 115 (figure -> one_par .)
+    SETC            reduce using rule 115 (figure -> one_par .)
+    BACO            reduce using rule 115 (figure -> one_par .)
+    PENW            reduce using rule 115 (figure -> one_par .)
+    F               reduce using rule 115 (figure -> one_par .)
+    B               reduce using rule 115 (figure -> one_par .)
+    PENP            reduce using rule 115 (figure -> one_par .)
+    PENU            reduce using rule 115 (figure -> one_par .)
+    PEND            reduce using rule 115 (figure -> one_par .)
+    RB              reduce using rule 115 (figure -> one_par .)
 
 
 state 73
 
-    (77) WID -> ID . WID2
-    (78) WID2 -> . assigment
-    (79) WID2 -> . funCall
-    (80) assigment -> . EQ tipeAss
-    (84) funCall -> . LP func2 RP SC
+    (79) WID -> ID . WID2
+    (80) WID2 -> . assigment
+    (81) WID2 -> . funCall
+    (82) assigment -> . EQ tipeAss
+    (86) funCall -> . LP func2 RP SC
 
     EQ              shift and go to state 122
     LP              shift and go to state 120
@@ -1380,35 +1383,35 @@ state 73
 
 state 74
 
-    (109) figure -> rect .
+    (111) figure -> rect .
 
-    IF              reduce using rule 109 (figure -> rect .)
-    LA              reduce using rule 109 (figure -> rect .)
-    L               reduce using rule 109 (figure -> rect .)
-    ID              reduce using rule 109 (figure -> rect .)
-    RE              reduce using rule 109 (figure -> rect .)
-    REC             reduce using rule 109 (figure -> rect .)
-    TRI             reduce using rule 109 (figure -> rect .)
-    POL             reduce using rule 109 (figure -> rect .)
-    LS              reduce using rule 109 (figure -> rect .)
-    CIR             reduce using rule 109 (figure -> rect .)
-    SQ              reduce using rule 109 (figure -> rect .)
-    ARC             reduce using rule 109 (figure -> rect .)
-    PENC            reduce using rule 109 (figure -> rect .)
-    SETC            reduce using rule 109 (figure -> rect .)
-    BACO            reduce using rule 109 (figure -> rect .)
-    PENW            reduce using rule 109 (figure -> rect .)
-    F               reduce using rule 109 (figure -> rect .)
-    B               reduce using rule 109 (figure -> rect .)
-    PENP            reduce using rule 109 (figure -> rect .)
-    PENU            reduce using rule 109 (figure -> rect .)
-    PEND            reduce using rule 109 (figure -> rect .)
-    RB              reduce using rule 109 (figure -> rect .)
+    IF              reduce using rule 111 (figure -> rect .)
+    LA              reduce using rule 111 (figure -> rect .)
+    L               reduce using rule 111 (figure -> rect .)
+    ID              reduce using rule 111 (figure -> rect .)
+    RE              reduce using rule 111 (figure -> rect .)
+    REC             reduce using rule 111 (figure -> rect .)
+    TRI             reduce using rule 111 (figure -> rect .)
+    POL             reduce using rule 111 (figure -> rect .)
+    LS              reduce using rule 111 (figure -> rect .)
+    CIR             reduce using rule 111 (figure -> rect .)
+    SQ              reduce using rule 111 (figure -> rect .)
+    ARC             reduce using rule 111 (figure -> rect .)
+    PENC            reduce using rule 111 (figure -> rect .)
+    SETC            reduce using rule 111 (figure -> rect .)
+    BACO            reduce using rule 111 (figure -> rect .)
+    PENW            reduce using rule 111 (figure -> rect .)
+    F               reduce using rule 111 (figure -> rect .)
+    B               reduce using rule 111 (figure -> rect .)
+    PENP            reduce using rule 111 (figure -> rect .)
+    PENU            reduce using rule 111 (figure -> rect .)
+    PEND            reduce using rule 111 (figure -> rect .)
+    RB              reduce using rule 111 (figure -> rect .)
 
 
 state 75
 
-    (103) condition -> IF . LP expresion RP block con2
+    (105) condition -> IF . LP expresion RP block con2
 
     LP              shift and go to state 125
 
@@ -1424,58 +1427,58 @@ state 76
 
 state 77
 
-    (125) block2 -> WID .
+    (127) block2 -> WID .
 
-    IF              reduce using rule 125 (block2 -> WID .)
-    LA              reduce using rule 125 (block2 -> WID .)
-    L               reduce using rule 125 (block2 -> WID .)
-    ID              reduce using rule 125 (block2 -> WID .)
-    RE              reduce using rule 125 (block2 -> WID .)
-    REC             reduce using rule 125 (block2 -> WID .)
-    TRI             reduce using rule 125 (block2 -> WID .)
-    POL             reduce using rule 125 (block2 -> WID .)
-    LS              reduce using rule 125 (block2 -> WID .)
-    CIR             reduce using rule 125 (block2 -> WID .)
-    SQ              reduce using rule 125 (block2 -> WID .)
-    ARC             reduce using rule 125 (block2 -> WID .)
-    PENC            reduce using rule 125 (block2 -> WID .)
-    SETC            reduce using rule 125 (block2 -> WID .)
-    BACO            reduce using rule 125 (block2 -> WID .)
-    PENW            reduce using rule 125 (block2 -> WID .)
-    F               reduce using rule 125 (block2 -> WID .)
-    B               reduce using rule 125 (block2 -> WID .)
-    PENP            reduce using rule 125 (block2 -> WID .)
-    PENU            reduce using rule 125 (block2 -> WID .)
-    PEND            reduce using rule 125 (block2 -> WID .)
-    RB              reduce using rule 125 (block2 -> WID .)
+    IF              reduce using rule 127 (block2 -> WID .)
+    LA              reduce using rule 127 (block2 -> WID .)
+    L               reduce using rule 127 (block2 -> WID .)
+    ID              reduce using rule 127 (block2 -> WID .)
+    RE              reduce using rule 127 (block2 -> WID .)
+    REC             reduce using rule 127 (block2 -> WID .)
+    TRI             reduce using rule 127 (block2 -> WID .)
+    POL             reduce using rule 127 (block2 -> WID .)
+    LS              reduce using rule 127 (block2 -> WID .)
+    CIR             reduce using rule 127 (block2 -> WID .)
+    SQ              reduce using rule 127 (block2 -> WID .)
+    ARC             reduce using rule 127 (block2 -> WID .)
+    PENC            reduce using rule 127 (block2 -> WID .)
+    SETC            reduce using rule 127 (block2 -> WID .)
+    BACO            reduce using rule 127 (block2 -> WID .)
+    PENW            reduce using rule 127 (block2 -> WID .)
+    F               reduce using rule 127 (block2 -> WID .)
+    B               reduce using rule 127 (block2 -> WID .)
+    PENP            reduce using rule 127 (block2 -> WID .)
+    PENU            reduce using rule 127 (block2 -> WID .)
+    PEND            reduce using rule 127 (block2 -> WID .)
+    RB              reduce using rule 127 (block2 -> WID .)
 
 
 state 78
 
-    (114) figure -> p_arc .
+    (116) figure -> p_arc .
 
-    IF              reduce using rule 114 (figure -> p_arc .)
-    LA              reduce using rule 114 (figure -> p_arc .)
-    L               reduce using rule 114 (figure -> p_arc .)
-    ID              reduce using rule 114 (figure -> p_arc .)
-    RE              reduce using rule 114 (figure -> p_arc .)
-    REC             reduce using rule 114 (figure -> p_arc .)
-    TRI             reduce using rule 114 (figure -> p_arc .)
-    POL             reduce using rule 114 (figure -> p_arc .)
-    LS              reduce using rule 114 (figure -> p_arc .)
-    CIR             reduce using rule 114 (figure -> p_arc .)
-    SQ              reduce using rule 114 (figure -> p_arc .)
-    ARC             reduce using rule 114 (figure -> p_arc .)
-    PENC            reduce using rule 114 (figure -> p_arc .)
-    SETC            reduce using rule 114 (figure -> p_arc .)
-    BACO            reduce using rule 114 (figure -> p_arc .)
-    PENW            reduce using rule 114 (figure -> p_arc .)
-    F               reduce using rule 114 (figure -> p_arc .)
-    B               reduce using rule 114 (figure -> p_arc .)
-    PENP            reduce using rule 114 (figure -> p_arc .)
-    PENU            reduce using rule 114 (figure -> p_arc .)
-    PEND            reduce using rule 114 (figure -> p_arc .)
-    RB              reduce using rule 114 (figure -> p_arc .)
+    IF              reduce using rule 116 (figure -> p_arc .)
+    LA              reduce using rule 116 (figure -> p_arc .)
+    L               reduce using rule 116 (figure -> p_arc .)
+    ID              reduce using rule 116 (figure -> p_arc .)
+    RE              reduce using rule 116 (figure -> p_arc .)
+    REC             reduce using rule 116 (figure -> p_arc .)
+    TRI             reduce using rule 116 (figure -> p_arc .)
+    POL             reduce using rule 116 (figure -> p_arc .)
+    LS              reduce using rule 116 (figure -> p_arc .)
+    CIR             reduce using rule 116 (figure -> p_arc .)
+    SQ              reduce using rule 116 (figure -> p_arc .)
+    ARC             reduce using rule 116 (figure -> p_arc .)
+    PENC            reduce using rule 116 (figure -> p_arc .)
+    SETC            reduce using rule 116 (figure -> p_arc .)
+    BACO            reduce using rule 116 (figure -> p_arc .)
+    PENW            reduce using rule 116 (figure -> p_arc .)
+    F               reduce using rule 116 (figure -> p_arc .)
+    B               reduce using rule 116 (figure -> p_arc .)
+    PENP            reduce using rule 116 (figure -> p_arc .)
+    PENU            reduce using rule 116 (figure -> p_arc .)
+    PEND            reduce using rule 116 (figure -> p_arc .)
+    RB              reduce using rule 116 (figure -> p_arc .)
 
 
 state 79
@@ -1498,30 +1501,30 @@ state 80
 
 state 81
 
-    (124) block2 -> list .
+    (126) block2 -> list .
 
-    IF              reduce using rule 124 (block2 -> list .)
-    LA              reduce using rule 124 (block2 -> list .)
-    L               reduce using rule 124 (block2 -> list .)
-    ID              reduce using rule 124 (block2 -> list .)
-    RE              reduce using rule 124 (block2 -> list .)
-    REC             reduce using rule 124 (block2 -> list .)
-    TRI             reduce using rule 124 (block2 -> list .)
-    POL             reduce using rule 124 (block2 -> list .)
-    LS              reduce using rule 124 (block2 -> list .)
-    CIR             reduce using rule 124 (block2 -> list .)
-    SQ              reduce using rule 124 (block2 -> list .)
-    ARC             reduce using rule 124 (block2 -> list .)
-    PENC            reduce using rule 124 (block2 -> list .)
-    SETC            reduce using rule 124 (block2 -> list .)
-    BACO            reduce using rule 124 (block2 -> list .)
-    PENW            reduce using rule 124 (block2 -> list .)
-    F               reduce using rule 124 (block2 -> list .)
-    B               reduce using rule 124 (block2 -> list .)
-    PENP            reduce using rule 124 (block2 -> list .)
-    PENU            reduce using rule 124 (block2 -> list .)
-    PEND            reduce using rule 124 (block2 -> list .)
-    RB              reduce using rule 124 (block2 -> list .)
+    IF              reduce using rule 126 (block2 -> list .)
+    LA              reduce using rule 126 (block2 -> list .)
+    L               reduce using rule 126 (block2 -> list .)
+    ID              reduce using rule 126 (block2 -> list .)
+    RE              reduce using rule 126 (block2 -> list .)
+    REC             reduce using rule 126 (block2 -> list .)
+    TRI             reduce using rule 126 (block2 -> list .)
+    POL             reduce using rule 126 (block2 -> list .)
+    LS              reduce using rule 126 (block2 -> list .)
+    CIR             reduce using rule 126 (block2 -> list .)
+    SQ              reduce using rule 126 (block2 -> list .)
+    ARC             reduce using rule 126 (block2 -> list .)
+    PENC            reduce using rule 126 (block2 -> list .)
+    SETC            reduce using rule 126 (block2 -> list .)
+    BACO            reduce using rule 126 (block2 -> list .)
+    PENW            reduce using rule 126 (block2 -> list .)
+    F               reduce using rule 126 (block2 -> list .)
+    B               reduce using rule 126 (block2 -> list .)
+    PENP            reduce using rule 126 (block2 -> list .)
+    PENU            reduce using rule 126 (block2 -> list .)
+    PEND            reduce using rule 126 (block2 -> list .)
+    RB              reduce using rule 126 (block2 -> list .)
 
 
 state 82
@@ -1533,86 +1536,86 @@ state 82
 
 state 83
 
-    (118) pen -> position .
+    (120) pen -> position .
 
-    IF              reduce using rule 118 (pen -> position .)
-    LA              reduce using rule 118 (pen -> position .)
-    L               reduce using rule 118 (pen -> position .)
-    ID              reduce using rule 118 (pen -> position .)
-    RE              reduce using rule 118 (pen -> position .)
-    REC             reduce using rule 118 (pen -> position .)
-    TRI             reduce using rule 118 (pen -> position .)
-    POL             reduce using rule 118 (pen -> position .)
-    LS              reduce using rule 118 (pen -> position .)
-    CIR             reduce using rule 118 (pen -> position .)
-    SQ              reduce using rule 118 (pen -> position .)
-    ARC             reduce using rule 118 (pen -> position .)
-    PENC            reduce using rule 118 (pen -> position .)
-    SETC            reduce using rule 118 (pen -> position .)
-    BACO            reduce using rule 118 (pen -> position .)
-    PENW            reduce using rule 118 (pen -> position .)
-    F               reduce using rule 118 (pen -> position .)
-    B               reduce using rule 118 (pen -> position .)
-    PENP            reduce using rule 118 (pen -> position .)
-    PENU            reduce using rule 118 (pen -> position .)
-    PEND            reduce using rule 118 (pen -> position .)
-    RB              reduce using rule 118 (pen -> position .)
+    IF              reduce using rule 120 (pen -> position .)
+    LA              reduce using rule 120 (pen -> position .)
+    L               reduce using rule 120 (pen -> position .)
+    ID              reduce using rule 120 (pen -> position .)
+    RE              reduce using rule 120 (pen -> position .)
+    REC             reduce using rule 120 (pen -> position .)
+    TRI             reduce using rule 120 (pen -> position .)
+    POL             reduce using rule 120 (pen -> position .)
+    LS              reduce using rule 120 (pen -> position .)
+    CIR             reduce using rule 120 (pen -> position .)
+    SQ              reduce using rule 120 (pen -> position .)
+    ARC             reduce using rule 120 (pen -> position .)
+    PENC            reduce using rule 120 (pen -> position .)
+    SETC            reduce using rule 120 (pen -> position .)
+    BACO            reduce using rule 120 (pen -> position .)
+    PENW            reduce using rule 120 (pen -> position .)
+    F               reduce using rule 120 (pen -> position .)
+    B               reduce using rule 120 (pen -> position .)
+    PENP            reduce using rule 120 (pen -> position .)
+    PENU            reduce using rule 120 (pen -> position .)
+    PEND            reduce using rule 120 (pen -> position .)
+    RB              reduce using rule 120 (pen -> position .)
 
 
 state 84
 
-    (116) pen -> p_width .
+    (118) pen -> p_width .
 
-    IF              reduce using rule 116 (pen -> p_width .)
-    LA              reduce using rule 116 (pen -> p_width .)
-    L               reduce using rule 116 (pen -> p_width .)
-    ID              reduce using rule 116 (pen -> p_width .)
-    RE              reduce using rule 116 (pen -> p_width .)
-    REC             reduce using rule 116 (pen -> p_width .)
-    TRI             reduce using rule 116 (pen -> p_width .)
-    POL             reduce using rule 116 (pen -> p_width .)
-    LS              reduce using rule 116 (pen -> p_width .)
-    CIR             reduce using rule 116 (pen -> p_width .)
-    SQ              reduce using rule 116 (pen -> p_width .)
-    ARC             reduce using rule 116 (pen -> p_width .)
-    PENC            reduce using rule 116 (pen -> p_width .)
-    SETC            reduce using rule 116 (pen -> p_width .)
-    BACO            reduce using rule 116 (pen -> p_width .)
-    PENW            reduce using rule 116 (pen -> p_width .)
-    F               reduce using rule 116 (pen -> p_width .)
-    B               reduce using rule 116 (pen -> p_width .)
-    PENP            reduce using rule 116 (pen -> p_width .)
-    PENU            reduce using rule 116 (pen -> p_width .)
-    PEND            reduce using rule 116 (pen -> p_width .)
-    RB              reduce using rule 116 (pen -> p_width .)
+    IF              reduce using rule 118 (pen -> p_width .)
+    LA              reduce using rule 118 (pen -> p_width .)
+    L               reduce using rule 118 (pen -> p_width .)
+    ID              reduce using rule 118 (pen -> p_width .)
+    RE              reduce using rule 118 (pen -> p_width .)
+    REC             reduce using rule 118 (pen -> p_width .)
+    TRI             reduce using rule 118 (pen -> p_width .)
+    POL             reduce using rule 118 (pen -> p_width .)
+    LS              reduce using rule 118 (pen -> p_width .)
+    CIR             reduce using rule 118 (pen -> p_width .)
+    SQ              reduce using rule 118 (pen -> p_width .)
+    ARC             reduce using rule 118 (pen -> p_width .)
+    PENC            reduce using rule 118 (pen -> p_width .)
+    SETC            reduce using rule 118 (pen -> p_width .)
+    BACO            reduce using rule 118 (pen -> p_width .)
+    PENW            reduce using rule 118 (pen -> p_width .)
+    F               reduce using rule 118 (pen -> p_width .)
+    B               reduce using rule 118 (pen -> p_width .)
+    PENP            reduce using rule 118 (pen -> p_width .)
+    PENU            reduce using rule 118 (pen -> p_width .)
+    PEND            reduce using rule 118 (pen -> p_width .)
+    RB              reduce using rule 118 (pen -> p_width .)
 
 
 state 85
 
-    (119) pen -> penwrite .
+    (121) pen -> penwrite .
 
-    IF              reduce using rule 119 (pen -> penwrite .)
-    LA              reduce using rule 119 (pen -> penwrite .)
-    L               reduce using rule 119 (pen -> penwrite .)
-    ID              reduce using rule 119 (pen -> penwrite .)
-    RE              reduce using rule 119 (pen -> penwrite .)
-    REC             reduce using rule 119 (pen -> penwrite .)
-    TRI             reduce using rule 119 (pen -> penwrite .)
-    POL             reduce using rule 119 (pen -> penwrite .)
-    LS              reduce using rule 119 (pen -> penwrite .)
-    CIR             reduce using rule 119 (pen -> penwrite .)
-    SQ              reduce using rule 119 (pen -> penwrite .)
-    ARC             reduce using rule 119 (pen -> penwrite .)
-    PENC            reduce using rule 119 (pen -> penwrite .)
-    SETC            reduce using rule 119 (pen -> penwrite .)
-    BACO            reduce using rule 119 (pen -> penwrite .)
-    PENW            reduce using rule 119 (pen -> penwrite .)
-    F               reduce using rule 119 (pen -> penwrite .)
-    B               reduce using rule 119 (pen -> penwrite .)
-    PENP            reduce using rule 119 (pen -> penwrite .)
-    PENU            reduce using rule 119 (pen -> penwrite .)
-    PEND            reduce using rule 119 (pen -> penwrite .)
-    RB              reduce using rule 119 (pen -> penwrite .)
+    IF              reduce using rule 121 (pen -> penwrite .)
+    LA              reduce using rule 121 (pen -> penwrite .)
+    L               reduce using rule 121 (pen -> penwrite .)
+    ID              reduce using rule 121 (pen -> penwrite .)
+    RE              reduce using rule 121 (pen -> penwrite .)
+    REC             reduce using rule 121 (pen -> penwrite .)
+    TRI             reduce using rule 121 (pen -> penwrite .)
+    POL             reduce using rule 121 (pen -> penwrite .)
+    LS              reduce using rule 121 (pen -> penwrite .)
+    CIR             reduce using rule 121 (pen -> penwrite .)
+    SQ              reduce using rule 121 (pen -> penwrite .)
+    ARC             reduce using rule 121 (pen -> penwrite .)
+    PENC            reduce using rule 121 (pen -> penwrite .)
+    SETC            reduce using rule 121 (pen -> penwrite .)
+    BACO            reduce using rule 121 (pen -> penwrite .)
+    PENW            reduce using rule 121 (pen -> penwrite .)
+    F               reduce using rule 121 (pen -> penwrite .)
+    B               reduce using rule 121 (pen -> penwrite .)
+    PENP            reduce using rule 121 (pen -> penwrite .)
+    PENU            reduce using rule 121 (pen -> penwrite .)
+    PEND            reduce using rule 121 (pen -> penwrite .)
+    RB              reduce using rule 121 (pen -> penwrite .)
 
 
 state 86
@@ -1627,19 +1630,19 @@ state 87
     (9) fun3 -> type ID . fun4
     (11) fun4 -> . C type ID fun4
     (12) fun4 -> . empty
-    (127) empty -> .
+    (129) empty -> .
 
     C               shift and go to state 132
-    RP              reduce using rule 127 (empty -> .)
+    RP              reduce using rule 129 (empty -> .)
 
     fun4                           shift and go to state 131
     empty                          shift and go to state 133
 
 state 88
 
-    (89) list -> L type ID . prelistAss
-    (90) prelistAss -> . EQ listAss
-    (91) prelistAss -> . SC
+    (91) list -> L type ID . prelistAss
+    (92) prelistAss -> . EQ listAss
+    (93) prelistAss -> . SC
 
     EQ              shift and go to state 136
     SC              shift and go to state 135
@@ -1684,21 +1687,21 @@ state 93
     (60) exp2 -> . empty
     (61) exp3 -> . ADD
     (62) exp3 -> . SUB
-    (127) empty -> .
+    (129) empty -> .
 
   ! shift/reduce conflict for ADD resolved as shift
     ADD             shift and go to state 141
     SUB             shift and go to state 138
-    C               reduce using rule 127 (empty -> .)
-    SC              reduce using rule 127 (empty -> .)
-    LB              reduce using rule 127 (empty -> .)
-    RP              reduce using rule 127 (empty -> .)
-    LT              reduce using rule 127 (empty -> .)
-    MT              reduce using rule 127 (empty -> .)
-    D               reduce using rule 127 (empty -> .)
-    SEQ             reduce using rule 127 (empty -> .)
+    C               reduce using rule 129 (empty -> .)
+    SC              reduce using rule 129 (empty -> .)
+    LB              reduce using rule 129 (empty -> .)
+    RP              reduce using rule 129 (empty -> .)
+    LT              reduce using rule 129 (empty -> .)
+    MT              reduce using rule 129 (empty -> .)
+    D               reduce using rule 129 (empty -> .)
+    SEQ             reduce using rule 129 (empty -> .)
 
-  ! ADD             [ reduce using rule 127 (empty -> .) ]
+  ! ADD             [ reduce using rule 129 (empty -> .) ]
 
     exp3                           shift and go to state 139
     exp2                           shift and go to state 140
@@ -1715,14 +1718,14 @@ state 94
     (71) fact3 -> . ADD
     (72) fact3 -> . SUB
     (73) fact3 -> . empty
-    (127) empty -> .
+    (129) empty -> .
 
     LP              shift and go to state 94
     ADD             shift and go to state 95
     SUB             shift and go to state 96
-    ID              reduce using rule 127 (empty -> .)
-    VALI            reduce using rule 127 (empty -> .)
-    VALF            reduce using rule 127 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    VALI            reduce using rule 129 (empty -> .)
+    VALF            reduce using rule 129 (empty -> .)
 
     term                           shift and go to state 93
     empty                          shift and go to state 97
@@ -1769,16 +1772,16 @@ state 98
 state 99
 
     (70) fact2 -> fact3 . fact4
-    (74) fact4 -> . val
+    (74) fact4 -> . valExp
     (75) fact4 -> . ID
-    (26) val -> . VALI
-    (27) val -> . VALF
+    (76) valExp -> . VALI
+    (77) valExp -> . VALF
 
     ID              shift and go to state 147
     VALI            shift and go to state 144
     VALF            shift and go to state 146
 
-    val                            shift and go to state 145
+    valExp                         shift and go to state 145
     fact4                          shift and go to state 148
 
 state 100
@@ -1806,20 +1809,20 @@ state 101
     (65) term2 -> . empty
     (66) term3 -> . M
     (67) term3 -> . DIV
-    (127) empty -> .
+    (129) empty -> .
 
     M               shift and go to state 151
     DIV             shift and go to state 152
-    ADD             reduce using rule 127 (empty -> .)
-    SUB             reduce using rule 127 (empty -> .)
-    C               reduce using rule 127 (empty -> .)
-    SC              reduce using rule 127 (empty -> .)
-    LB              reduce using rule 127 (empty -> .)
-    RP              reduce using rule 127 (empty -> .)
-    LT              reduce using rule 127 (empty -> .)
-    MT              reduce using rule 127 (empty -> .)
-    D               reduce using rule 127 (empty -> .)
-    SEQ             reduce using rule 127 (empty -> .)
+    ADD             reduce using rule 129 (empty -> .)
+    SUB             reduce using rule 129 (empty -> .)
+    C               reduce using rule 129 (empty -> .)
+    SC              reduce using rule 129 (empty -> .)
+    LB              reduce using rule 129 (empty -> .)
+    RP              reduce using rule 129 (empty -> .)
+    LT              reduce using rule 129 (empty -> .)
+    MT              reduce using rule 129 (empty -> .)
+    D               reduce using rule 129 (empty -> .)
+    SEQ             reduce using rule 129 (empty -> .)
 
     empty                          shift and go to state 153
     term3                          shift and go to state 149
@@ -1836,14 +1839,14 @@ state 102
     (71) fact3 -> . ADD
     (72) fact3 -> . SUB
     (73) fact3 -> . empty
-    (127) empty -> .
+    (129) empty -> .
 
     LP              shift and go to state 94
     ADD             shift and go to state 95
     SUB             shift and go to state 96
-    ID              reduce using rule 127 (empty -> .)
-    VALI            reduce using rule 127 (empty -> .)
-    VALF            reduce using rule 127 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    VALI            reduce using rule 129 (empty -> .)
+    VALF            reduce using rule 129 (empty -> .)
 
     term                           shift and go to state 93
     empty                          shift and go to state 97
@@ -1854,41 +1857,41 @@ state 102
 
 state 103
 
-    (106) block -> LB block3 RB .
+    (108) block -> LB block3 RB .
 
-    $end            reduce using rule 106 (block -> LB block3 RB .)
-    FUN             reduce using rule 106 (block -> LB block3 RB .)
-    MAIN            reduce using rule 106 (block -> LB block3 RB .)
-    IF              reduce using rule 106 (block -> LB block3 RB .)
-    LA              reduce using rule 106 (block -> LB block3 RB .)
-    L               reduce using rule 106 (block -> LB block3 RB .)
-    ID              reduce using rule 106 (block -> LB block3 RB .)
-    RE              reduce using rule 106 (block -> LB block3 RB .)
-    REC             reduce using rule 106 (block -> LB block3 RB .)
-    TRI             reduce using rule 106 (block -> LB block3 RB .)
-    POL             reduce using rule 106 (block -> LB block3 RB .)
-    LS              reduce using rule 106 (block -> LB block3 RB .)
-    CIR             reduce using rule 106 (block -> LB block3 RB .)
-    SQ              reduce using rule 106 (block -> LB block3 RB .)
-    ARC             reduce using rule 106 (block -> LB block3 RB .)
-    PENC            reduce using rule 106 (block -> LB block3 RB .)
-    SETC            reduce using rule 106 (block -> LB block3 RB .)
-    BACO            reduce using rule 106 (block -> LB block3 RB .)
-    PENW            reduce using rule 106 (block -> LB block3 RB .)
-    F               reduce using rule 106 (block -> LB block3 RB .)
-    B               reduce using rule 106 (block -> LB block3 RB .)
-    PENP            reduce using rule 106 (block -> LB block3 RB .)
-    PENU            reduce using rule 106 (block -> LB block3 RB .)
-    PEND            reduce using rule 106 (block -> LB block3 RB .)
-    RB              reduce using rule 106 (block -> LB block3 RB .)
-    ELSE            reduce using rule 106 (block -> LB block3 RB .)
+    $end            reduce using rule 108 (block -> LB block3 RB .)
+    FUN             reduce using rule 108 (block -> LB block3 RB .)
+    MAIN            reduce using rule 108 (block -> LB block3 RB .)
+    IF              reduce using rule 108 (block -> LB block3 RB .)
+    LA              reduce using rule 108 (block -> LB block3 RB .)
+    L               reduce using rule 108 (block -> LB block3 RB .)
+    ID              reduce using rule 108 (block -> LB block3 RB .)
+    RE              reduce using rule 108 (block -> LB block3 RB .)
+    REC             reduce using rule 108 (block -> LB block3 RB .)
+    TRI             reduce using rule 108 (block -> LB block3 RB .)
+    POL             reduce using rule 108 (block -> LB block3 RB .)
+    LS              reduce using rule 108 (block -> LB block3 RB .)
+    CIR             reduce using rule 108 (block -> LB block3 RB .)
+    SQ              reduce using rule 108 (block -> LB block3 RB .)
+    ARC             reduce using rule 108 (block -> LB block3 RB .)
+    PENC            reduce using rule 108 (block -> LB block3 RB .)
+    SETC            reduce using rule 108 (block -> LB block3 RB .)
+    BACO            reduce using rule 108 (block -> LB block3 RB .)
+    PENW            reduce using rule 108 (block -> LB block3 RB .)
+    F               reduce using rule 108 (block -> LB block3 RB .)
+    B               reduce using rule 108 (block -> LB block3 RB .)
+    PENP            reduce using rule 108 (block -> LB block3 RB .)
+    PENU            reduce using rule 108 (block -> LB block3 RB .)
+    PEND            reduce using rule 108 (block -> LB block3 RB .)
+    RB              reduce using rule 108 (block -> LB block3 RB .)
+    ELSE            reduce using rule 108 (block -> LB block3 RB .)
 
 
 state 104
 
-    (107) block3 -> block2 block3 .
+    (109) block3 -> block2 block3 .
 
-    RB              reduce using rule 107 (block3 -> block2 block3 .)
+    RB              reduce using rule 109 (block3 -> block2 block3 .)
 
 
 state 105
@@ -1902,14 +1905,14 @@ state 105
     (71) fact3 -> . ADD
     (72) fact3 -> . SUB
     (73) fact3 -> . empty
-    (127) empty -> .
+    (129) empty -> .
 
     LP              shift and go to state 94
     ADD             shift and go to state 95
     SUB             shift and go to state 96
-    ID              reduce using rule 127 (empty -> .)
-    VALI            reduce using rule 127 (empty -> .)
-    VALF            reduce using rule 127 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    VALI            reduce using rule 129 (empty -> .)
+    VALF            reduce using rule 129 (empty -> .)
 
     term                           shift and go to state 93
     exp                            shift and go to state 155
@@ -1929,14 +1932,14 @@ state 106
     (71) fact3 -> . ADD
     (72) fact3 -> . SUB
     (73) fact3 -> . empty
-    (127) empty -> .
+    (129) empty -> .
 
     LP              shift and go to state 94
     ADD             shift and go to state 95
     SUB             shift and go to state 96
-    ID              reduce using rule 127 (empty -> .)
-    VALI            reduce using rule 127 (empty -> .)
-    VALF            reduce using rule 127 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    VALI            reduce using rule 129 (empty -> .)
+    VALF            reduce using rule 129 (empty -> .)
 
     term                           shift and go to state 93
     empty                          shift and go to state 97
@@ -1975,9 +1978,9 @@ state 107
 
 state 108
 
-    (98) lab -> LA LP . stExp lab2 RP SC
-    (101) stExp -> . STR
-    (102) stExp -> . exp
+    (100) lab -> LA LP . stExp lab2 RP SC
+    (103) stExp -> . STR
+    (104) stExp -> . exp
     (58) exp -> . term exp2
     (63) term -> . fact term2
     (68) fact -> . LP exp RP
@@ -1986,15 +1989,15 @@ state 108
     (71) fact3 -> . ADD
     (72) fact3 -> . SUB
     (73) fact3 -> . empty
-    (127) empty -> .
+    (129) empty -> .
 
     STR             shift and go to state 157
     LP              shift and go to state 94
     ADD             shift and go to state 95
     SUB             shift and go to state 96
-    ID              reduce using rule 127 (empty -> .)
-    VALI            reduce using rule 127 (empty -> .)
-    VALF            reduce using rule 127 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    VALI            reduce using rule 129 (empty -> .)
+    VALF            reduce using rule 129 (empty -> .)
 
     term                           shift and go to state 93
     stExp                          shift and go to state 158
@@ -2009,7 +2012,7 @@ state 109
     (46) poly -> POL LP . idList p_fill RP SC
     (48) idList -> . list
     (49) idList -> . ID
-    (89) list -> . L type ID prelistAss
+    (91) list -> . L type ID prelistAss
 
     ID              shift and go to state 162
     L               shift and go to state 29
@@ -2019,8 +2022,8 @@ state 109
 
 state 110
 
-    (76) rep -> RE exp . block
-    (106) block -> . LB block3 RB
+    (78) rep -> RE exp . block
+    (108) block -> . LB block3 RB
 
     LB              shift and go to state 33
 
@@ -2065,14 +2068,14 @@ state 112
     (71) fact3 -> . ADD
     (72) fact3 -> . SUB
     (73) fact3 -> . empty
-    (127) empty -> .
+    (129) empty -> .
 
     LP              shift and go to state 94
     ADD             shift and go to state 95
     SUB             shift and go to state 96
-    ID              reduce using rule 127 (empty -> .)
-    VALI            reduce using rule 127 (empty -> .)
-    VALF            reduce using rule 127 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    VALI            reduce using rule 129 (empty -> .)
+    VALF            reduce using rule 129 (empty -> .)
 
     term                           shift and go to state 93
     empty                          shift and go to state 97
@@ -2142,7 +2145,7 @@ state 115
     (47) lstrip -> LS LP . idList RP SC
     (48) idList -> . list
     (49) idList -> . ID
-    (89) list -> . L type ID prelistAss
+    (91) list -> . L type ID prelistAss
 
     ID              shift and go to state 162
     L               shift and go to state 29
@@ -2161,14 +2164,14 @@ state 116
     (71) fact3 -> . ADD
     (72) fact3 -> . SUB
     (73) fact3 -> . empty
-    (127) empty -> .
+    (129) empty -> .
 
     LP              shift and go to state 94
     ADD             shift and go to state 95
     SUB             shift and go to state 96
-    ID              reduce using rule 127 (empty -> .)
-    VALI            reduce using rule 127 (empty -> .)
-    VALF            reduce using rule 127 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    VALI            reduce using rule 129 (empty -> .)
+    VALF            reduce using rule 129 (empty -> .)
 
     term                           shift and go to state 93
     exp                            shift and go to state 166
@@ -2188,14 +2191,14 @@ state 117
     (71) fact3 -> . ADD
     (72) fact3 -> . SUB
     (73) fact3 -> . empty
-    (127) empty -> .
+    (129) empty -> .
 
     LP              shift and go to state 94
     ADD             shift and go to state 95
     SUB             shift and go to state 96
-    ID              reduce using rule 127 (empty -> .)
-    VALI            reduce using rule 127 (empty -> .)
-    VALF            reduce using rule 127 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    VALI            reduce using rule 129 (empty -> .)
+    VALF            reduce using rule 129 (empty -> .)
 
     term                           shift and go to state 93
     empty                          shift and go to state 97
@@ -2262,11 +2265,11 @@ state 119
 
 state 120
 
-    (84) funCall -> LP . func2 RP SC
-    (85) func2 -> . exp func3
-    (86) func2 -> . empty
+    (86) funCall -> LP . func2 RP SC
+    (87) func2 -> . exp func3
+    (88) func2 -> . empty
     (58) exp -> . term exp2
-    (127) empty -> .
+    (129) empty -> .
     (63) term -> . fact term2
     (68) fact -> . LP exp RP
     (69) fact -> . fact2
@@ -2275,10 +2278,10 @@ state 120
     (72) fact3 -> . SUB
     (73) fact3 -> . empty
 
-    RP              reduce using rule 127 (empty -> .)
-    ID              reduce using rule 127 (empty -> .)
-    VALI            reduce using rule 127 (empty -> .)
-    VALF            reduce using rule 127 (empty -> .)
+    RP              reduce using rule 129 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    VALI            reduce using rule 129 (empty -> .)
+    VALF            reduce using rule 129 (empty -> .)
     LP              shift and go to state 94
     ADD             shift and go to state 95
     SUB             shift and go to state 96
@@ -2293,39 +2296,39 @@ state 120
 
 state 121
 
-    (78) WID2 -> assigment .
+    (80) WID2 -> assigment .
 
-    IF              reduce using rule 78 (WID2 -> assigment .)
-    LA              reduce using rule 78 (WID2 -> assigment .)
-    L               reduce using rule 78 (WID2 -> assigment .)
-    ID              reduce using rule 78 (WID2 -> assigment .)
-    RE              reduce using rule 78 (WID2 -> assigment .)
-    REC             reduce using rule 78 (WID2 -> assigment .)
-    TRI             reduce using rule 78 (WID2 -> assigment .)
-    POL             reduce using rule 78 (WID2 -> assigment .)
-    LS              reduce using rule 78 (WID2 -> assigment .)
-    CIR             reduce using rule 78 (WID2 -> assigment .)
-    SQ              reduce using rule 78 (WID2 -> assigment .)
-    ARC             reduce using rule 78 (WID2 -> assigment .)
-    PENC            reduce using rule 78 (WID2 -> assigment .)
-    SETC            reduce using rule 78 (WID2 -> assigment .)
-    BACO            reduce using rule 78 (WID2 -> assigment .)
-    PENW            reduce using rule 78 (WID2 -> assigment .)
-    F               reduce using rule 78 (WID2 -> assigment .)
-    B               reduce using rule 78 (WID2 -> assigment .)
-    PENP            reduce using rule 78 (WID2 -> assigment .)
-    PENU            reduce using rule 78 (WID2 -> assigment .)
-    PEND            reduce using rule 78 (WID2 -> assigment .)
-    RB              reduce using rule 78 (WID2 -> assigment .)
+    IF              reduce using rule 80 (WID2 -> assigment .)
+    LA              reduce using rule 80 (WID2 -> assigment .)
+    L               reduce using rule 80 (WID2 -> assigment .)
+    ID              reduce using rule 80 (WID2 -> assigment .)
+    RE              reduce using rule 80 (WID2 -> assigment .)
+    REC             reduce using rule 80 (WID2 -> assigment .)
+    TRI             reduce using rule 80 (WID2 -> assigment .)
+    POL             reduce using rule 80 (WID2 -> assigment .)
+    LS              reduce using rule 80 (WID2 -> assigment .)
+    CIR             reduce using rule 80 (WID2 -> assigment .)
+    SQ              reduce using rule 80 (WID2 -> assigment .)
+    ARC             reduce using rule 80 (WID2 -> assigment .)
+    PENC            reduce using rule 80 (WID2 -> assigment .)
+    SETC            reduce using rule 80 (WID2 -> assigment .)
+    BACO            reduce using rule 80 (WID2 -> assigment .)
+    PENW            reduce using rule 80 (WID2 -> assigment .)
+    F               reduce using rule 80 (WID2 -> assigment .)
+    B               reduce using rule 80 (WID2 -> assigment .)
+    PENP            reduce using rule 80 (WID2 -> assigment .)
+    PENU            reduce using rule 80 (WID2 -> assigment .)
+    PEND            reduce using rule 80 (WID2 -> assigment .)
+    RB              reduce using rule 80 (WID2 -> assigment .)
 
 
 state 122
 
-    (80) assigment -> EQ . tipeAss
-    (81) tipeAss -> . varAss
-    (82) tipeAss -> . listAss
-    (83) varAss -> . exp SC
-    (92) listAss -> . LB lista3 RB SC
+    (82) assigment -> EQ . tipeAss
+    (83) tipeAss -> . varAss
+    (84) tipeAss -> . listAss
+    (85) varAss -> . exp SC
+    (94) listAss -> . LB lista3 RB SC
     (58) exp -> . term exp2
     (63) term -> . fact term2
     (68) fact -> . LP exp RP
@@ -2334,15 +2337,15 @@ state 122
     (71) fact3 -> . ADD
     (72) fact3 -> . SUB
     (73) fact3 -> . empty
-    (127) empty -> .
+    (129) empty -> .
 
     LB              shift and go to state 171
     LP              shift and go to state 94
     ADD             shift and go to state 95
     SUB             shift and go to state 96
-    ID              reduce using rule 127 (empty -> .)
-    VALI            reduce using rule 127 (empty -> .)
-    VALF            reduce using rule 127 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    VALI            reduce using rule 129 (empty -> .)
+    VALF            reduce using rule 129 (empty -> .)
 
     term                           shift and go to state 93
     listAss                        shift and go to state 172
@@ -2356,63 +2359,63 @@ state 122
 
 state 123
 
-    (79) WID2 -> funCall .
+    (81) WID2 -> funCall .
 
-    IF              reduce using rule 79 (WID2 -> funCall .)
-    LA              reduce using rule 79 (WID2 -> funCall .)
-    L               reduce using rule 79 (WID2 -> funCall .)
-    ID              reduce using rule 79 (WID2 -> funCall .)
-    RE              reduce using rule 79 (WID2 -> funCall .)
-    REC             reduce using rule 79 (WID2 -> funCall .)
-    TRI             reduce using rule 79 (WID2 -> funCall .)
-    POL             reduce using rule 79 (WID2 -> funCall .)
-    LS              reduce using rule 79 (WID2 -> funCall .)
-    CIR             reduce using rule 79 (WID2 -> funCall .)
-    SQ              reduce using rule 79 (WID2 -> funCall .)
-    ARC             reduce using rule 79 (WID2 -> funCall .)
-    PENC            reduce using rule 79 (WID2 -> funCall .)
-    SETC            reduce using rule 79 (WID2 -> funCall .)
-    BACO            reduce using rule 79 (WID2 -> funCall .)
-    PENW            reduce using rule 79 (WID2 -> funCall .)
-    F               reduce using rule 79 (WID2 -> funCall .)
-    B               reduce using rule 79 (WID2 -> funCall .)
-    PENP            reduce using rule 79 (WID2 -> funCall .)
-    PENU            reduce using rule 79 (WID2 -> funCall .)
-    PEND            reduce using rule 79 (WID2 -> funCall .)
-    RB              reduce using rule 79 (WID2 -> funCall .)
+    IF              reduce using rule 81 (WID2 -> funCall .)
+    LA              reduce using rule 81 (WID2 -> funCall .)
+    L               reduce using rule 81 (WID2 -> funCall .)
+    ID              reduce using rule 81 (WID2 -> funCall .)
+    RE              reduce using rule 81 (WID2 -> funCall .)
+    REC             reduce using rule 81 (WID2 -> funCall .)
+    TRI             reduce using rule 81 (WID2 -> funCall .)
+    POL             reduce using rule 81 (WID2 -> funCall .)
+    LS              reduce using rule 81 (WID2 -> funCall .)
+    CIR             reduce using rule 81 (WID2 -> funCall .)
+    SQ              reduce using rule 81 (WID2 -> funCall .)
+    ARC             reduce using rule 81 (WID2 -> funCall .)
+    PENC            reduce using rule 81 (WID2 -> funCall .)
+    SETC            reduce using rule 81 (WID2 -> funCall .)
+    BACO            reduce using rule 81 (WID2 -> funCall .)
+    PENW            reduce using rule 81 (WID2 -> funCall .)
+    F               reduce using rule 81 (WID2 -> funCall .)
+    B               reduce using rule 81 (WID2 -> funCall .)
+    PENP            reduce using rule 81 (WID2 -> funCall .)
+    PENU            reduce using rule 81 (WID2 -> funCall .)
+    PEND            reduce using rule 81 (WID2 -> funCall .)
+    RB              reduce using rule 81 (WID2 -> funCall .)
 
 
 state 124
 
-    (77) WID -> ID WID2 .
+    (79) WID -> ID WID2 .
 
-    IF              reduce using rule 77 (WID -> ID WID2 .)
-    LA              reduce using rule 77 (WID -> ID WID2 .)
-    L               reduce using rule 77 (WID -> ID WID2 .)
-    ID              reduce using rule 77 (WID -> ID WID2 .)
-    RE              reduce using rule 77 (WID -> ID WID2 .)
-    REC             reduce using rule 77 (WID -> ID WID2 .)
-    TRI             reduce using rule 77 (WID -> ID WID2 .)
-    POL             reduce using rule 77 (WID -> ID WID2 .)
-    LS              reduce using rule 77 (WID -> ID WID2 .)
-    CIR             reduce using rule 77 (WID -> ID WID2 .)
-    SQ              reduce using rule 77 (WID -> ID WID2 .)
-    ARC             reduce using rule 77 (WID -> ID WID2 .)
-    PENC            reduce using rule 77 (WID -> ID WID2 .)
-    SETC            reduce using rule 77 (WID -> ID WID2 .)
-    BACO            reduce using rule 77 (WID -> ID WID2 .)
-    PENW            reduce using rule 77 (WID -> ID WID2 .)
-    F               reduce using rule 77 (WID -> ID WID2 .)
-    B               reduce using rule 77 (WID -> ID WID2 .)
-    PENP            reduce using rule 77 (WID -> ID WID2 .)
-    PENU            reduce using rule 77 (WID -> ID WID2 .)
-    PEND            reduce using rule 77 (WID -> ID WID2 .)
-    RB              reduce using rule 77 (WID -> ID WID2 .)
+    IF              reduce using rule 79 (WID -> ID WID2 .)
+    LA              reduce using rule 79 (WID -> ID WID2 .)
+    L               reduce using rule 79 (WID -> ID WID2 .)
+    ID              reduce using rule 79 (WID -> ID WID2 .)
+    RE              reduce using rule 79 (WID -> ID WID2 .)
+    REC             reduce using rule 79 (WID -> ID WID2 .)
+    TRI             reduce using rule 79 (WID -> ID WID2 .)
+    POL             reduce using rule 79 (WID -> ID WID2 .)
+    LS              reduce using rule 79 (WID -> ID WID2 .)
+    CIR             reduce using rule 79 (WID -> ID WID2 .)
+    SQ              reduce using rule 79 (WID -> ID WID2 .)
+    ARC             reduce using rule 79 (WID -> ID WID2 .)
+    PENC            reduce using rule 79 (WID -> ID WID2 .)
+    SETC            reduce using rule 79 (WID -> ID WID2 .)
+    BACO            reduce using rule 79 (WID -> ID WID2 .)
+    PENW            reduce using rule 79 (WID -> ID WID2 .)
+    F               reduce using rule 79 (WID -> ID WID2 .)
+    B               reduce using rule 79 (WID -> ID WID2 .)
+    PENP            reduce using rule 79 (WID -> ID WID2 .)
+    PENU            reduce using rule 79 (WID -> ID WID2 .)
+    PEND            reduce using rule 79 (WID -> ID WID2 .)
+    RB              reduce using rule 79 (WID -> ID WID2 .)
 
 
 state 125
 
-    (103) condition -> IF LP . expresion RP block con2
+    (105) condition -> IF LP . expresion RP block con2
     (51) expresion -> . exp ex2
     (58) exp -> . term exp2
     (63) term -> . fact term2
@@ -2422,14 +2425,14 @@ state 125
     (71) fact3 -> . ADD
     (72) fact3 -> . SUB
     (73) fact3 -> . empty
-    (127) empty -> .
+    (129) empty -> .
 
     LP              shift and go to state 94
     ADD             shift and go to state 95
     SUB             shift and go to state 96
-    ID              reduce using rule 127 (empty -> .)
-    VALI            reduce using rule 127 (empty -> .)
-    VALF            reduce using rule 127 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    VALI            reduce using rule 129 (empty -> .)
+    VALF            reduce using rule 129 (empty -> .)
 
     expresion                      shift and go to state 176
     term                           shift and go to state 93
@@ -2478,14 +2481,14 @@ state 127
     (71) fact3 -> . ADD
     (72) fact3 -> . SUB
     (73) fact3 -> . empty
-    (127) empty -> .
+    (129) empty -> .
 
     LP              shift and go to state 94
     ADD             shift and go to state 95
     SUB             shift and go to state 96
-    ID              reduce using rule 127 (empty -> .)
-    VALI            reduce using rule 127 (empty -> .)
-    VALF            reduce using rule 127 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    VALI            reduce using rule 129 (empty -> .)
+    VALF            reduce using rule 129 (empty -> .)
 
     term                           shift and go to state 93
     exp                            shift and go to state 178
@@ -2561,14 +2564,14 @@ state 130
     (71) fact3 -> . ADD
     (72) fact3 -> . SUB
     (73) fact3 -> . empty
-    (127) empty -> .
+    (129) empty -> .
 
     LP              shift and go to state 94
     ADD             shift and go to state 95
     SUB             shift and go to state 96
-    ID              reduce using rule 127 (empty -> .)
-    VALI            reduce using rule 127 (empty -> .)
-    VALF            reduce using rule 127 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    VALI            reduce using rule 129 (empty -> .)
+    VALF            reduce using rule 129 (empty -> .)
 
     term                           shift and go to state 93
     empty                          shift and go to state 97
@@ -2604,74 +2607,74 @@ state 133
 
 state 134
 
-    (89) list -> L type ID prelistAss .
+    (91) list -> L type ID prelistAss .
 
-    L               reduce using rule 89 (list -> L type ID prelistAss .)
-    FUN             reduce using rule 89 (list -> L type ID prelistAss .)
-    MAIN            reduce using rule 89 (list -> L type ID prelistAss .)
-    LB              reduce using rule 89 (list -> L type ID prelistAss .)
-    IF              reduce using rule 89 (list -> L type ID prelistAss .)
-    LA              reduce using rule 89 (list -> L type ID prelistAss .)
-    ID              reduce using rule 89 (list -> L type ID prelistAss .)
-    RE              reduce using rule 89 (list -> L type ID prelistAss .)
-    REC             reduce using rule 89 (list -> L type ID prelistAss .)
-    TRI             reduce using rule 89 (list -> L type ID prelistAss .)
-    POL             reduce using rule 89 (list -> L type ID prelistAss .)
-    LS              reduce using rule 89 (list -> L type ID prelistAss .)
-    CIR             reduce using rule 89 (list -> L type ID prelistAss .)
-    SQ              reduce using rule 89 (list -> L type ID prelistAss .)
-    ARC             reduce using rule 89 (list -> L type ID prelistAss .)
-    PENC            reduce using rule 89 (list -> L type ID prelistAss .)
-    SETC            reduce using rule 89 (list -> L type ID prelistAss .)
-    BACO            reduce using rule 89 (list -> L type ID prelistAss .)
-    PENW            reduce using rule 89 (list -> L type ID prelistAss .)
-    F               reduce using rule 89 (list -> L type ID prelistAss .)
-    B               reduce using rule 89 (list -> L type ID prelistAss .)
-    PENP            reduce using rule 89 (list -> L type ID prelistAss .)
-    PENU            reduce using rule 89 (list -> L type ID prelistAss .)
-    PEND            reduce using rule 89 (list -> L type ID prelistAss .)
-    RB              reduce using rule 89 (list -> L type ID prelistAss .)
-    RP              reduce using rule 89 (list -> L type ID prelistAss .)
-    C               reduce using rule 89 (list -> L type ID prelistAss .)
+    L               reduce using rule 91 (list -> L type ID prelistAss .)
+    FUN             reduce using rule 91 (list -> L type ID prelistAss .)
+    MAIN            reduce using rule 91 (list -> L type ID prelistAss .)
+    LB              reduce using rule 91 (list -> L type ID prelistAss .)
+    IF              reduce using rule 91 (list -> L type ID prelistAss .)
+    LA              reduce using rule 91 (list -> L type ID prelistAss .)
+    ID              reduce using rule 91 (list -> L type ID prelistAss .)
+    RE              reduce using rule 91 (list -> L type ID prelistAss .)
+    REC             reduce using rule 91 (list -> L type ID prelistAss .)
+    TRI             reduce using rule 91 (list -> L type ID prelistAss .)
+    POL             reduce using rule 91 (list -> L type ID prelistAss .)
+    LS              reduce using rule 91 (list -> L type ID prelistAss .)
+    CIR             reduce using rule 91 (list -> L type ID prelistAss .)
+    SQ              reduce using rule 91 (list -> L type ID prelistAss .)
+    ARC             reduce using rule 91 (list -> L type ID prelistAss .)
+    PENC            reduce using rule 91 (list -> L type ID prelistAss .)
+    SETC            reduce using rule 91 (list -> L type ID prelistAss .)
+    BACO            reduce using rule 91 (list -> L type ID prelistAss .)
+    PENW            reduce using rule 91 (list -> L type ID prelistAss .)
+    F               reduce using rule 91 (list -> L type ID prelistAss .)
+    B               reduce using rule 91 (list -> L type ID prelistAss .)
+    PENP            reduce using rule 91 (list -> L type ID prelistAss .)
+    PENU            reduce using rule 91 (list -> L type ID prelistAss .)
+    PEND            reduce using rule 91 (list -> L type ID prelistAss .)
+    RB              reduce using rule 91 (list -> L type ID prelistAss .)
+    RP              reduce using rule 91 (list -> L type ID prelistAss .)
+    C               reduce using rule 91 (list -> L type ID prelistAss .)
 
 
 state 135
 
-    (91) prelistAss -> SC .
+    (93) prelistAss -> SC .
 
-    L               reduce using rule 91 (prelistAss -> SC .)
-    FUN             reduce using rule 91 (prelistAss -> SC .)
-    MAIN            reduce using rule 91 (prelistAss -> SC .)
-    LB              reduce using rule 91 (prelistAss -> SC .)
-    IF              reduce using rule 91 (prelistAss -> SC .)
-    LA              reduce using rule 91 (prelistAss -> SC .)
-    ID              reduce using rule 91 (prelistAss -> SC .)
-    RE              reduce using rule 91 (prelistAss -> SC .)
-    REC             reduce using rule 91 (prelistAss -> SC .)
-    TRI             reduce using rule 91 (prelistAss -> SC .)
-    POL             reduce using rule 91 (prelistAss -> SC .)
-    LS              reduce using rule 91 (prelistAss -> SC .)
-    CIR             reduce using rule 91 (prelistAss -> SC .)
-    SQ              reduce using rule 91 (prelistAss -> SC .)
-    ARC             reduce using rule 91 (prelistAss -> SC .)
-    PENC            reduce using rule 91 (prelistAss -> SC .)
-    SETC            reduce using rule 91 (prelistAss -> SC .)
-    BACO            reduce using rule 91 (prelistAss -> SC .)
-    PENW            reduce using rule 91 (prelistAss -> SC .)
-    F               reduce using rule 91 (prelistAss -> SC .)
-    B               reduce using rule 91 (prelistAss -> SC .)
-    PENP            reduce using rule 91 (prelistAss -> SC .)
-    PENU            reduce using rule 91 (prelistAss -> SC .)
-    PEND            reduce using rule 91 (prelistAss -> SC .)
-    RB              reduce using rule 91 (prelistAss -> SC .)
-    C               reduce using rule 91 (prelistAss -> SC .)
-    RP              reduce using rule 91 (prelistAss -> SC .)
+    L               reduce using rule 93 (prelistAss -> SC .)
+    FUN             reduce using rule 93 (prelistAss -> SC .)
+    MAIN            reduce using rule 93 (prelistAss -> SC .)
+    LB              reduce using rule 93 (prelistAss -> SC .)
+    IF              reduce using rule 93 (prelistAss -> SC .)
+    LA              reduce using rule 93 (prelistAss -> SC .)
+    ID              reduce using rule 93 (prelistAss -> SC .)
+    RE              reduce using rule 93 (prelistAss -> SC .)
+    REC             reduce using rule 93 (prelistAss -> SC .)
+    TRI             reduce using rule 93 (prelistAss -> SC .)
+    POL             reduce using rule 93 (prelistAss -> SC .)
+    LS              reduce using rule 93 (prelistAss -> SC .)
+    CIR             reduce using rule 93 (prelistAss -> SC .)
+    SQ              reduce using rule 93 (prelistAss -> SC .)
+    ARC             reduce using rule 93 (prelistAss -> SC .)
+    PENC            reduce using rule 93 (prelistAss -> SC .)
+    SETC            reduce using rule 93 (prelistAss -> SC .)
+    BACO            reduce using rule 93 (prelistAss -> SC .)
+    PENW            reduce using rule 93 (prelistAss -> SC .)
+    F               reduce using rule 93 (prelistAss -> SC .)
+    B               reduce using rule 93 (prelistAss -> SC .)
+    PENP            reduce using rule 93 (prelistAss -> SC .)
+    PENU            reduce using rule 93 (prelistAss -> SC .)
+    PEND            reduce using rule 93 (prelistAss -> SC .)
+    RB              reduce using rule 93 (prelistAss -> SC .)
+    C               reduce using rule 93 (prelistAss -> SC .)
+    RP              reduce using rule 93 (prelistAss -> SC .)
 
 
 state 136
 
-    (90) prelistAss -> EQ . listAss
-    (92) listAss -> . LB lista3 RB SC
+    (92) prelistAss -> EQ . listAss
+    (94) listAss -> . LB lista3 RB SC
 
     LB              shift and go to state 171
 
@@ -2682,11 +2685,11 @@ state 137
     (18) var33 -> C ID . var4 var33
     (20) var4 -> . EQ exp
     (21) var4 -> . empty
-    (127) empty -> .
+    (129) empty -> .
 
     EQ              shift and go to state 43
-    C               reduce using rule 127 (empty -> .)
-    SC              reduce using rule 127 (empty -> .)
+    C               reduce using rule 129 (empty -> .)
+    SC              reduce using rule 129 (empty -> .)
 
     var4                           shift and go to state 182
     empty                          shift and go to state 44
@@ -2714,14 +2717,14 @@ state 139
     (71) fact3 -> . ADD
     (72) fact3 -> . SUB
     (73) fact3 -> . empty
-    (127) empty -> .
+    (129) empty -> .
 
     LP              shift and go to state 94
     ADD             shift and go to state 95
     SUB             shift and go to state 96
-    ID              reduce using rule 127 (empty -> .)
-    VALI            reduce using rule 127 (empty -> .)
-    VALF            reduce using rule 127 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    VALI            reduce using rule 129 (empty -> .)
+    VALF            reduce using rule 129 (empty -> .)
 
     term                           shift and go to state 93
     empty                          shift and go to state 97
@@ -2781,58 +2784,56 @@ state 143
 
 state 144
 
-    (26) val -> VALI .
+    (76) valExp -> VALI .
 
-    C               reduce using rule 26 (val -> VALI .)
-    RB              reduce using rule 26 (val -> VALI .)
-    M               reduce using rule 26 (val -> VALI .)
-    DIV             reduce using rule 26 (val -> VALI .)
-    ADD             reduce using rule 26 (val -> VALI .)
-    SUB             reduce using rule 26 (val -> VALI .)
-    SC              reduce using rule 26 (val -> VALI .)
-    LB              reduce using rule 26 (val -> VALI .)
-    RP              reduce using rule 26 (val -> VALI .)
-    LT              reduce using rule 26 (val -> VALI .)
-    MT              reduce using rule 26 (val -> VALI .)
-    D               reduce using rule 26 (val -> VALI .)
-    SEQ             reduce using rule 26 (val -> VALI .)
+    M               reduce using rule 76 (valExp -> VALI .)
+    DIV             reduce using rule 76 (valExp -> VALI .)
+    ADD             reduce using rule 76 (valExp -> VALI .)
+    SUB             reduce using rule 76 (valExp -> VALI .)
+    C               reduce using rule 76 (valExp -> VALI .)
+    SC              reduce using rule 76 (valExp -> VALI .)
+    LB              reduce using rule 76 (valExp -> VALI .)
+    RP              reduce using rule 76 (valExp -> VALI .)
+    LT              reduce using rule 76 (valExp -> VALI .)
+    MT              reduce using rule 76 (valExp -> VALI .)
+    D               reduce using rule 76 (valExp -> VALI .)
+    SEQ             reduce using rule 76 (valExp -> VALI .)
 
 
 state 145
 
-    (74) fact4 -> val .
+    (74) fact4 -> valExp .
 
-    M               reduce using rule 74 (fact4 -> val .)
-    DIV             reduce using rule 74 (fact4 -> val .)
-    ADD             reduce using rule 74 (fact4 -> val .)
-    SUB             reduce using rule 74 (fact4 -> val .)
-    C               reduce using rule 74 (fact4 -> val .)
-    SC              reduce using rule 74 (fact4 -> val .)
-    LB              reduce using rule 74 (fact4 -> val .)
-    RP              reduce using rule 74 (fact4 -> val .)
-    LT              reduce using rule 74 (fact4 -> val .)
-    MT              reduce using rule 74 (fact4 -> val .)
-    D               reduce using rule 74 (fact4 -> val .)
-    SEQ             reduce using rule 74 (fact4 -> val .)
+    M               reduce using rule 74 (fact4 -> valExp .)
+    DIV             reduce using rule 74 (fact4 -> valExp .)
+    ADD             reduce using rule 74 (fact4 -> valExp .)
+    SUB             reduce using rule 74 (fact4 -> valExp .)
+    C               reduce using rule 74 (fact4 -> valExp .)
+    SC              reduce using rule 74 (fact4 -> valExp .)
+    LB              reduce using rule 74 (fact4 -> valExp .)
+    RP              reduce using rule 74 (fact4 -> valExp .)
+    LT              reduce using rule 74 (fact4 -> valExp .)
+    MT              reduce using rule 74 (fact4 -> valExp .)
+    D               reduce using rule 74 (fact4 -> valExp .)
+    SEQ             reduce using rule 74 (fact4 -> valExp .)
 
 
 state 146
 
-    (27) val -> VALF .
+    (77) valExp -> VALF .
 
-    C               reduce using rule 27 (val -> VALF .)
-    RB              reduce using rule 27 (val -> VALF .)
-    M               reduce using rule 27 (val -> VALF .)
-    DIV             reduce using rule 27 (val -> VALF .)
-    ADD             reduce using rule 27 (val -> VALF .)
-    SUB             reduce using rule 27 (val -> VALF .)
-    SC              reduce using rule 27 (val -> VALF .)
-    LB              reduce using rule 27 (val -> VALF .)
-    RP              reduce using rule 27 (val -> VALF .)
-    LT              reduce using rule 27 (val -> VALF .)
-    MT              reduce using rule 27 (val -> VALF .)
-    D               reduce using rule 27 (val -> VALF .)
-    SEQ             reduce using rule 27 (val -> VALF .)
+    M               reduce using rule 77 (valExp -> VALF .)
+    DIV             reduce using rule 77 (valExp -> VALF .)
+    ADD             reduce using rule 77 (valExp -> VALF .)
+    SUB             reduce using rule 77 (valExp -> VALF .)
+    C               reduce using rule 77 (valExp -> VALF .)
+    SC              reduce using rule 77 (valExp -> VALF .)
+    LB              reduce using rule 77 (valExp -> VALF .)
+    RP              reduce using rule 77 (valExp -> VALF .)
+    LT              reduce using rule 77 (valExp -> VALF .)
+    MT              reduce using rule 77 (valExp -> VALF .)
+    D               reduce using rule 77 (valExp -> VALF .)
+    SEQ             reduce using rule 77 (valExp -> VALF .)
 
 
 state 147
@@ -2881,14 +2882,14 @@ state 149
     (71) fact3 -> . ADD
     (72) fact3 -> . SUB
     (73) fact3 -> . empty
-    (127) empty -> .
+    (129) empty -> .
 
     LP              shift and go to state 94
     ADD             shift and go to state 95
     SUB             shift and go to state 96
-    ID              reduce using rule 127 (empty -> .)
-    VALI            reduce using rule 127 (empty -> .)
-    VALF            reduce using rule 127 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    VALI            reduce using rule 129 (empty -> .)
+    VALF            reduce using rule 129 (empty -> .)
 
     term                           shift and go to state 185
     empty                          shift and go to state 97
@@ -2975,31 +2976,31 @@ state 156
 
 state 157
 
-    (101) stExp -> STR .
+    (103) stExp -> STR .
 
-    ADD             reduce using rule 101 (stExp -> STR .)
-    RP              reduce using rule 101 (stExp -> STR .)
+    ADD             reduce using rule 103 (stExp -> STR .)
+    RP              reduce using rule 103 (stExp -> STR .)
 
 
 state 158
 
-    (98) lab -> LA LP stExp . lab2 RP SC
-    (99) lab2 -> . ADD stExp lab2
-    (100) lab2 -> . empty
-    (127) empty -> .
+    (100) lab -> LA LP stExp . lab2 RP SC
+    (101) lab2 -> . ADD stExp lab2
+    (102) lab2 -> . empty
+    (129) empty -> .
 
     ADD             shift and go to state 190
-    RP              reduce using rule 127 (empty -> .)
+    RP              reduce using rule 129 (empty -> .)
 
     lab2                           shift and go to state 189
     empty                          shift and go to state 191
 
 state 159
 
-    (102) stExp -> exp .
+    (104) stExp -> exp .
 
-    ADD             reduce using rule 102 (stExp -> exp .)
-    RP              reduce using rule 102 (stExp -> exp .)
+    ADD             reduce using rule 104 (stExp -> exp .)
+    RP              reduce using rule 104 (stExp -> exp .)
 
 
 state 160
@@ -3007,10 +3008,10 @@ state 160
     (46) poly -> POL LP idList . p_fill RP SC
     (40) p_fill -> . C FILL
     (41) p_fill -> . empty
-    (127) empty -> .
+    (129) empty -> .
 
     C               shift and go to state 192
-    RP              reduce using rule 127 (empty -> .)
+    RP              reduce using rule 129 (empty -> .)
 
     empty                          shift and go to state 194
     p_fill                         shift and go to state 193
@@ -3033,30 +3034,30 @@ state 162
 
 state 163
 
-    (76) rep -> RE exp block .
+    (78) rep -> RE exp block .
 
-    IF              reduce using rule 76 (rep -> RE exp block .)
-    LA              reduce using rule 76 (rep -> RE exp block .)
-    L               reduce using rule 76 (rep -> RE exp block .)
-    ID              reduce using rule 76 (rep -> RE exp block .)
-    RE              reduce using rule 76 (rep -> RE exp block .)
-    REC             reduce using rule 76 (rep -> RE exp block .)
-    TRI             reduce using rule 76 (rep -> RE exp block .)
-    POL             reduce using rule 76 (rep -> RE exp block .)
-    LS              reduce using rule 76 (rep -> RE exp block .)
-    CIR             reduce using rule 76 (rep -> RE exp block .)
-    SQ              reduce using rule 76 (rep -> RE exp block .)
-    ARC             reduce using rule 76 (rep -> RE exp block .)
-    PENC            reduce using rule 76 (rep -> RE exp block .)
-    SETC            reduce using rule 76 (rep -> RE exp block .)
-    BACO            reduce using rule 76 (rep -> RE exp block .)
-    PENW            reduce using rule 76 (rep -> RE exp block .)
-    F               reduce using rule 76 (rep -> RE exp block .)
-    B               reduce using rule 76 (rep -> RE exp block .)
-    PENP            reduce using rule 76 (rep -> RE exp block .)
-    PENU            reduce using rule 76 (rep -> RE exp block .)
-    PEND            reduce using rule 76 (rep -> RE exp block .)
-    RB              reduce using rule 76 (rep -> RE exp block .)
+    IF              reduce using rule 78 (rep -> RE exp block .)
+    LA              reduce using rule 78 (rep -> RE exp block .)
+    L               reduce using rule 78 (rep -> RE exp block .)
+    ID              reduce using rule 78 (rep -> RE exp block .)
+    RE              reduce using rule 78 (rep -> RE exp block .)
+    REC             reduce using rule 78 (rep -> RE exp block .)
+    TRI             reduce using rule 78 (rep -> RE exp block .)
+    POL             reduce using rule 78 (rep -> RE exp block .)
+    LS              reduce using rule 78 (rep -> RE exp block .)
+    CIR             reduce using rule 78 (rep -> RE exp block .)
+    SQ              reduce using rule 78 (rep -> RE exp block .)
+    ARC             reduce using rule 78 (rep -> RE exp block .)
+    PENC            reduce using rule 78 (rep -> RE exp block .)
+    SETC            reduce using rule 78 (rep -> RE exp block .)
+    BACO            reduce using rule 78 (rep -> RE exp block .)
+    PENW            reduce using rule 78 (rep -> RE exp block .)
+    F               reduce using rule 78 (rep -> RE exp block .)
+    B               reduce using rule 78 (rep -> RE exp block .)
+    PENP            reduce using rule 78 (rep -> RE exp block .)
+    PENU            reduce using rule 78 (rep -> RE exp block .)
+    PEND            reduce using rule 78 (rep -> RE exp block .)
+    RB              reduce using rule 78 (rep -> RE exp block .)
 
 
 state 164
@@ -3089,30 +3090,30 @@ state 167
 
 state 168
 
-    (84) funCall -> LP func2 . RP SC
+    (86) funCall -> LP func2 . RP SC
 
     RP              shift and go to state 199
 
 
 state 169
 
-    (85) func2 -> exp . func3
-    (87) func3 -> . C exp func3
-    (88) func3 -> . empty
-    (127) empty -> .
+    (87) func2 -> exp . func3
+    (89) func3 -> . C exp func3
+    (90) func3 -> . empty
+    (129) empty -> .
 
     C               shift and go to state 201
-    RP              reduce using rule 127 (empty -> .)
+    RP              reduce using rule 129 (empty -> .)
 
     func3                          shift and go to state 200
     empty                          shift and go to state 202
 
 state 170
 
-    (86) func2 -> empty .
+    (88) func2 -> empty .
     (73) fact3 -> empty .
 
-    RP              reduce using rule 86 (func2 -> empty .)
+    RP              reduce using rule 88 (func2 -> empty .)
     ID              reduce using rule 73 (fact3 -> empty .)
     VALI            reduce using rule 73 (fact3 -> empty .)
     VALF            reduce using rule 73 (fact3 -> empty .)
@@ -3120,117 +3121,117 @@ state 170
 
 state 171
 
-    (92) listAss -> LB . lista3 RB SC
-    (95) lista3 -> . lista2 li4
-    (93) lista2 -> . val
-    (94) lista2 -> . ID
+    (94) listAss -> LB . lista3 RB SC
+    (97) lista3 -> . lista2 li4
+    (95) lista2 -> . val
+    (96) lista2 -> . ID
     (26) val -> . VALI
     (27) val -> . VALF
 
-    ID              shift and go to state 204
-    VALI            shift and go to state 144
-    VALF            shift and go to state 146
+    ID              shift and go to state 206
+    VALI            shift and go to state 203
+    VALF            shift and go to state 205
 
-    val                            shift and go to state 203
-    lista3                         shift and go to state 205
-    lista2                         shift and go to state 206
+    val                            shift and go to state 204
+    lista3                         shift and go to state 207
+    lista2                         shift and go to state 208
 
 state 172
 
-    (82) tipeAss -> listAss .
+    (84) tipeAss -> listAss .
 
-    IF              reduce using rule 82 (tipeAss -> listAss .)
-    LA              reduce using rule 82 (tipeAss -> listAss .)
-    L               reduce using rule 82 (tipeAss -> listAss .)
-    ID              reduce using rule 82 (tipeAss -> listAss .)
-    RE              reduce using rule 82 (tipeAss -> listAss .)
-    REC             reduce using rule 82 (tipeAss -> listAss .)
-    TRI             reduce using rule 82 (tipeAss -> listAss .)
-    POL             reduce using rule 82 (tipeAss -> listAss .)
-    LS              reduce using rule 82 (tipeAss -> listAss .)
-    CIR             reduce using rule 82 (tipeAss -> listAss .)
-    SQ              reduce using rule 82 (tipeAss -> listAss .)
-    ARC             reduce using rule 82 (tipeAss -> listAss .)
-    PENC            reduce using rule 82 (tipeAss -> listAss .)
-    SETC            reduce using rule 82 (tipeAss -> listAss .)
-    BACO            reduce using rule 82 (tipeAss -> listAss .)
-    PENW            reduce using rule 82 (tipeAss -> listAss .)
-    F               reduce using rule 82 (tipeAss -> listAss .)
-    B               reduce using rule 82 (tipeAss -> listAss .)
-    PENP            reduce using rule 82 (tipeAss -> listAss .)
-    PENU            reduce using rule 82 (tipeAss -> listAss .)
-    PEND            reduce using rule 82 (tipeAss -> listAss .)
-    RB              reduce using rule 82 (tipeAss -> listAss .)
+    IF              reduce using rule 84 (tipeAss -> listAss .)
+    LA              reduce using rule 84 (tipeAss -> listAss .)
+    L               reduce using rule 84 (tipeAss -> listAss .)
+    ID              reduce using rule 84 (tipeAss -> listAss .)
+    RE              reduce using rule 84 (tipeAss -> listAss .)
+    REC             reduce using rule 84 (tipeAss -> listAss .)
+    TRI             reduce using rule 84 (tipeAss -> listAss .)
+    POL             reduce using rule 84 (tipeAss -> listAss .)
+    LS              reduce using rule 84 (tipeAss -> listAss .)
+    CIR             reduce using rule 84 (tipeAss -> listAss .)
+    SQ              reduce using rule 84 (tipeAss -> listAss .)
+    ARC             reduce using rule 84 (tipeAss -> listAss .)
+    PENC            reduce using rule 84 (tipeAss -> listAss .)
+    SETC            reduce using rule 84 (tipeAss -> listAss .)
+    BACO            reduce using rule 84 (tipeAss -> listAss .)
+    PENW            reduce using rule 84 (tipeAss -> listAss .)
+    F               reduce using rule 84 (tipeAss -> listAss .)
+    B               reduce using rule 84 (tipeAss -> listAss .)
+    PENP            reduce using rule 84 (tipeAss -> listAss .)
+    PENU            reduce using rule 84 (tipeAss -> listAss .)
+    PEND            reduce using rule 84 (tipeAss -> listAss .)
+    RB              reduce using rule 84 (tipeAss -> listAss .)
 
 
 state 173
 
-    (81) tipeAss -> varAss .
+    (83) tipeAss -> varAss .
 
-    IF              reduce using rule 81 (tipeAss -> varAss .)
-    LA              reduce using rule 81 (tipeAss -> varAss .)
-    L               reduce using rule 81 (tipeAss -> varAss .)
-    ID              reduce using rule 81 (tipeAss -> varAss .)
-    RE              reduce using rule 81 (tipeAss -> varAss .)
-    REC             reduce using rule 81 (tipeAss -> varAss .)
-    TRI             reduce using rule 81 (tipeAss -> varAss .)
-    POL             reduce using rule 81 (tipeAss -> varAss .)
-    LS              reduce using rule 81 (tipeAss -> varAss .)
-    CIR             reduce using rule 81 (tipeAss -> varAss .)
-    SQ              reduce using rule 81 (tipeAss -> varAss .)
-    ARC             reduce using rule 81 (tipeAss -> varAss .)
-    PENC            reduce using rule 81 (tipeAss -> varAss .)
-    SETC            reduce using rule 81 (tipeAss -> varAss .)
-    BACO            reduce using rule 81 (tipeAss -> varAss .)
-    PENW            reduce using rule 81 (tipeAss -> varAss .)
-    F               reduce using rule 81 (tipeAss -> varAss .)
-    B               reduce using rule 81 (tipeAss -> varAss .)
-    PENP            reduce using rule 81 (tipeAss -> varAss .)
-    PENU            reduce using rule 81 (tipeAss -> varAss .)
-    PEND            reduce using rule 81 (tipeAss -> varAss .)
-    RB              reduce using rule 81 (tipeAss -> varAss .)
+    IF              reduce using rule 83 (tipeAss -> varAss .)
+    LA              reduce using rule 83 (tipeAss -> varAss .)
+    L               reduce using rule 83 (tipeAss -> varAss .)
+    ID              reduce using rule 83 (tipeAss -> varAss .)
+    RE              reduce using rule 83 (tipeAss -> varAss .)
+    REC             reduce using rule 83 (tipeAss -> varAss .)
+    TRI             reduce using rule 83 (tipeAss -> varAss .)
+    POL             reduce using rule 83 (tipeAss -> varAss .)
+    LS              reduce using rule 83 (tipeAss -> varAss .)
+    CIR             reduce using rule 83 (tipeAss -> varAss .)
+    SQ              reduce using rule 83 (tipeAss -> varAss .)
+    ARC             reduce using rule 83 (tipeAss -> varAss .)
+    PENC            reduce using rule 83 (tipeAss -> varAss .)
+    SETC            reduce using rule 83 (tipeAss -> varAss .)
+    BACO            reduce using rule 83 (tipeAss -> varAss .)
+    PENW            reduce using rule 83 (tipeAss -> varAss .)
+    F               reduce using rule 83 (tipeAss -> varAss .)
+    B               reduce using rule 83 (tipeAss -> varAss .)
+    PENP            reduce using rule 83 (tipeAss -> varAss .)
+    PENU            reduce using rule 83 (tipeAss -> varAss .)
+    PEND            reduce using rule 83 (tipeAss -> varAss .)
+    RB              reduce using rule 83 (tipeAss -> varAss .)
 
 
 state 174
 
-    (83) varAss -> exp . SC
+    (85) varAss -> exp . SC
 
-    SC              shift and go to state 207
+    SC              shift and go to state 209
 
 
 state 175
 
-    (80) assigment -> EQ tipeAss .
+    (82) assigment -> EQ tipeAss .
 
-    IF              reduce using rule 80 (assigment -> EQ tipeAss .)
-    LA              reduce using rule 80 (assigment -> EQ tipeAss .)
-    L               reduce using rule 80 (assigment -> EQ tipeAss .)
-    ID              reduce using rule 80 (assigment -> EQ tipeAss .)
-    RE              reduce using rule 80 (assigment -> EQ tipeAss .)
-    REC             reduce using rule 80 (assigment -> EQ tipeAss .)
-    TRI             reduce using rule 80 (assigment -> EQ tipeAss .)
-    POL             reduce using rule 80 (assigment -> EQ tipeAss .)
-    LS              reduce using rule 80 (assigment -> EQ tipeAss .)
-    CIR             reduce using rule 80 (assigment -> EQ tipeAss .)
-    SQ              reduce using rule 80 (assigment -> EQ tipeAss .)
-    ARC             reduce using rule 80 (assigment -> EQ tipeAss .)
-    PENC            reduce using rule 80 (assigment -> EQ tipeAss .)
-    SETC            reduce using rule 80 (assigment -> EQ tipeAss .)
-    BACO            reduce using rule 80 (assigment -> EQ tipeAss .)
-    PENW            reduce using rule 80 (assigment -> EQ tipeAss .)
-    F               reduce using rule 80 (assigment -> EQ tipeAss .)
-    B               reduce using rule 80 (assigment -> EQ tipeAss .)
-    PENP            reduce using rule 80 (assigment -> EQ tipeAss .)
-    PENU            reduce using rule 80 (assigment -> EQ tipeAss .)
-    PEND            reduce using rule 80 (assigment -> EQ tipeAss .)
-    RB              reduce using rule 80 (assigment -> EQ tipeAss .)
+    IF              reduce using rule 82 (assigment -> EQ tipeAss .)
+    LA              reduce using rule 82 (assigment -> EQ tipeAss .)
+    L               reduce using rule 82 (assigment -> EQ tipeAss .)
+    ID              reduce using rule 82 (assigment -> EQ tipeAss .)
+    RE              reduce using rule 82 (assigment -> EQ tipeAss .)
+    REC             reduce using rule 82 (assigment -> EQ tipeAss .)
+    TRI             reduce using rule 82 (assigment -> EQ tipeAss .)
+    POL             reduce using rule 82 (assigment -> EQ tipeAss .)
+    LS              reduce using rule 82 (assigment -> EQ tipeAss .)
+    CIR             reduce using rule 82 (assigment -> EQ tipeAss .)
+    SQ              reduce using rule 82 (assigment -> EQ tipeAss .)
+    ARC             reduce using rule 82 (assigment -> EQ tipeAss .)
+    PENC            reduce using rule 82 (assigment -> EQ tipeAss .)
+    SETC            reduce using rule 82 (assigment -> EQ tipeAss .)
+    BACO            reduce using rule 82 (assigment -> EQ tipeAss .)
+    PENW            reduce using rule 82 (assigment -> EQ tipeAss .)
+    F               reduce using rule 82 (assigment -> EQ tipeAss .)
+    B               reduce using rule 82 (assigment -> EQ tipeAss .)
+    PENP            reduce using rule 82 (assigment -> EQ tipeAss .)
+    PENU            reduce using rule 82 (assigment -> EQ tipeAss .)
+    PEND            reduce using rule 82 (assigment -> EQ tipeAss .)
+    RB              reduce using rule 82 (assigment -> EQ tipeAss .)
 
 
 state 176
 
-    (103) condition -> IF LP expresion . RP block con2
+    (105) condition -> IF LP expresion . RP block con2
 
-    RP              shift and go to state 208
+    RP              shift and go to state 210
 
 
 state 177
@@ -3242,76 +3243,76 @@ state 177
     (55) ex3 -> . MT
     (56) ex3 -> . D
     (57) ex3 -> . SEQ
-    (127) empty -> .
+    (129) empty -> .
 
-    LT              shift and go to state 212
-    MT              shift and go to state 211
-    D               shift and go to state 209
-    SEQ             shift and go to state 210
-    RP              reduce using rule 127 (empty -> .)
+    LT              shift and go to state 214
+    MT              shift and go to state 213
+    D               shift and go to state 211
+    SEQ             shift and go to state 212
+    RP              reduce using rule 129 (empty -> .)
 
-    empty                          shift and go to state 215
-    ex2                            shift and go to state 213
-    ex3                            shift and go to state 214
+    empty                          shift and go to state 217
+    ex2                            shift and go to state 215
+    ex3                            shift and go to state 216
 
 state 178
 
     (45) opar2 -> LP exp . p_fill RP SC
     (40) p_fill -> . C FILL
     (41) p_fill -> . empty
-    (127) empty -> .
+    (129) empty -> .
 
     C               shift and go to state 192
-    RP              reduce using rule 127 (empty -> .)
+    RP              reduce using rule 129 (empty -> .)
 
     empty                          shift and go to state 194
-    p_fill                         shift and go to state 216
+    p_fill                         shift and go to state 218
 
 state 179
 
     (50) p_arc -> ARC LP exp . RP SC
 
-    RP              shift and go to state 217
+    RP              shift and go to state 219
 
 
 state 180
 
     (11) fun4 -> C type . ID fun4
 
-    ID              shift and go to state 218
+    ID              shift and go to state 220
 
 
 state 181
 
-    (90) prelistAss -> EQ listAss .
+    (92) prelistAss -> EQ listAss .
 
-    L               reduce using rule 90 (prelistAss -> EQ listAss .)
-    FUN             reduce using rule 90 (prelistAss -> EQ listAss .)
-    MAIN            reduce using rule 90 (prelistAss -> EQ listAss .)
-    LB              reduce using rule 90 (prelistAss -> EQ listAss .)
-    IF              reduce using rule 90 (prelistAss -> EQ listAss .)
-    LA              reduce using rule 90 (prelistAss -> EQ listAss .)
-    ID              reduce using rule 90 (prelistAss -> EQ listAss .)
-    RE              reduce using rule 90 (prelistAss -> EQ listAss .)
-    REC             reduce using rule 90 (prelistAss -> EQ listAss .)
-    TRI             reduce using rule 90 (prelistAss -> EQ listAss .)
-    POL             reduce using rule 90 (prelistAss -> EQ listAss .)
-    LS              reduce using rule 90 (prelistAss -> EQ listAss .)
-    CIR             reduce using rule 90 (prelistAss -> EQ listAss .)
-    SQ              reduce using rule 90 (prelistAss -> EQ listAss .)
-    ARC             reduce using rule 90 (prelistAss -> EQ listAss .)
-    PENC            reduce using rule 90 (prelistAss -> EQ listAss .)
-    SETC            reduce using rule 90 (prelistAss -> EQ listAss .)
-    BACO            reduce using rule 90 (prelistAss -> EQ listAss .)
-    PENW            reduce using rule 90 (prelistAss -> EQ listAss .)
-    F               reduce using rule 90 (prelistAss -> EQ listAss .)
-    B               reduce using rule 90 (prelistAss -> EQ listAss .)
-    PENP            reduce using rule 90 (prelistAss -> EQ listAss .)
-    PENU            reduce using rule 90 (prelistAss -> EQ listAss .)
-    PEND            reduce using rule 90 (prelistAss -> EQ listAss .)
-    RB              reduce using rule 90 (prelistAss -> EQ listAss .)
-    C               reduce using rule 90 (prelistAss -> EQ listAss .)
-    RP              reduce using rule 90 (prelistAss -> EQ listAss .)
+    L               reduce using rule 92 (prelistAss -> EQ listAss .)
+    FUN             reduce using rule 92 (prelistAss -> EQ listAss .)
+    MAIN            reduce using rule 92 (prelistAss -> EQ listAss .)
+    LB              reduce using rule 92 (prelistAss -> EQ listAss .)
+    IF              reduce using rule 92 (prelistAss -> EQ listAss .)
+    LA              reduce using rule 92 (prelistAss -> EQ listAss .)
+    ID              reduce using rule 92 (prelistAss -> EQ listAss .)
+    RE              reduce using rule 92 (prelistAss -> EQ listAss .)
+    REC             reduce using rule 92 (prelistAss -> EQ listAss .)
+    TRI             reduce using rule 92 (prelistAss -> EQ listAss .)
+    POL             reduce using rule 92 (prelistAss -> EQ listAss .)
+    LS              reduce using rule 92 (prelistAss -> EQ listAss .)
+    CIR             reduce using rule 92 (prelistAss -> EQ listAss .)
+    SQ              reduce using rule 92 (prelistAss -> EQ listAss .)
+    ARC             reduce using rule 92 (prelistAss -> EQ listAss .)
+    PENC            reduce using rule 92 (prelistAss -> EQ listAss .)
+    SETC            reduce using rule 92 (prelistAss -> EQ listAss .)
+    BACO            reduce using rule 92 (prelistAss -> EQ listAss .)
+    PENW            reduce using rule 92 (prelistAss -> EQ listAss .)
+    F               reduce using rule 92 (prelistAss -> EQ listAss .)
+    B               reduce using rule 92 (prelistAss -> EQ listAss .)
+    PENP            reduce using rule 92 (prelistAss -> EQ listAss .)
+    PENU            reduce using rule 92 (prelistAss -> EQ listAss .)
+    PEND            reduce using rule 92 (prelistAss -> EQ listAss .)
+    RB              reduce using rule 92 (prelistAss -> EQ listAss .)
+    C               reduce using rule 92 (prelistAss -> EQ listAss .)
+    RP              reduce using rule 92 (prelistAss -> EQ listAss .)
 
 
 state 182
@@ -3319,12 +3320,12 @@ state 182
     (18) var33 -> C ID var4 . var33
     (18) var33 -> . C ID var4 var33
     (19) var33 -> . empty
-    (127) empty -> .
+    (129) empty -> .
 
     C               shift and go to state 91
-    SC              reduce using rule 127 (empty -> .)
+    SC              reduce using rule 129 (empty -> .)
 
-    var33                          shift and go to state 219
+    var33                          shift and go to state 221
     empty                          shift and go to state 92
 
 state 183
@@ -3387,18 +3388,18 @@ state 186
     (71) fact3 -> . ADD
     (72) fact3 -> . SUB
     (73) fact3 -> . empty
-    (127) empty -> .
+    (129) empty -> .
 
     LP              shift and go to state 94
     ADD             shift and go to state 95
     SUB             shift and go to state 96
-    ID              reduce using rule 127 (empty -> .)
-    VALI            reduce using rule 127 (empty -> .)
-    VALF            reduce using rule 127 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    VALI            reduce using rule 129 (empty -> .)
+    VALF            reduce using rule 129 (empty -> .)
 
     term                           shift and go to state 93
     empty                          shift and go to state 97
-    exp                            shift and go to state 220
+    exp                            shift and go to state 222
     fact3                          shift and go to state 99
     fact2                          shift and go to state 100
     fact                           shift and go to state 101
@@ -3414,17 +3415,17 @@ state 187
     (71) fact3 -> . ADD
     (72) fact3 -> . SUB
     (73) fact3 -> . empty
-    (127) empty -> .
+    (129) empty -> .
 
     LP              shift and go to state 94
     ADD             shift and go to state 95
     SUB             shift and go to state 96
-    ID              reduce using rule 127 (empty -> .)
-    VALI            reduce using rule 127 (empty -> .)
-    VALF            reduce using rule 127 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    VALI            reduce using rule 129 (empty -> .)
+    VALF            reduce using rule 129 (empty -> .)
 
     term                           shift and go to state 93
-    exp                            shift and go to state 221
+    exp                            shift and go to state 223
     empty                          shift and go to state 97
     fact3                          shift and go to state 99
     fact2                          shift and go to state 100
@@ -3434,21 +3435,21 @@ state 188
 
     (33) p_width -> PENW LP exp RP . SC
 
-    SC              shift and go to state 222
+    SC              shift and go to state 224
 
 
 state 189
 
-    (98) lab -> LA LP stExp lab2 . RP SC
+    (100) lab -> LA LP stExp lab2 . RP SC
 
-    RP              shift and go to state 223
+    RP              shift and go to state 225
 
 
 state 190
 
-    (99) lab2 -> ADD . stExp lab2
-    (101) stExp -> . STR
-    (102) stExp -> . exp
+    (101) lab2 -> ADD . stExp lab2
+    (103) stExp -> . STR
+    (104) stExp -> . exp
     (58) exp -> . term exp2
     (63) term -> . fact term2
     (68) fact -> . LP exp RP
@@ -3457,18 +3458,18 @@ state 190
     (71) fact3 -> . ADD
     (72) fact3 -> . SUB
     (73) fact3 -> . empty
-    (127) empty -> .
+    (129) empty -> .
 
     STR             shift and go to state 157
     LP              shift and go to state 94
     ADD             shift and go to state 95
     SUB             shift and go to state 96
-    ID              reduce using rule 127 (empty -> .)
-    VALI            reduce using rule 127 (empty -> .)
-    VALF            reduce using rule 127 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    VALI            reduce using rule 129 (empty -> .)
+    VALF            reduce using rule 129 (empty -> .)
 
     term                           shift and go to state 93
-    stExp                          shift and go to state 224
+    stExp                          shift and go to state 226
     empty                          shift and go to state 97
     exp                            shift and go to state 159
     fact3                          shift and go to state 99
@@ -3477,23 +3478,23 @@ state 190
 
 state 191
 
-    (100) lab2 -> empty .
+    (102) lab2 -> empty .
 
-    RP              reduce using rule 100 (lab2 -> empty .)
+    RP              reduce using rule 102 (lab2 -> empty .)
 
 
 state 192
 
     (40) p_fill -> C . FILL
 
-    FILL            shift and go to state 225
+    FILL            shift and go to state 227
 
 
 state 193
 
     (46) poly -> POL LP idList p_fill . RP SC
 
-    RP              shift and go to state 226
+    RP              shift and go to state 228
 
 
 state 194
@@ -3514,18 +3515,18 @@ state 195
     (71) fact3 -> . ADD
     (72) fact3 -> . SUB
     (73) fact3 -> . empty
-    (127) empty -> .
+    (129) empty -> .
 
     LP              shift and go to state 94
     ADD             shift and go to state 95
     SUB             shift and go to state 96
-    ID              reduce using rule 127 (empty -> .)
-    VALI            reduce using rule 127 (empty -> .)
-    VALF            reduce using rule 127 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    VALI            reduce using rule 129 (empty -> .)
+    VALF            reduce using rule 129 (empty -> .)
 
     term                           shift and go to state 93
     empty                          shift and go to state 97
-    exp                            shift and go to state 227
+    exp                            shift and go to state 229
     fact3                          shift and go to state 99
     fact2                          shift and go to state 100
     fact                           shift and go to state 101
@@ -3534,7 +3535,7 @@ state 196
 
     (47) lstrip -> LS LP idList RP . SC
 
-    SC              shift and go to state 228
+    SC              shift and go to state 230
 
 
 state 197
@@ -3548,17 +3549,17 @@ state 197
     (71) fact3 -> . ADD
     (72) fact3 -> . SUB
     (73) fact3 -> . empty
-    (127) empty -> .
+    (129) empty -> .
 
     LP              shift and go to state 94
     ADD             shift and go to state 95
     SUB             shift and go to state 96
-    ID              reduce using rule 127 (empty -> .)
-    VALI            reduce using rule 127 (empty -> .)
-    VALF            reduce using rule 127 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    VALI            reduce using rule 129 (empty -> .)
+    VALF            reduce using rule 129 (empty -> .)
 
     term                           shift and go to state 93
-    exp                            shift and go to state 229
+    exp                            shift and go to state 231
     empty                          shift and go to state 97
     fact3                          shift and go to state 99
     fact2                          shift and go to state 100
@@ -3568,26 +3569,26 @@ state 198
 
     (38) mueve2 -> LP exp C . A exp RP SC
 
-    A               shift and go to state 230
+    A               shift and go to state 232
 
 
 state 199
 
-    (84) funCall -> LP func2 RP . SC
+    (86) funCall -> LP func2 RP . SC
 
-    SC              shift and go to state 231
+    SC              shift and go to state 233
 
 
 state 200
 
-    (85) func2 -> exp func3 .
+    (87) func2 -> exp func3 .
 
-    RP              reduce using rule 85 (func2 -> exp func3 .)
+    RP              reduce using rule 87 (func2 -> exp func3 .)
 
 
 state 201
 
-    (87) func3 -> C . exp func3
+    (89) func3 -> C . exp func3
     (58) exp -> . term exp2
     (63) term -> . fact term2
     (68) fact -> . LP exp RP
@@ -3596,103 +3597,119 @@ state 201
     (71) fact3 -> . ADD
     (72) fact3 -> . SUB
     (73) fact3 -> . empty
-    (127) empty -> .
+    (129) empty -> .
 
     LP              shift and go to state 94
     ADD             shift and go to state 95
     SUB             shift and go to state 96
-    ID              reduce using rule 127 (empty -> .)
-    VALI            reduce using rule 127 (empty -> .)
-    VALF            reduce using rule 127 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    VALI            reduce using rule 129 (empty -> .)
+    VALF            reduce using rule 129 (empty -> .)
 
     term                           shift and go to state 93
     empty                          shift and go to state 97
-    exp                            shift and go to state 232
+    exp                            shift and go to state 234
     fact3                          shift and go to state 99
     fact2                          shift and go to state 100
     fact                           shift and go to state 101
 
 state 202
 
-    (88) func3 -> empty .
+    (90) func3 -> empty .
 
-    RP              reduce using rule 88 (func3 -> empty .)
+    RP              reduce using rule 90 (func3 -> empty .)
 
 
 state 203
 
-    (93) lista2 -> val .
+    (26) val -> VALI .
 
-    C               reduce using rule 93 (lista2 -> val .)
-    RB              reduce using rule 93 (lista2 -> val .)
+    C               reduce using rule 26 (val -> VALI .)
+    RB              reduce using rule 26 (val -> VALI .)
 
 
 state 204
 
-    (94) lista2 -> ID .
+    (95) lista2 -> val .
 
-    C               reduce using rule 94 (lista2 -> ID .)
-    RB              reduce using rule 94 (lista2 -> ID .)
+    C               reduce using rule 95 (lista2 -> val .)
+    RB              reduce using rule 95 (lista2 -> val .)
 
 
 state 205
 
-    (92) listAss -> LB lista3 . RB SC
+    (27) val -> VALF .
 
-    RB              shift and go to state 233
+    C               reduce using rule 27 (val -> VALF .)
+    RB              reduce using rule 27 (val -> VALF .)
 
 
 state 206
 
-    (95) lista3 -> lista2 . li4
-    (96) li4 -> . C lista2 li4
-    (97) li4 -> . empty
-    (127) empty -> .
+    (96) lista2 -> ID .
 
-    C               shift and go to state 235
-    RB              reduce using rule 127 (empty -> .)
+    C               reduce using rule 96 (lista2 -> ID .)
+    RB              reduce using rule 96 (lista2 -> ID .)
 
-    li4                            shift and go to state 234
-    empty                          shift and go to state 236
 
 state 207
 
-    (83) varAss -> exp SC .
+    (94) listAss -> LB lista3 . RB SC
 
-    IF              reduce using rule 83 (varAss -> exp SC .)
-    LA              reduce using rule 83 (varAss -> exp SC .)
-    L               reduce using rule 83 (varAss -> exp SC .)
-    ID              reduce using rule 83 (varAss -> exp SC .)
-    RE              reduce using rule 83 (varAss -> exp SC .)
-    REC             reduce using rule 83 (varAss -> exp SC .)
-    TRI             reduce using rule 83 (varAss -> exp SC .)
-    POL             reduce using rule 83 (varAss -> exp SC .)
-    LS              reduce using rule 83 (varAss -> exp SC .)
-    CIR             reduce using rule 83 (varAss -> exp SC .)
-    SQ              reduce using rule 83 (varAss -> exp SC .)
-    ARC             reduce using rule 83 (varAss -> exp SC .)
-    PENC            reduce using rule 83 (varAss -> exp SC .)
-    SETC            reduce using rule 83 (varAss -> exp SC .)
-    BACO            reduce using rule 83 (varAss -> exp SC .)
-    PENW            reduce using rule 83 (varAss -> exp SC .)
-    F               reduce using rule 83 (varAss -> exp SC .)
-    B               reduce using rule 83 (varAss -> exp SC .)
-    PENP            reduce using rule 83 (varAss -> exp SC .)
-    PENU            reduce using rule 83 (varAss -> exp SC .)
-    PEND            reduce using rule 83 (varAss -> exp SC .)
-    RB              reduce using rule 83 (varAss -> exp SC .)
+    RB              shift and go to state 235
 
 
 state 208
 
-    (103) condition -> IF LP expresion RP . block con2
-    (106) block -> . LB block3 RB
+    (97) lista3 -> lista2 . li4
+    (98) li4 -> . C lista2 li4
+    (99) li4 -> . empty
+    (129) empty -> .
+
+    C               shift and go to state 237
+    RB              reduce using rule 129 (empty -> .)
+
+    li4                            shift and go to state 236
+    empty                          shift and go to state 238
+
+state 209
+
+    (85) varAss -> exp SC .
+
+    IF              reduce using rule 85 (varAss -> exp SC .)
+    LA              reduce using rule 85 (varAss -> exp SC .)
+    L               reduce using rule 85 (varAss -> exp SC .)
+    ID              reduce using rule 85 (varAss -> exp SC .)
+    RE              reduce using rule 85 (varAss -> exp SC .)
+    REC             reduce using rule 85 (varAss -> exp SC .)
+    TRI             reduce using rule 85 (varAss -> exp SC .)
+    POL             reduce using rule 85 (varAss -> exp SC .)
+    LS              reduce using rule 85 (varAss -> exp SC .)
+    CIR             reduce using rule 85 (varAss -> exp SC .)
+    SQ              reduce using rule 85 (varAss -> exp SC .)
+    ARC             reduce using rule 85 (varAss -> exp SC .)
+    PENC            reduce using rule 85 (varAss -> exp SC .)
+    SETC            reduce using rule 85 (varAss -> exp SC .)
+    BACO            reduce using rule 85 (varAss -> exp SC .)
+    PENW            reduce using rule 85 (varAss -> exp SC .)
+    F               reduce using rule 85 (varAss -> exp SC .)
+    B               reduce using rule 85 (varAss -> exp SC .)
+    PENP            reduce using rule 85 (varAss -> exp SC .)
+    PENU            reduce using rule 85 (varAss -> exp SC .)
+    PEND            reduce using rule 85 (varAss -> exp SC .)
+    RB              reduce using rule 85 (varAss -> exp SC .)
+
+
+state 210
+
+    (105) condition -> IF LP expresion RP . block con2
+    (108) block -> . LB block3 RB
 
     LB              shift and go to state 33
 
-    block                          shift and go to state 237
+    block                          shift and go to state 239
 
-state 209
+state 211
 
     (56) ex3 -> D .
 
@@ -3704,7 +3721,7 @@ state 209
     VALF            reduce using rule 56 (ex3 -> D .)
 
 
-state 210
+state 212
 
     (57) ex3 -> SEQ .
 
@@ -3716,7 +3733,7 @@ state 210
     VALF            reduce using rule 57 (ex3 -> SEQ .)
 
 
-state 211
+state 213
 
     (55) ex3 -> MT .
 
@@ -3728,7 +3745,7 @@ state 211
     VALF            reduce using rule 55 (ex3 -> MT .)
 
 
-state 212
+state 214
 
     (54) ex3 -> LT .
 
@@ -3740,14 +3757,14 @@ state 212
     VALF            reduce using rule 54 (ex3 -> LT .)
 
 
-state 213
+state 215
 
     (51) expresion -> exp ex2 .
 
     RP              reduce using rule 51 (expresion -> exp ex2 .)
 
 
-state 214
+state 216
 
     (52) ex2 -> ex3 . exp
     (58) exp -> . term exp2
@@ -3758,84 +3775,84 @@ state 214
     (71) fact3 -> . ADD
     (72) fact3 -> . SUB
     (73) fact3 -> . empty
-    (127) empty -> .
+    (129) empty -> .
 
     LP              shift and go to state 94
     ADD             shift and go to state 95
     SUB             shift and go to state 96
-    ID              reduce using rule 127 (empty -> .)
-    VALI            reduce using rule 127 (empty -> .)
-    VALF            reduce using rule 127 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    VALI            reduce using rule 129 (empty -> .)
+    VALF            reduce using rule 129 (empty -> .)
 
     term                           shift and go to state 93
     empty                          shift and go to state 97
-    exp                            shift and go to state 238
+    exp                            shift and go to state 240
     fact3                          shift and go to state 99
     fact2                          shift and go to state 100
     fact                           shift and go to state 101
 
-state 215
+state 217
 
     (53) ex2 -> empty .
 
     RP              reduce using rule 53 (ex2 -> empty .)
 
 
-state 216
+state 218
 
     (45) opar2 -> LP exp p_fill . RP SC
 
-    RP              shift and go to state 239
+    RP              shift and go to state 241
 
 
-state 217
+state 219
 
     (50) p_arc -> ARC LP exp RP . SC
 
-    SC              shift and go to state 240
+    SC              shift and go to state 242
 
 
-state 218
+state 220
 
     (11) fun4 -> C type ID . fun4
     (11) fun4 -> . C type ID fun4
     (12) fun4 -> . empty
-    (127) empty -> .
+    (129) empty -> .
 
     C               shift and go to state 132
-    RP              reduce using rule 127 (empty -> .)
+    RP              reduce using rule 129 (empty -> .)
 
-    fun4                           shift and go to state 241
+    fun4                           shift and go to state 243
     empty                          shift and go to state 133
 
-state 219
+state 221
 
     (18) var33 -> C ID var4 var33 .
 
     SC              reduce using rule 18 (var33 -> C ID var4 var33 .)
 
 
-state 220
+state 222
 
     (28) position -> PENP LP exp C exp . RP SC
 
-    RP              shift and go to state 242
+    RP              shift and go to state 244
 
 
-state 221
+state 223
 
     (39) rect -> REC LP exp C exp . p_fill RP SC
     (40) p_fill -> . C FILL
     (41) p_fill -> . empty
-    (127) empty -> .
+    (129) empty -> .
 
     C               shift and go to state 192
-    RP              reduce using rule 127 (empty -> .)
+    RP              reduce using rule 129 (empty -> .)
 
     empty                          shift and go to state 194
-    p_fill                         shift and go to state 243
+    p_fill                         shift and go to state 245
 
-state 222
+state 224
 
     (33) p_width -> PENW LP exp RP SC .
 
@@ -3863,48 +3880,48 @@ state 222
     RB              reduce using rule 33 (p_width -> PENW LP exp RP SC .)
 
 
-state 223
+state 225
 
-    (98) lab -> LA LP stExp lab2 RP . SC
+    (100) lab -> LA LP stExp lab2 RP . SC
 
-    SC              shift and go to state 244
+    SC              shift and go to state 246
 
 
-state 224
+state 226
 
-    (99) lab2 -> ADD stExp . lab2
-    (99) lab2 -> . ADD stExp lab2
-    (100) lab2 -> . empty
-    (127) empty -> .
+    (101) lab2 -> ADD stExp . lab2
+    (101) lab2 -> . ADD stExp lab2
+    (102) lab2 -> . empty
+    (129) empty -> .
 
     ADD             shift and go to state 190
-    RP              reduce using rule 127 (empty -> .)
+    RP              reduce using rule 129 (empty -> .)
 
-    lab2                           shift and go to state 245
+    lab2                           shift and go to state 247
     empty                          shift and go to state 191
 
-state 225
+state 227
 
     (40) p_fill -> C FILL .
 
     RP              reduce using rule 40 (p_fill -> C FILL .)
 
 
-state 226
+state 228
 
     (46) poly -> POL LP idList p_fill RP . SC
 
-    SC              shift and go to state 246
+    SC              shift and go to state 248
 
 
-state 227
+state 229
 
     (32) colors2 -> LP exp C exp . C exp RP SC
 
-    C               shift and go to state 247
+    C               shift and go to state 249
 
 
-state 228
+state 230
 
     (47) lstrip -> LS LP idList RP SC .
 
@@ -3932,14 +3949,14 @@ state 228
     RB              reduce using rule 47 (lstrip -> LS LP idList RP SC .)
 
 
-state 229
+state 231
 
     (42) tria -> TRI LP exp C exp . C exp p_fill RP SC
 
-    C               shift and go to state 248
+    C               shift and go to state 250
 
 
-state 230
+state 232
 
     (38) mueve2 -> LP exp C A . exp RP SC
     (58) exp -> . term exp2
@@ -3950,148 +3967,148 @@ state 230
     (71) fact3 -> . ADD
     (72) fact3 -> . SUB
     (73) fact3 -> . empty
-    (127) empty -> .
+    (129) empty -> .
 
     LP              shift and go to state 94
     ADD             shift and go to state 95
     SUB             shift and go to state 96
-    ID              reduce using rule 127 (empty -> .)
-    VALI            reduce using rule 127 (empty -> .)
-    VALF            reduce using rule 127 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    VALI            reduce using rule 129 (empty -> .)
+    VALF            reduce using rule 129 (empty -> .)
 
     term                           shift and go to state 93
     empty                          shift and go to state 97
-    exp                            shift and go to state 249
+    exp                            shift and go to state 251
     fact3                          shift and go to state 99
     fact2                          shift and go to state 100
     fact                           shift and go to state 101
 
-state 231
-
-    (84) funCall -> LP func2 RP SC .
-
-    IF              reduce using rule 84 (funCall -> LP func2 RP SC .)
-    LA              reduce using rule 84 (funCall -> LP func2 RP SC .)
-    L               reduce using rule 84 (funCall -> LP func2 RP SC .)
-    ID              reduce using rule 84 (funCall -> LP func2 RP SC .)
-    RE              reduce using rule 84 (funCall -> LP func2 RP SC .)
-    REC             reduce using rule 84 (funCall -> LP func2 RP SC .)
-    TRI             reduce using rule 84 (funCall -> LP func2 RP SC .)
-    POL             reduce using rule 84 (funCall -> LP func2 RP SC .)
-    LS              reduce using rule 84 (funCall -> LP func2 RP SC .)
-    CIR             reduce using rule 84 (funCall -> LP func2 RP SC .)
-    SQ              reduce using rule 84 (funCall -> LP func2 RP SC .)
-    ARC             reduce using rule 84 (funCall -> LP func2 RP SC .)
-    PENC            reduce using rule 84 (funCall -> LP func2 RP SC .)
-    SETC            reduce using rule 84 (funCall -> LP func2 RP SC .)
-    BACO            reduce using rule 84 (funCall -> LP func2 RP SC .)
-    PENW            reduce using rule 84 (funCall -> LP func2 RP SC .)
-    F               reduce using rule 84 (funCall -> LP func2 RP SC .)
-    B               reduce using rule 84 (funCall -> LP func2 RP SC .)
-    PENP            reduce using rule 84 (funCall -> LP func2 RP SC .)
-    PENU            reduce using rule 84 (funCall -> LP func2 RP SC .)
-    PEND            reduce using rule 84 (funCall -> LP func2 RP SC .)
-    RB              reduce using rule 84 (funCall -> LP func2 RP SC .)
-
-
-state 232
-
-    (87) func3 -> C exp . func3
-    (87) func3 -> . C exp func3
-    (88) func3 -> . empty
-    (127) empty -> .
-
-    C               shift and go to state 201
-    RP              reduce using rule 127 (empty -> .)
-
-    func3                          shift and go to state 250
-    empty                          shift and go to state 202
-
 state 233
 
-    (92) listAss -> LB lista3 RB . SC
+    (86) funCall -> LP func2 RP SC .
 
-    SC              shift and go to state 251
+    IF              reduce using rule 86 (funCall -> LP func2 RP SC .)
+    LA              reduce using rule 86 (funCall -> LP func2 RP SC .)
+    L               reduce using rule 86 (funCall -> LP func2 RP SC .)
+    ID              reduce using rule 86 (funCall -> LP func2 RP SC .)
+    RE              reduce using rule 86 (funCall -> LP func2 RP SC .)
+    REC             reduce using rule 86 (funCall -> LP func2 RP SC .)
+    TRI             reduce using rule 86 (funCall -> LP func2 RP SC .)
+    POL             reduce using rule 86 (funCall -> LP func2 RP SC .)
+    LS              reduce using rule 86 (funCall -> LP func2 RP SC .)
+    CIR             reduce using rule 86 (funCall -> LP func2 RP SC .)
+    SQ              reduce using rule 86 (funCall -> LP func2 RP SC .)
+    ARC             reduce using rule 86 (funCall -> LP func2 RP SC .)
+    PENC            reduce using rule 86 (funCall -> LP func2 RP SC .)
+    SETC            reduce using rule 86 (funCall -> LP func2 RP SC .)
+    BACO            reduce using rule 86 (funCall -> LP func2 RP SC .)
+    PENW            reduce using rule 86 (funCall -> LP func2 RP SC .)
+    F               reduce using rule 86 (funCall -> LP func2 RP SC .)
+    B               reduce using rule 86 (funCall -> LP func2 RP SC .)
+    PENP            reduce using rule 86 (funCall -> LP func2 RP SC .)
+    PENU            reduce using rule 86 (funCall -> LP func2 RP SC .)
+    PEND            reduce using rule 86 (funCall -> LP func2 RP SC .)
+    RB              reduce using rule 86 (funCall -> LP func2 RP SC .)
 
 
 state 234
 
-    (95) lista3 -> lista2 li4 .
+    (89) func3 -> C exp . func3
+    (89) func3 -> . C exp func3
+    (90) func3 -> . empty
+    (129) empty -> .
 
-    RB              reduce using rule 95 (lista3 -> lista2 li4 .)
+    C               shift and go to state 201
+    RP              reduce using rule 129 (empty -> .)
 
+    func3                          shift and go to state 252
+    empty                          shift and go to state 202
 
 state 235
 
-    (96) li4 -> C . lista2 li4
-    (93) lista2 -> . val
-    (94) lista2 -> . ID
-    (26) val -> . VALI
-    (27) val -> . VALF
+    (94) listAss -> LB lista3 RB . SC
 
-    ID              shift and go to state 204
-    VALI            shift and go to state 144
-    VALF            shift and go to state 146
+    SC              shift and go to state 253
 
-    val                            shift and go to state 203
-    lista2                         shift and go to state 252
 
 state 236
 
-    (97) li4 -> empty .
+    (97) lista3 -> lista2 li4 .
 
-    RB              reduce using rule 97 (li4 -> empty .)
+    RB              reduce using rule 97 (lista3 -> lista2 li4 .)
 
 
 state 237
 
-    (103) condition -> IF LP expresion RP block . con2
-    (104) con2 -> . empty
-    (105) con2 -> . ELSE block
-    (127) empty -> .
+    (98) li4 -> C . lista2 li4
+    (95) lista2 -> . val
+    (96) lista2 -> . ID
+    (26) val -> . VALI
+    (27) val -> . VALF
 
-    ELSE            shift and go to state 254
-    IF              reduce using rule 127 (empty -> .)
-    LA              reduce using rule 127 (empty -> .)
-    L               reduce using rule 127 (empty -> .)
-    ID              reduce using rule 127 (empty -> .)
-    RE              reduce using rule 127 (empty -> .)
-    REC             reduce using rule 127 (empty -> .)
-    TRI             reduce using rule 127 (empty -> .)
-    POL             reduce using rule 127 (empty -> .)
-    LS              reduce using rule 127 (empty -> .)
-    CIR             reduce using rule 127 (empty -> .)
-    SQ              reduce using rule 127 (empty -> .)
-    ARC             reduce using rule 127 (empty -> .)
-    PENC            reduce using rule 127 (empty -> .)
-    SETC            reduce using rule 127 (empty -> .)
-    BACO            reduce using rule 127 (empty -> .)
-    PENW            reduce using rule 127 (empty -> .)
-    F               reduce using rule 127 (empty -> .)
-    B               reduce using rule 127 (empty -> .)
-    PENP            reduce using rule 127 (empty -> .)
-    PENU            reduce using rule 127 (empty -> .)
-    PEND            reduce using rule 127 (empty -> .)
-    RB              reduce using rule 127 (empty -> .)
+    ID              shift and go to state 206
+    VALI            shift and go to state 203
+    VALF            shift and go to state 205
 
-    con2                           shift and go to state 253
-    empty                          shift and go to state 255
+    val                            shift and go to state 204
+    lista2                         shift and go to state 254
 
 state 238
+
+    (99) li4 -> empty .
+
+    RB              reduce using rule 99 (li4 -> empty .)
+
+
+state 239
+
+    (105) condition -> IF LP expresion RP block . con2
+    (106) con2 -> . empty
+    (107) con2 -> . ELSE block
+    (129) empty -> .
+
+    ELSE            shift and go to state 256
+    IF              reduce using rule 129 (empty -> .)
+    LA              reduce using rule 129 (empty -> .)
+    L               reduce using rule 129 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    RE              reduce using rule 129 (empty -> .)
+    REC             reduce using rule 129 (empty -> .)
+    TRI             reduce using rule 129 (empty -> .)
+    POL             reduce using rule 129 (empty -> .)
+    LS              reduce using rule 129 (empty -> .)
+    CIR             reduce using rule 129 (empty -> .)
+    SQ              reduce using rule 129 (empty -> .)
+    ARC             reduce using rule 129 (empty -> .)
+    PENC            reduce using rule 129 (empty -> .)
+    SETC            reduce using rule 129 (empty -> .)
+    BACO            reduce using rule 129 (empty -> .)
+    PENW            reduce using rule 129 (empty -> .)
+    F               reduce using rule 129 (empty -> .)
+    B               reduce using rule 129 (empty -> .)
+    PENP            reduce using rule 129 (empty -> .)
+    PENU            reduce using rule 129 (empty -> .)
+    PEND            reduce using rule 129 (empty -> .)
+    RB              reduce using rule 129 (empty -> .)
+
+    con2                           shift and go to state 255
+    empty                          shift and go to state 257
+
+state 240
 
     (52) ex2 -> ex3 exp .
 
     RP              reduce using rule 52 (ex2 -> ex3 exp .)
 
 
-state 239
+state 241
 
     (45) opar2 -> LP exp p_fill RP . SC
 
-    SC              shift and go to state 256
+    SC              shift and go to state 258
 
 
-state 240
+state 242
 
     (50) p_arc -> ARC LP exp RP SC .
 
@@ -4119,63 +4136,63 @@ state 240
     RB              reduce using rule 50 (p_arc -> ARC LP exp RP SC .)
 
 
-state 241
+state 243
 
     (11) fun4 -> C type ID fun4 .
 
     RP              reduce using rule 11 (fun4 -> C type ID fun4 .)
 
 
-state 242
+state 244
 
     (28) position -> PENP LP exp C exp RP . SC
 
-    SC              shift and go to state 257
-
-
-state 243
-
-    (39) rect -> REC LP exp C exp p_fill . RP SC
-
-    RP              shift and go to state 258
-
-
-state 244
-
-    (98) lab -> LA LP stExp lab2 RP SC .
-
-    IF              reduce using rule 98 (lab -> LA LP stExp lab2 RP SC .)
-    LA              reduce using rule 98 (lab -> LA LP stExp lab2 RP SC .)
-    L               reduce using rule 98 (lab -> LA LP stExp lab2 RP SC .)
-    ID              reduce using rule 98 (lab -> LA LP stExp lab2 RP SC .)
-    RE              reduce using rule 98 (lab -> LA LP stExp lab2 RP SC .)
-    REC             reduce using rule 98 (lab -> LA LP stExp lab2 RP SC .)
-    TRI             reduce using rule 98 (lab -> LA LP stExp lab2 RP SC .)
-    POL             reduce using rule 98 (lab -> LA LP stExp lab2 RP SC .)
-    LS              reduce using rule 98 (lab -> LA LP stExp lab2 RP SC .)
-    CIR             reduce using rule 98 (lab -> LA LP stExp lab2 RP SC .)
-    SQ              reduce using rule 98 (lab -> LA LP stExp lab2 RP SC .)
-    ARC             reduce using rule 98 (lab -> LA LP stExp lab2 RP SC .)
-    PENC            reduce using rule 98 (lab -> LA LP stExp lab2 RP SC .)
-    SETC            reduce using rule 98 (lab -> LA LP stExp lab2 RP SC .)
-    BACO            reduce using rule 98 (lab -> LA LP stExp lab2 RP SC .)
-    PENW            reduce using rule 98 (lab -> LA LP stExp lab2 RP SC .)
-    F               reduce using rule 98 (lab -> LA LP stExp lab2 RP SC .)
-    B               reduce using rule 98 (lab -> LA LP stExp lab2 RP SC .)
-    PENP            reduce using rule 98 (lab -> LA LP stExp lab2 RP SC .)
-    PENU            reduce using rule 98 (lab -> LA LP stExp lab2 RP SC .)
-    PEND            reduce using rule 98 (lab -> LA LP stExp lab2 RP SC .)
-    RB              reduce using rule 98 (lab -> LA LP stExp lab2 RP SC .)
+    SC              shift and go to state 259
 
 
 state 245
 
-    (99) lab2 -> ADD stExp lab2 .
+    (39) rect -> REC LP exp C exp p_fill . RP SC
 
-    RP              reduce using rule 99 (lab2 -> ADD stExp lab2 .)
+    RP              shift and go to state 260
 
 
 state 246
+
+    (100) lab -> LA LP stExp lab2 RP SC .
+
+    IF              reduce using rule 100 (lab -> LA LP stExp lab2 RP SC .)
+    LA              reduce using rule 100 (lab -> LA LP stExp lab2 RP SC .)
+    L               reduce using rule 100 (lab -> LA LP stExp lab2 RP SC .)
+    ID              reduce using rule 100 (lab -> LA LP stExp lab2 RP SC .)
+    RE              reduce using rule 100 (lab -> LA LP stExp lab2 RP SC .)
+    REC             reduce using rule 100 (lab -> LA LP stExp lab2 RP SC .)
+    TRI             reduce using rule 100 (lab -> LA LP stExp lab2 RP SC .)
+    POL             reduce using rule 100 (lab -> LA LP stExp lab2 RP SC .)
+    LS              reduce using rule 100 (lab -> LA LP stExp lab2 RP SC .)
+    CIR             reduce using rule 100 (lab -> LA LP stExp lab2 RP SC .)
+    SQ              reduce using rule 100 (lab -> LA LP stExp lab2 RP SC .)
+    ARC             reduce using rule 100 (lab -> LA LP stExp lab2 RP SC .)
+    PENC            reduce using rule 100 (lab -> LA LP stExp lab2 RP SC .)
+    SETC            reduce using rule 100 (lab -> LA LP stExp lab2 RP SC .)
+    BACO            reduce using rule 100 (lab -> LA LP stExp lab2 RP SC .)
+    PENW            reduce using rule 100 (lab -> LA LP stExp lab2 RP SC .)
+    F               reduce using rule 100 (lab -> LA LP stExp lab2 RP SC .)
+    B               reduce using rule 100 (lab -> LA LP stExp lab2 RP SC .)
+    PENP            reduce using rule 100 (lab -> LA LP stExp lab2 RP SC .)
+    PENU            reduce using rule 100 (lab -> LA LP stExp lab2 RP SC .)
+    PEND            reduce using rule 100 (lab -> LA LP stExp lab2 RP SC .)
+    RB              reduce using rule 100 (lab -> LA LP stExp lab2 RP SC .)
+
+
+state 247
+
+    (101) lab2 -> ADD stExp lab2 .
+
+    RP              reduce using rule 101 (lab2 -> ADD stExp lab2 .)
+
+
+state 248
 
     (46) poly -> POL LP idList p_fill RP SC .
 
@@ -4203,7 +4220,7 @@ state 246
     RB              reduce using rule 46 (poly -> POL LP idList p_fill RP SC .)
 
 
-state 247
+state 249
 
     (32) colors2 -> LP exp C exp C . exp RP SC
     (58) exp -> . term exp2
@@ -4214,23 +4231,23 @@ state 247
     (71) fact3 -> . ADD
     (72) fact3 -> . SUB
     (73) fact3 -> . empty
-    (127) empty -> .
+    (129) empty -> .
 
     LP              shift and go to state 94
     ADD             shift and go to state 95
     SUB             shift and go to state 96
-    ID              reduce using rule 127 (empty -> .)
-    VALI            reduce using rule 127 (empty -> .)
-    VALF            reduce using rule 127 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    VALI            reduce using rule 129 (empty -> .)
+    VALF            reduce using rule 129 (empty -> .)
 
     term                           shift and go to state 93
     empty                          shift and go to state 97
-    exp                            shift and go to state 259
+    exp                            shift and go to state 261
     fact3                          shift and go to state 99
     fact2                          shift and go to state 100
     fact                           shift and go to state 101
 
-state 248
+state 250
 
     (42) tria -> TRI LP exp C exp C . exp p_fill RP SC
     (58) exp -> . term exp2
@@ -4241,148 +4258,148 @@ state 248
     (71) fact3 -> . ADD
     (72) fact3 -> . SUB
     (73) fact3 -> . empty
-    (127) empty -> .
+    (129) empty -> .
 
     LP              shift and go to state 94
     ADD             shift and go to state 95
     SUB             shift and go to state 96
-    ID              reduce using rule 127 (empty -> .)
-    VALI            reduce using rule 127 (empty -> .)
-    VALF            reduce using rule 127 (empty -> .)
+    ID              reduce using rule 129 (empty -> .)
+    VALI            reduce using rule 129 (empty -> .)
+    VALF            reduce using rule 129 (empty -> .)
 
     term                           shift and go to state 93
-    exp                            shift and go to state 260
+    exp                            shift and go to state 262
     empty                          shift and go to state 97
     fact3                          shift and go to state 99
     fact2                          shift and go to state 100
     fact                           shift and go to state 101
 
-state 249
+state 251
 
     (38) mueve2 -> LP exp C A exp . RP SC
 
-    RP              shift and go to state 261
-
-
-state 250
-
-    (87) func3 -> C exp func3 .
-
-    RP              reduce using rule 87 (func3 -> C exp func3 .)
-
-
-state 251
-
-    (92) listAss -> LB lista3 RB SC .
-
-    L               reduce using rule 92 (listAss -> LB lista3 RB SC .)
-    FUN             reduce using rule 92 (listAss -> LB lista3 RB SC .)
-    MAIN            reduce using rule 92 (listAss -> LB lista3 RB SC .)
-    LB              reduce using rule 92 (listAss -> LB lista3 RB SC .)
-    IF              reduce using rule 92 (listAss -> LB lista3 RB SC .)
-    LA              reduce using rule 92 (listAss -> LB lista3 RB SC .)
-    ID              reduce using rule 92 (listAss -> LB lista3 RB SC .)
-    RE              reduce using rule 92 (listAss -> LB lista3 RB SC .)
-    REC             reduce using rule 92 (listAss -> LB lista3 RB SC .)
-    TRI             reduce using rule 92 (listAss -> LB lista3 RB SC .)
-    POL             reduce using rule 92 (listAss -> LB lista3 RB SC .)
-    LS              reduce using rule 92 (listAss -> LB lista3 RB SC .)
-    CIR             reduce using rule 92 (listAss -> LB lista3 RB SC .)
-    SQ              reduce using rule 92 (listAss -> LB lista3 RB SC .)
-    ARC             reduce using rule 92 (listAss -> LB lista3 RB SC .)
-    PENC            reduce using rule 92 (listAss -> LB lista3 RB SC .)
-    SETC            reduce using rule 92 (listAss -> LB lista3 RB SC .)
-    BACO            reduce using rule 92 (listAss -> LB lista3 RB SC .)
-    PENW            reduce using rule 92 (listAss -> LB lista3 RB SC .)
-    F               reduce using rule 92 (listAss -> LB lista3 RB SC .)
-    B               reduce using rule 92 (listAss -> LB lista3 RB SC .)
-    PENP            reduce using rule 92 (listAss -> LB lista3 RB SC .)
-    PENU            reduce using rule 92 (listAss -> LB lista3 RB SC .)
-    PEND            reduce using rule 92 (listAss -> LB lista3 RB SC .)
-    RB              reduce using rule 92 (listAss -> LB lista3 RB SC .)
-    C               reduce using rule 92 (listAss -> LB lista3 RB SC .)
-    RP              reduce using rule 92 (listAss -> LB lista3 RB SC .)
+    RP              shift and go to state 263
 
 
 state 252
 
-    (96) li4 -> C lista2 . li4
-    (96) li4 -> . C lista2 li4
-    (97) li4 -> . empty
-    (127) empty -> .
+    (89) func3 -> C exp func3 .
 
-    C               shift and go to state 235
-    RB              reduce using rule 127 (empty -> .)
+    RP              reduce using rule 89 (func3 -> C exp func3 .)
 
-    li4                            shift and go to state 262
-    empty                          shift and go to state 236
 
 state 253
 
-    (103) condition -> IF LP expresion RP block con2 .
+    (94) listAss -> LB lista3 RB SC .
 
-    IF              reduce using rule 103 (condition -> IF LP expresion RP block con2 .)
-    LA              reduce using rule 103 (condition -> IF LP expresion RP block con2 .)
-    L               reduce using rule 103 (condition -> IF LP expresion RP block con2 .)
-    ID              reduce using rule 103 (condition -> IF LP expresion RP block con2 .)
-    RE              reduce using rule 103 (condition -> IF LP expresion RP block con2 .)
-    REC             reduce using rule 103 (condition -> IF LP expresion RP block con2 .)
-    TRI             reduce using rule 103 (condition -> IF LP expresion RP block con2 .)
-    POL             reduce using rule 103 (condition -> IF LP expresion RP block con2 .)
-    LS              reduce using rule 103 (condition -> IF LP expresion RP block con2 .)
-    CIR             reduce using rule 103 (condition -> IF LP expresion RP block con2 .)
-    SQ              reduce using rule 103 (condition -> IF LP expresion RP block con2 .)
-    ARC             reduce using rule 103 (condition -> IF LP expresion RP block con2 .)
-    PENC            reduce using rule 103 (condition -> IF LP expresion RP block con2 .)
-    SETC            reduce using rule 103 (condition -> IF LP expresion RP block con2 .)
-    BACO            reduce using rule 103 (condition -> IF LP expresion RP block con2 .)
-    PENW            reduce using rule 103 (condition -> IF LP expresion RP block con2 .)
-    F               reduce using rule 103 (condition -> IF LP expresion RP block con2 .)
-    B               reduce using rule 103 (condition -> IF LP expresion RP block con2 .)
-    PENP            reduce using rule 103 (condition -> IF LP expresion RP block con2 .)
-    PENU            reduce using rule 103 (condition -> IF LP expresion RP block con2 .)
-    PEND            reduce using rule 103 (condition -> IF LP expresion RP block con2 .)
-    RB              reduce using rule 103 (condition -> IF LP expresion RP block con2 .)
+    L               reduce using rule 94 (listAss -> LB lista3 RB SC .)
+    FUN             reduce using rule 94 (listAss -> LB lista3 RB SC .)
+    MAIN            reduce using rule 94 (listAss -> LB lista3 RB SC .)
+    LB              reduce using rule 94 (listAss -> LB lista3 RB SC .)
+    IF              reduce using rule 94 (listAss -> LB lista3 RB SC .)
+    LA              reduce using rule 94 (listAss -> LB lista3 RB SC .)
+    ID              reduce using rule 94 (listAss -> LB lista3 RB SC .)
+    RE              reduce using rule 94 (listAss -> LB lista3 RB SC .)
+    REC             reduce using rule 94 (listAss -> LB lista3 RB SC .)
+    TRI             reduce using rule 94 (listAss -> LB lista3 RB SC .)
+    POL             reduce using rule 94 (listAss -> LB lista3 RB SC .)
+    LS              reduce using rule 94 (listAss -> LB lista3 RB SC .)
+    CIR             reduce using rule 94 (listAss -> LB lista3 RB SC .)
+    SQ              reduce using rule 94 (listAss -> LB lista3 RB SC .)
+    ARC             reduce using rule 94 (listAss -> LB lista3 RB SC .)
+    PENC            reduce using rule 94 (listAss -> LB lista3 RB SC .)
+    SETC            reduce using rule 94 (listAss -> LB lista3 RB SC .)
+    BACO            reduce using rule 94 (listAss -> LB lista3 RB SC .)
+    PENW            reduce using rule 94 (listAss -> LB lista3 RB SC .)
+    F               reduce using rule 94 (listAss -> LB lista3 RB SC .)
+    B               reduce using rule 94 (listAss -> LB lista3 RB SC .)
+    PENP            reduce using rule 94 (listAss -> LB lista3 RB SC .)
+    PENU            reduce using rule 94 (listAss -> LB lista3 RB SC .)
+    PEND            reduce using rule 94 (listAss -> LB lista3 RB SC .)
+    RB              reduce using rule 94 (listAss -> LB lista3 RB SC .)
+    C               reduce using rule 94 (listAss -> LB lista3 RB SC .)
+    RP              reduce using rule 94 (listAss -> LB lista3 RB SC .)
 
 
 state 254
 
-    (105) con2 -> ELSE . block
-    (106) block -> . LB block3 RB
+    (98) li4 -> C lista2 . li4
+    (98) li4 -> . C lista2 li4
+    (99) li4 -> . empty
+    (129) empty -> .
 
-    LB              shift and go to state 33
+    C               shift and go to state 237
+    RB              reduce using rule 129 (empty -> .)
 
-    block                          shift and go to state 263
+    li4                            shift and go to state 264
+    empty                          shift and go to state 238
 
 state 255
 
-    (104) con2 -> empty .
+    (105) condition -> IF LP expresion RP block con2 .
 
-    IF              reduce using rule 104 (con2 -> empty .)
-    LA              reduce using rule 104 (con2 -> empty .)
-    L               reduce using rule 104 (con2 -> empty .)
-    ID              reduce using rule 104 (con2 -> empty .)
-    RE              reduce using rule 104 (con2 -> empty .)
-    REC             reduce using rule 104 (con2 -> empty .)
-    TRI             reduce using rule 104 (con2 -> empty .)
-    POL             reduce using rule 104 (con2 -> empty .)
-    LS              reduce using rule 104 (con2 -> empty .)
-    CIR             reduce using rule 104 (con2 -> empty .)
-    SQ              reduce using rule 104 (con2 -> empty .)
-    ARC             reduce using rule 104 (con2 -> empty .)
-    PENC            reduce using rule 104 (con2 -> empty .)
-    SETC            reduce using rule 104 (con2 -> empty .)
-    BACO            reduce using rule 104 (con2 -> empty .)
-    PENW            reduce using rule 104 (con2 -> empty .)
-    F               reduce using rule 104 (con2 -> empty .)
-    B               reduce using rule 104 (con2 -> empty .)
-    PENP            reduce using rule 104 (con2 -> empty .)
-    PENU            reduce using rule 104 (con2 -> empty .)
-    PEND            reduce using rule 104 (con2 -> empty .)
-    RB              reduce using rule 104 (con2 -> empty .)
+    IF              reduce using rule 105 (condition -> IF LP expresion RP block con2 .)
+    LA              reduce using rule 105 (condition -> IF LP expresion RP block con2 .)
+    L               reduce using rule 105 (condition -> IF LP expresion RP block con2 .)
+    ID              reduce using rule 105 (condition -> IF LP expresion RP block con2 .)
+    RE              reduce using rule 105 (condition -> IF LP expresion RP block con2 .)
+    REC             reduce using rule 105 (condition -> IF LP expresion RP block con2 .)
+    TRI             reduce using rule 105 (condition -> IF LP expresion RP block con2 .)
+    POL             reduce using rule 105 (condition -> IF LP expresion RP block con2 .)
+    LS              reduce using rule 105 (condition -> IF LP expresion RP block con2 .)
+    CIR             reduce using rule 105 (condition -> IF LP expresion RP block con2 .)
+    SQ              reduce using rule 105 (condition -> IF LP expresion RP block con2 .)
+    ARC             reduce using rule 105 (condition -> IF LP expresion RP block con2 .)
+    PENC            reduce using rule 105 (condition -> IF LP expresion RP block con2 .)
+    SETC            reduce using rule 105 (condition -> IF LP expresion RP block con2 .)
+    BACO            reduce using rule 105 (condition -> IF LP expresion RP block con2 .)
+    PENW            reduce using rule 105 (condition -> IF LP expresion RP block con2 .)
+    F               reduce using rule 105 (condition -> IF LP expresion RP block con2 .)
+    B               reduce using rule 105 (condition -> IF LP expresion RP block con2 .)
+    PENP            reduce using rule 105 (condition -> IF LP expresion RP block con2 .)
+    PENU            reduce using rule 105 (condition -> IF LP expresion RP block con2 .)
+    PEND            reduce using rule 105 (condition -> IF LP expresion RP block con2 .)
+    RB              reduce using rule 105 (condition -> IF LP expresion RP block con2 .)
 
 
 state 256
+
+    (107) con2 -> ELSE . block
+    (108) block -> . LB block3 RB
+
+    LB              shift and go to state 33
+
+    block                          shift and go to state 265
+
+state 257
+
+    (106) con2 -> empty .
+
+    IF              reduce using rule 106 (con2 -> empty .)
+    LA              reduce using rule 106 (con2 -> empty .)
+    L               reduce using rule 106 (con2 -> empty .)
+    ID              reduce using rule 106 (con2 -> empty .)
+    RE              reduce using rule 106 (con2 -> empty .)
+    REC             reduce using rule 106 (con2 -> empty .)
+    TRI             reduce using rule 106 (con2 -> empty .)
+    POL             reduce using rule 106 (con2 -> empty .)
+    LS              reduce using rule 106 (con2 -> empty .)
+    CIR             reduce using rule 106 (con2 -> empty .)
+    SQ              reduce using rule 106 (con2 -> empty .)
+    ARC             reduce using rule 106 (con2 -> empty .)
+    PENC            reduce using rule 106 (con2 -> empty .)
+    SETC            reduce using rule 106 (con2 -> empty .)
+    BACO            reduce using rule 106 (con2 -> empty .)
+    PENW            reduce using rule 106 (con2 -> empty .)
+    F               reduce using rule 106 (con2 -> empty .)
+    B               reduce using rule 106 (con2 -> empty .)
+    PENP            reduce using rule 106 (con2 -> empty .)
+    PENU            reduce using rule 106 (con2 -> empty .)
+    PEND            reduce using rule 106 (con2 -> empty .)
+    RB              reduce using rule 106 (con2 -> empty .)
+
+
+state 258
 
     (45) opar2 -> LP exp p_fill RP SC .
 
@@ -4410,7 +4427,7 @@ state 256
     RB              reduce using rule 45 (opar2 -> LP exp p_fill RP SC .)
 
 
-state 257
+state 259
 
     (28) position -> PENP LP exp C exp RP SC .
 
@@ -4438,76 +4455,76 @@ state 257
     RB              reduce using rule 28 (position -> PENP LP exp C exp RP SC .)
 
 
-state 258
+state 260
 
     (39) rect -> REC LP exp C exp p_fill RP . SC
 
-    SC              shift and go to state 264
+    SC              shift and go to state 266
 
-
-state 259
-
-    (32) colors2 -> LP exp C exp C exp . RP SC
-
-    RP              shift and go to state 265
-
-
-state 260
-
-    (42) tria -> TRI LP exp C exp C exp . p_fill RP SC
-    (40) p_fill -> . C FILL
-    (41) p_fill -> . empty
-    (127) empty -> .
-
-    C               shift and go to state 192
-    RP              reduce using rule 127 (empty -> .)
-
-    empty                          shift and go to state 194
-    p_fill                         shift and go to state 266
 
 state 261
 
-    (38) mueve2 -> LP exp C A exp RP . SC
+    (32) colors2 -> LP exp C exp C exp . RP SC
 
-    SC              shift and go to state 267
+    RP              shift and go to state 267
 
 
 state 262
 
-    (96) li4 -> C lista2 li4 .
+    (42) tria -> TRI LP exp C exp C exp . p_fill RP SC
+    (40) p_fill -> . C FILL
+    (41) p_fill -> . empty
+    (129) empty -> .
 
-    RB              reduce using rule 96 (li4 -> C lista2 li4 .)
+    C               shift and go to state 192
+    RP              reduce using rule 129 (empty -> .)
 
+    empty                          shift and go to state 194
+    p_fill                         shift and go to state 268
 
 state 263
 
-    (105) con2 -> ELSE block .
+    (38) mueve2 -> LP exp C A exp RP . SC
 
-    IF              reduce using rule 105 (con2 -> ELSE block .)
-    LA              reduce using rule 105 (con2 -> ELSE block .)
-    L               reduce using rule 105 (con2 -> ELSE block .)
-    ID              reduce using rule 105 (con2 -> ELSE block .)
-    RE              reduce using rule 105 (con2 -> ELSE block .)
-    REC             reduce using rule 105 (con2 -> ELSE block .)
-    TRI             reduce using rule 105 (con2 -> ELSE block .)
-    POL             reduce using rule 105 (con2 -> ELSE block .)
-    LS              reduce using rule 105 (con2 -> ELSE block .)
-    CIR             reduce using rule 105 (con2 -> ELSE block .)
-    SQ              reduce using rule 105 (con2 -> ELSE block .)
-    ARC             reduce using rule 105 (con2 -> ELSE block .)
-    PENC            reduce using rule 105 (con2 -> ELSE block .)
-    SETC            reduce using rule 105 (con2 -> ELSE block .)
-    BACO            reduce using rule 105 (con2 -> ELSE block .)
-    PENW            reduce using rule 105 (con2 -> ELSE block .)
-    F               reduce using rule 105 (con2 -> ELSE block .)
-    B               reduce using rule 105 (con2 -> ELSE block .)
-    PENP            reduce using rule 105 (con2 -> ELSE block .)
-    PENU            reduce using rule 105 (con2 -> ELSE block .)
-    PEND            reduce using rule 105 (con2 -> ELSE block .)
-    RB              reduce using rule 105 (con2 -> ELSE block .)
+    SC              shift and go to state 269
 
 
 state 264
+
+    (98) li4 -> C lista2 li4 .
+
+    RB              reduce using rule 98 (li4 -> C lista2 li4 .)
+
+
+state 265
+
+    (107) con2 -> ELSE block .
+
+    IF              reduce using rule 107 (con2 -> ELSE block .)
+    LA              reduce using rule 107 (con2 -> ELSE block .)
+    L               reduce using rule 107 (con2 -> ELSE block .)
+    ID              reduce using rule 107 (con2 -> ELSE block .)
+    RE              reduce using rule 107 (con2 -> ELSE block .)
+    REC             reduce using rule 107 (con2 -> ELSE block .)
+    TRI             reduce using rule 107 (con2 -> ELSE block .)
+    POL             reduce using rule 107 (con2 -> ELSE block .)
+    LS              reduce using rule 107 (con2 -> ELSE block .)
+    CIR             reduce using rule 107 (con2 -> ELSE block .)
+    SQ              reduce using rule 107 (con2 -> ELSE block .)
+    ARC             reduce using rule 107 (con2 -> ELSE block .)
+    PENC            reduce using rule 107 (con2 -> ELSE block .)
+    SETC            reduce using rule 107 (con2 -> ELSE block .)
+    BACO            reduce using rule 107 (con2 -> ELSE block .)
+    PENW            reduce using rule 107 (con2 -> ELSE block .)
+    F               reduce using rule 107 (con2 -> ELSE block .)
+    B               reduce using rule 107 (con2 -> ELSE block .)
+    PENP            reduce using rule 107 (con2 -> ELSE block .)
+    PENU            reduce using rule 107 (con2 -> ELSE block .)
+    PEND            reduce using rule 107 (con2 -> ELSE block .)
+    RB              reduce using rule 107 (con2 -> ELSE block .)
+
+
+state 266
 
     (39) rect -> REC LP exp C exp p_fill RP SC .
 
@@ -4535,21 +4552,21 @@ state 264
     RB              reduce using rule 39 (rect -> REC LP exp C exp p_fill RP SC .)
 
 
-state 265
+state 267
 
     (32) colors2 -> LP exp C exp C exp RP . SC
 
-    SC              shift and go to state 268
+    SC              shift and go to state 270
 
 
-state 266
+state 268
 
     (42) tria -> TRI LP exp C exp C exp p_fill . RP SC
 
-    RP              shift and go to state 269
+    RP              shift and go to state 271
 
 
-state 267
+state 269
 
     (38) mueve2 -> LP exp C A exp RP SC .
 
@@ -4577,7 +4594,7 @@ state 267
     RB              reduce using rule 38 (mueve2 -> LP exp C A exp RP SC .)
 
 
-state 268
+state 270
 
     (32) colors2 -> LP exp C exp C exp RP SC .
 
@@ -4605,14 +4622,14 @@ state 268
     RB              reduce using rule 32 (colors2 -> LP exp C exp C exp RP SC .)
 
 
-state 269
+state 271
 
     (42) tria -> TRI LP exp C exp C exp p_fill RP . SC
 
-    SC              shift and go to state 270
+    SC              shift and go to state 272
 
 
-state 270
+state 272
 
     (42) tria -> TRI LP exp C exp C exp p_fill RP SC .
 
