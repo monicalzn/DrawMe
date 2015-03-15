@@ -20,6 +20,7 @@ numCuad = 0
 def p_prog(p):
 	'''prog : PR p2 p3 MAIN vars block'''
 	proDict["main"] = ht
+	print numCuad
 	print cuads
 
 def p_p2(p):
@@ -122,10 +123,21 @@ def p_mueve2(p):
 
 def p_rect(p):
 	'''rect : REC LP exp C exp p_fill RP SC'''
+	spCuad = [201, OStack.pop(), OStack.pop(), -1]
+	cuads.append(spCuad)
+	global numCuad 
+	numCuad += 1
 
 def p_p_fill(p):
 	'''p_fill : C FILL 
 | empty'''
+	if(len(p) == 3):
+		spCuad = [209, -1, -1, 1]
+	else:
+		spCuad = [209, -1, -1, -1]
+	cuads.append(spCuad)
+	global numCuad 
+	numCuad += 1
 
 def p_tria(p):
 	'''tria : TRI LP exp C exp C exp p_fill RP SC'''
@@ -161,23 +173,11 @@ def p_expresion(p):
 def p_ex2(p):
 	'''ex2 : ex3 exp 
 | empty'''
-
-def p_ex3(p):
-	'''ex3 : LT 
-| MT 
-| D 
-| SEQ'''
-
-def p_exp(p):
-	'''exp : term exp2'''
-#/* poper saca + o - */
-
-def p_exp2(p):
-	'''exp2 : exp3 exp 
-| empty'''
-	if(len(p) == 2 and OpStack.size() > 0):
-		if(OpStack.peek() == '+' or OpStack.peek() == '-'):
+	if(OpStack.size() > 0):
+		if(OpStack.peek() == '>' or OpStack.peek() == '<' or OpStack.peek() == '<>' or OpStack.peek() == '=='):
 			#checar tipos
+			TStack.pop()
+			TStack.pop()	
 			global numCuad
 			numCuad += 1
 			tem = 'T'+ str(numCuad)
@@ -185,6 +185,34 @@ def p_exp2(p):
 			cuads.append(spCuad)	
 			#meter temporal
 			OStack.push(tem)
+			TStack.push('tType')
+
+def p_ex3(p):
+	'''ex3 : LT 
+| MT 
+| D 
+| SEQ'''
+	OpStack.push(p[1])
+
+def p_exp(p):
+	'''exp : term exp2'''
+
+def p_exp2(p):
+	'''exp2 : exp3 exp 
+| empty'''
+	if(OpStack.size() > 0):
+		if(OpStack.peek() == '+' or OpStack.peek() == '-'):
+			#checar tipos
+			TStack.pop()
+			TStack.pop()	
+			global numCuad
+			numCuad += 1
+			tem = 'T'+ str(numCuad)
+			spCuad = [OpStack.pop(), OStack.pop(), OStack.pop(), tem]
+			cuads.append(spCuad)	
+			#meter temporal
+			OStack.push(tem)
+			TStack.push('tType')
 	
 def p_exp3(p):
 	'''exp3 : ADD 
@@ -203,13 +231,16 @@ def p_term2(p):
 	if(OpStack.size() > 0):
 		if(OpStack.peek() == '*' or OpStack.peek() == '/'):
 			#checar tipos
+			TStack.pop()
+			TStack.pop()			
 			global numCuad
 			numCuad += 1
 			tem = 'T'+ str(numCuad)
 			spCuad = [OpStack.pop(), OStack.pop(), OStack.pop(), tem]
 			cuads.append(spCuad)
 			#meter temporal
-			OStack.push(tem)			
+			OStack.push(tem)
+			TStack.push('tType')			
 
 def p_term3(p):
 	'''term3 : M 
@@ -218,29 +249,28 @@ def p_term3(p):
 	OpStack.push(p[1])
 
 def p_fact(p):
-	'''fact : LP exp RP 
-| fact2'''
+	'''fact : fact2 exp RP 
+| fact4'''
+	if(len(p) == 4):
+		OpStack.pop()
 
 def p_fact2(p):
-	'''fact2 : fact3 fact4'''
-
-def p_fact3(p):
-	'''fact3 : ADD 
-| SUB 
-| empty'''
+	'''fact2 : LP '''
+	OpStack.push(p[1])
 
 def p_fact4(p):
 	'''fact4 : valExp 
 | ID'''	
 	if(p[1] != None):
 		declared_variables(p[1])
-		type_variable(p[1], "var")
+		TStack.push(type_variable(p[1], "var"))
 		OStack.push(p[1])
 					
 def p_valExp(p):
 	'''valExp : VALI 
 | VALF  '''
 	OStack.push(p[1])
+	TStack.push('ty')
 
 
 def p_rep(p):
@@ -250,6 +280,15 @@ def p_WID(p):
 	'''WID : ID WID2'''
 	if(idFunc == "ass"):
 		declared_variables(p[1])
+		if(OStack.size() > 0):
+			#checar tipos			
+			global numCuad
+			numCuad += 1
+			tem = 'T'+ str(numCuad)
+			spCuad = ['=', OStack.pop(), -1, p[1]]
+			cuads.append(spCuad)
+			#meter temporal
+			OStack.push(tem)
 	else:
 		if(p[1] not in proDict):
 			print "Undeclared function", p[1]
@@ -379,11 +418,15 @@ def type_variable(p, type_v):
 		if(ht[p][1] != type_v):
 			print "Type miss match.", type_v, " " ,p
 			sys.exit(0)
+		else:
+			return ht[p][0]
 	else:
 		if("globals" in proDict):
 			if(proDict["globals"][p][1] != type_v):
 				print "Type miss match.", type_v, " " , p
 				sys.exit(0)
+			else:
+				return proDict["globals"][p][0]
 
 def p_error(p):
 	print "Syntax error in input!", p.type
