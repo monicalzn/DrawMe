@@ -261,7 +261,11 @@ def p_exp2(p):
 			numCuad += 1
 			tem = 'T'+ str(numCuad)
 			second = OStack.pop() 
-			spCuad = [OpStack.pop(), OStack.pop(), second, tem]
+			if(OpStack.peek() == '+'):
+				spCuad = [102, OStack.pop(), second, tem]
+			else:
+				spCuad = [103, OStack.pop(), second, tem]
+			OpStack.pop()			
 			cuads.append(spCuad)	
 			#meter temporal
 			OStack.push(tem)
@@ -290,7 +294,11 @@ def p_term2(p):
 			numCuad += 1
 			tem = 'T'+ str(numCuad)
 			second = OStack.pop() 
-			spCuad = [OpStack.pop(), OStack.pop(), second, tem]
+			if(OpStack.peek() == '*'):
+				spCuad = [104, OStack.pop(), second, tem]
+			else:
+				spCuad = [105, OStack.pop(), second, tem]
+			OpStack.pop()
 			cuads.append(spCuad)
 			#meter temporal
 			OStack.push(tem)
@@ -316,7 +324,6 @@ def p_fact4(p):
 	'''fact4 : valExp 
 | ID'''	
 	if(p[1] != None):
-		print p[1]
 		declared_variables(p[1])
 		TStack.push(type_variable(p[1], "var"))
 		OStack.push(p[1])

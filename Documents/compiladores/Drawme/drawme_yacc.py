@@ -261,7 +261,11 @@ def p_exp2(p):
 			numCuad += 1
 			tem = 'T'+ str(numCuad)
 			second = OStack.pop() 
-			spCuad = [OpStack.pop(), OStack.pop(), second, tem]
+			if(OpStack.peek() == '+'):
+				spCuad = [102, OStack.pop(), second, tem]
+			else:
+				spCuad = [103, OStack.pop(), second, tem]
+			OpStack.pop()			
 			cuads.append(spCuad)	
 			#meter temporal
 			OStack.push(tem)
@@ -290,7 +294,11 @@ def p_term2(p):
 			numCuad += 1
 			tem = 'T'+ str(numCuad)
 			second = OStack.pop() 
-			spCuad = [OpStack.pop(), OStack.pop(), second, tem]
+			if(OpStack.peek() == '*'):
+				spCuad = [104, OStack.pop(), second, tem]
+			else:
+				spCuad = [105, OStack.pop(), second, tem]
+			OpStack.pop()
 			cuads.append(spCuad)
 			#meter temporal
 			OStack.push(tem)
@@ -345,7 +353,7 @@ def p_WID(p):
 			global numCuad
 			numCuad += 1
 			tem = 'T'+ str(numCuad)
-			spCuad = ['=', OStack.pop(), -1, p[1]]
+			spCuad = [101, OStack.pop(), -1, p[1]]
 			cuads.append(spCuad)
 			#meter temporal
 			OStack.push(tem)
