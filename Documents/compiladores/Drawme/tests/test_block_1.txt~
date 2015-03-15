@@ -15,5 +15,5 @@ main {
 	polygon(g);
 	lineStrip(g);
 	arc(67*(8/6));
-	hola(h,34, 89*3);
+	hola(f,34.5);
 }

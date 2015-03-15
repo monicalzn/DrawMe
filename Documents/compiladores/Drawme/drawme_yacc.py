@@ -23,7 +23,7 @@ def p_prog(p):
 	'''prog : PR p2 p3 MAIN vars block'''
 	proDict["main"] = ht
 	print numCuad
-	print proDict
+	print cuads
 
 def p_p2(p):
 	'''p2 : globals 
@@ -108,21 +108,43 @@ def p_val(p):
 
 def p_position(p):
 	'''position : PENP LP exp C exp RP SC'''
+	spCuad = [307, OStack.pop(), OStack.pop(), -1]
+	cuads.append(spCuad)
+	global numCuad 
+	numCuad += 1
 
 def p_colors(p):
-	'''colors : PENC colors2 
-| SETC colors2 
-| BACO colors2 '''
+	'''colors : PENC LP exp C exp C exp RP SC 
+| SETC LP exp C exp C exp RP SC 
+| BACO LP exp C exp C exp RP SC '''
+	if(p[1] == 'penColor'):
+		spCuad = [301, OStack.pop(), OStack.pop(), OStack.pop()]
+	elif(p[1] == 'setColor'):
+		spCuad = [302, OStack.pop(), OStack.pop(), OStack.pop()]
+	else:
+		spCuad = [303, OStack.pop(), OStack.pop(), OStack.pop()]
+	cuads.append(spCuad)
+	global numCuad 
+	numCuad += 1
 
-def p_colors2(p):
-	'''colors2 : LP exp C exp C exp RP SC'''
 
 def p_p_width(p):
 	'''p_width : PENW LP exp RP SC '''
+	spCuad = [304, OStack.pop(), OStack.pop(), -1]
+	cuads.append(spCuad)
+	global numCuad 
+	numCuad += 1
 
 def p_penwrite(p):
 	'''penwrite : PENU SC 
 | PEND SC'''
+	if(p[1] == 'penUp'):
+		spCuad = [308, -1, -1, -1]
+	else:
+		spCuad = [309, -1, -1, -1]
+	cuads.append(spCuad)
+	global numCuad 
+	numCuad += 1
 
 def p_move(p):
 	'''move : F mueve2
@@ -303,6 +325,12 @@ def p_valExp(p):
 | VALF  '''
 	OStack.push(p[1])
 	TStack.push('ty')
+	global vType
+	a = re.compile('\d+\.\d+')
+	if(a.match(p[1])):
+		vType = "float"
+	else:
+		vType = "int"
 
 
 def p_rep(p):
@@ -332,8 +360,9 @@ def p_WID(p):
 				cont = 0
 				for key in proDict[p[1]]:
 					if(proDict[p[1]][key][0] != funCheck[cont]):
+						
 						print "Error, function call type miss match"
-						cont += 1 
+					cont += 1 
 
 def p_WID2(p):
 	'''WID2 : assigment
@@ -357,16 +386,15 @@ def p_funCall(p):
 	idFunc = "func"
 	
 def p_func2(p):
-	'''func2 : func4 
+	'''func2 : func4 func3
 | empty'''
 
 def p_func3(p):
-	'''func3 : C func4
+	'''func3 : C func4 func3
 | empty'''
 
 def p_func4(p):
-	'''func4 : exp func3 '''
-	print vType
+	'''func4 : exp '''
 	funCheck.append(vType)
 
 def p_list(p):
