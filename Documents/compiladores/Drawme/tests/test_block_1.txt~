@@ -1,26 +1,19 @@
 program
 global var 
-int j, k=2.0 ;
+int j, k=2.0, d ;
 float f = k, h = 9;
-function hola(int k, float f):
-var float h;
 list int g = {23, d};
-list int g = {23, d;
-list int g;
-{};
- main {
-rectangle( 34*5, d/(9+2),fill);
-triangle(23, f-2, g);
-circle(34.6);
-square(k, fill);
-polygon(list int g = {23, f};, fill);
-polygon(g);
-lineStrip(list int g = {23, f};);
-lineStrip(g);
-arc(67*(8/6));
-hs(h,34, 89*3);
-repeat df {
-	kl();
-	arc(6);
-}
+function hola(int kp, float f):
+var float h;
+{ kp = 56;}
+main {
+	rectangle( 34*5, d/(9+2),fill);
+	triangle(23, f-2, d);
+	circle(34.6);
+	square(k, fill);
+	polygon(g, fill);
+	polygon(g);
+	lineStrip(g);
+	arc(67*(8/6));
+	hola(h,34, 89*3);
 }
