@@ -1,0 +1,10 @@
+program
+global var 
+int j, k, d,b ;
+list int p = {2,3};
+main {
+	rectangle(3,d);
+	square(9*9, fill);
+	polygon(p);
+	if ( 5 < 6 ){}
+}
