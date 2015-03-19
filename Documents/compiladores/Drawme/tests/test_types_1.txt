@@ -1,0 +1,9 @@
+program
+global var 
+int j, k, d,b ;
+list int p = {2,3};
+main {
+	j = 4 +3.5;
+	k = 4 -5;
+	b = j - k;
+}

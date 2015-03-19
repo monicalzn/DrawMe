@@ -4,6 +4,7 @@ import sys
 import re
 
 from stack import Stack
+from avail import avail
 
 tokens = drawme_lex.tokens
 ht = dict()
@@ -12,11 +13,12 @@ vType = None
 proDict = dict()
 scope = None
 idFunc = None
+avail = avail()
 OStack = Stack()  #Operand Stack
 TStack = Stack() #Type stack
 OpStack = Stack() #Operator stack
 quads = [] #Quadruples queue
-funCheck = []
+funCheck = [] #Check function parameters
 numQuad = 0
 
 def p_prog(p):
@@ -256,18 +258,18 @@ def p_exp2(p):
 	if(OpStack.size() > 0):
 		if(OpStack.peek() == '+' or OpStack.peek() == '-'):
 			#checar tipos
-			tipo_resultante_ver()
-			TStack.pop()
-			TStack.pop()	
+			#tipo_resultante_ver()
+			
+			print
 			global numQuad
 			numQuad += 1
 			tem = 'T'+ str(numQuad)
 			second = OStack.pop() 
 			if(OpStack.peek() == '+'):
-				spCuad = [102, OStack.pop(), second, tem]
+				spCuad = [102, OStack.pop(), second, tem] 		
 			else:
 				spCuad = [103, OStack.pop(), second, tem]
-			OpStack.pop()			
+			print avail.get_temp(OpStack.pop(), TStack.pop(), TStack.pop()) 			
 			quads.append(spCuad)	
 			#meter temporal
 			OStack.push(tem)
@@ -331,13 +333,13 @@ def p_valExp(p):
 	'''valExp : VALI 
 | VALF  '''
 	OStack.push(p[1])
-	TStack.push('ty')
 	global vType
 	a = re.compile('\d+\.\d+')
 	if(a.match(p[1])):
 		vType = "float"
 	else:
 		vType = "int"
+	TStack.push(vType)
 
 
 def p_rep(p):
@@ -519,23 +521,7 @@ def type_variable(p, type_v):
 				return proDict["globals"][p][0]
 
 
-def tipo_resultante_ver(): #operando1, operando2, operador
-	operador = OpStack.peek()
-	operando2 = OStack.peek()
-	operando1 = OStack.peek()
-	if (operador == "+" or operador == "-" or 
-operador == "*" or operador == "/" or operator == "(" or operator == ")"):
-		if (operando1 == "int" and operando2 == "int"):
-			tipo_resultante = "int"
-		else:
-			tipo_resultante = "float"
-		print "Resultante.", tipo_resultante
-	elif (operador == ">" or operador == "<" or operador =="==" or operador == "<>"):
-		tipo_resultante = "true"
-		print "Resultante.", tipo_resultante
-	else:
-		print "Invalid operator"
-		sys.exit(0)
+
 	
 
 def p_error(p):
