@@ -18,6 +18,13 @@ OpStack = Stack()
 quads = [] #Quadruples queue
 funCheck = []
 numCuad = 0
+operandoStack = Stack()
+operadorStack = Stack()
+operando1= None
+operando2= None
+operador = None
+tipo_resultante = None
+tp = None
 
 def p_prog(p):
 	'''prog : PR p2 p3 MAIN vars block'''
@@ -228,6 +235,7 @@ def p_ex2(p):
 	if(OpStack.size() > 0):
 		if(OpStack.peek() == '>' or OpStack.peek() == '<' or OpStack.peek() == '<>' or OpStack.peek() == '=='):
 			#checar tipos
+			#tipo_resultante_ver(p[1])
 			TStack.pop()
 			TStack.pop()	
 			global numCuad
@@ -245,6 +253,7 @@ def p_ex3(p):
 | D 
 | SEQ'''
 	OpStack.push(p[1])
+	operadorStack.push(p[1])
 
 def p_exp(p):
 	'''exp : term exp2'''
@@ -255,6 +264,7 @@ def p_exp2(p):
 	if(OpStack.size() > 0):
 		if(OpStack.peek() == '+' or OpStack.peek() == '-'):
 			#checar tipos
+			#tipo_resultante_ver(p[1])
 			TStack.pop()
 			TStack.pop()	
 			global numCuad
@@ -276,7 +286,7 @@ def p_exp3(p):
 | SUB'''
 #/*mete a poper*/
 	OpStack.push(p[1])
-
+	operadorStack.push(p[1])
 def p_term(p):
 	'''term : fact term2'''
 #/*une a poper * o / */
@@ -288,6 +298,7 @@ def p_term2(p):
 	if(OpStack.size() > 0):
 		if(OpStack.peek() == '*' or OpStack.peek() == '/'):
 			#checar tipos
+			#tipo_resultante_ver(p[1])
 			TStack.pop()
 			TStack.pop()			
 			global numCuad
@@ -309,6 +320,7 @@ def p_term3(p):
 | DIV'''
 #/*mete a poper*/
 	OpStack.push(p[1])
+	operadorStack.push(p[1])
 
 def p_fact(p):
 	'''fact : fact2 exp RP 
@@ -319,6 +331,7 @@ def p_fact(p):
 def p_fact2(p):
 	'''fact2 : LP '''
 	OpStack.push(p[1])
+	operadorStack.push(p[1])
 
 def p_fact4(p):
 	'''fact4 : valExp 
@@ -327,6 +340,7 @@ def p_fact4(p):
 		declared_variables(p[1])
 		TStack.push(type_variable(p[1], "var"))
 		OStack.push(p[1])
+		operandoStack.push(p[1])
 					
 def p_valExp(p):
 	'''valExp : VALI 
@@ -349,7 +363,8 @@ def p_WID(p):
 	if(idFunc == "ass"):
 		declared_variables(p[1])
 		if(OStack.size() > 0):
-			#checar tipos			
+			#checar tipos
+			#tipo_resultante_ver(p[1])			
 			global numCuad
 			numCuad += 1
 			tem = 'T'+ str(numCuad)
@@ -517,6 +532,40 @@ def type_variable(p, type_v):
 				sys.exit(0)
 			else:
 				return proDict["globals"][p][0]
+
+
+def tipo_resultante_ver(p): #operando1, operando2, operador
+	if p in ht:
+		operador = operadorStack.pop()
+		operando2 = operandoStack.pop()
+		operando1 = operandoStack.pop()
+		if (operador == "+" or operador == "-" or operador == "*" or operador == "/" or operator == "(" or operator == ")"):
+			if (operando1 == "int" and operando2 == "int"):
+				tipo_resultante = "int"
+			else:
+				tipo_resultante = "float"
+			print "Resultante.", tipo_resultante, " ", p
+
+		elif (operador == ">" or operador == "<" or operador =="==" or operador == "<>"):
+			tipo_resultante = "true"
+			print "Resultante.", tipo_resultante, " ", p
+		else:
+			print "Invalid operator", p
+			sys.exit(0)
+	else:
+		if("globals" in proDict):
+			if (operador == "+" or operador == "-" or operador == "*" or operador == "/" or operator == "(" or operator == ")"):
+				if (operando1 == "int" and operando2 == "int"):
+					tipo_resultante = "int"
+				else:
+					tipo_resultante = "float"
+				print "Resultante.", tipo_resultante, " ", p
+			elif (operador == ">" or operador == "<" or operador =="==" or operador == "<>"):
+				tipo_resultante = "true"
+				print "Resultante.", tipo_resultante, " ", p
+			else:
+				print "Invalid operator", p
+				sys.exit(0)
 
 def p_error(p):
 	print "Syntax error in input!", p.type
