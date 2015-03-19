@@ -24,6 +24,7 @@ operando1= None
 operando2= None
 operador = None
 tipo_resultante = None
+tp = None
 
 def p_prog(p):
 	'''prog : PR p2 p3 MAIN vars block'''
