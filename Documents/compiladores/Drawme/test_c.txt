@@ -1,0 +1,9 @@
+program
+global var 
+int j, k, d,b ;
+float r;
+main {
+	b = d/(j-9);
+	b = 5 * 7;
+	r = "am" + 1.1;
+}
