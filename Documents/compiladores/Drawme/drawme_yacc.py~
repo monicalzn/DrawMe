@@ -228,19 +228,25 @@ def p_ex2(p):
 	'''ex2 : ex3 exp 
 | empty'''
 	if(OpStack.size() > 0):
-		if(OpStack.peek() == '>' or OpStack.peek() == '<' or OpStack.peek() == '<>' or OpStack.peek() == '=='):
-			#checar tipos
-			#tipo_resultante_ver()
-			TStack.pop()
-			TStack.pop()	
+		if(OpStack.peek() == '>' or OpStack.peek() == '<' or OpStack.peek() == '<>' or OpStack.peek() == '=='):	
 			global numQuad
 			numQuad += 1
-			tem = 'T'+ str(numQuad)
-			spCuad = [OpStack.pop(), OStack.pop(), OStack.pop(), tem]
+			h = avail.get_temp(OpStack.peek(), TStack.pop(), TStack.pop()) 
+			tem = h[0]
+			second = OStack.pop() 
+			if(OpStack.peek() == '>'):
+				spCuad = [107, OStack.pop(), second, tem] 
+			elif(OpStack.peek() == '<'):
+				spCuad = [106, OStack.pop(), second, tem]
+			elif(OpStack.peek() == '<>'):
+				spCuad = [108, OStack.pop(), second, tem]
+			elif(OpStack.peek() == '=='):
+				spCuad = [109, OStack.pop(), second, tem]
+			OpStack.pop()
 			quads.append(spCuad)	
 			#meter temporal
 			OStack.push(tem)
-			TStack.push('tType')
+			TStack.push(h[1])
 
 def p_ex3(p):
 	'''ex3 : LT 
@@ -257,14 +263,9 @@ def p_exp2(p):
 | empty'''
 	if(OpStack.size() > 0):
 		if(OpStack.peek() == '+' or OpStack.peek() == '-'):
-			#checar tipos
-			#tipo_resultante_ver()
-			
-			print
 			global numQuad
 			numQuad += 1
 			h = avail.get_temp(OpStack.peek(), TStack.pop(), TStack.pop()) 
-			print h[0]
 			tem = h[0]
 			second = OStack.pop() 
 			if(OpStack.pop() == '+'):
@@ -289,20 +290,16 @@ def p_term2(p):
 	'''term2 : term3 term 
 | empty'''
 	if(OpStack.size() > 0):
-		if(OpStack.peek() == '*' or OpStack.peek() == '/'):
-			#checar tipos
-			#tipo_resultante_ver(p[1])
-			TStack.pop()
-			TStack.pop()			
+		if(OpStack.peek() == '*' or OpStack.peek() == '/'):			
 			global numQuad
 			numQuad += 1
-			tem = 'T'+ str(numQuad)
+			h = avail.get_temp(OpStack.peek(), TStack.pop(), TStack.pop()) 
+			tem = h[0]
 			second = OStack.pop() 
-			if(OpStack.peek() == '*'):
+			if(OpStack.pop() == '*'):
 				spCuad = [104, OStack.pop(), second, tem]
 			else:
 				spCuad = [105, OStack.pop(), second, tem]
-			OpStack.pop()
 			quads.append(spCuad)
 			#meter temporal
 			OStack.push(tem)
