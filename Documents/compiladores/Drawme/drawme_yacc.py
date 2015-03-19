@@ -12,24 +12,17 @@ vType = None
 proDict = dict()
 scope = None
 idFunc = None
-OStack = Stack() 
-TStack = Stack()
-OpStack = Stack()
+OStack = Stack()  #Operand Stack
+TStack = Stack() #Type stack
+OpStack = Stack() #Operator stack
 quads = [] #Quadruples queue
 funCheck = []
-numCuad = 0
-operandoStack = Stack()
-operadorStack = Stack()
-operando1= None
-operando2= None
-operador = None
-tipo_resultante = None
-tp = None
+numQuad = 0
 
 def p_prog(p):
 	'''prog : PR p2 p3 MAIN vars block'''
 	proDict["main"] = ht
-	print numCuad
+	print numQuad
 	print quads
 
 def p_p2(p):
@@ -117,8 +110,8 @@ def p_position(p):
 	'''position : PENP LP exp C exp RP SC'''
 	spCuad = [307, OStack.pop(), OStack.pop(), -1]
 	quads.append(spCuad)
-	global numCuad 
-	numCuad += 1
+	global numQuad 
+	numQuad += 1
 
 def p_colors(p):
 	'''colors : PENC LP exp C exp C exp RP SC 
@@ -131,16 +124,16 @@ def p_colors(p):
 	else:
 		spCuad = [303, OStack.pop(), OStack.pop(), OStack.pop()]
 	quads.append(spCuad)
-	global numCuad 
-	numCuad += 1
+	global numQuad 
+	numQuad += 1
 
 
 def p_p_width(p):
 	'''p_width : PENW LP exp RP SC '''
 	spCuad = [304, OStack.pop(), OStack.pop(), -1]
 	quads.append(spCuad)
-	global numCuad 
-	numCuad += 1
+	global numQuad 
+	numQuad += 1
 
 def p_penwrite(p):
 	'''penwrite : PENU SC 
@@ -150,8 +143,8 @@ def p_penwrite(p):
 	else:
 		spCuad = [309, -1, -1, -1]
 	quads.append(spCuad)
-	global numCuad 
-	numCuad += 1
+	global numQuad 
+	numQuad += 1
 
 def p_move(p):
 	'''move : F mueve2
@@ -164,8 +157,8 @@ def p_rect(p):
 	'''rect : REC LP exp C exp p_fill RP SC'''
 	spCuad = [201, OStack.pop(), OStack.pop(), -1]
 	quads.append(spCuad)
-	global numCuad 
-	numCuad += 1
+	global numQuad 
+	numQuad += 1
 
 def p_p_fill(p):
 	'''p_fill : C FILL 
@@ -175,15 +168,15 @@ def p_p_fill(p):
 	else:
 		spCuad = [209, -1, -1, -1]
 	quads.append(spCuad)
-	global numCuad 
-	numCuad += 1
+	global numQuad 
+	numQuad += 1
 
 def p_tria(p):
 	'''tria : TRI LP exp C exp C exp p_fill RP SC'''
 	spCuad = [202, OStack.pop(), OStack.pop(), OStack.pop()]
 	quads.append(spCuad)
-	global numCuad 
-	numCuad += 1
+	global numQuad 
+	numQuad += 1
 
 def p_one_par(p):
 	'''one_par : CIR LP exp p_fill RP SC
@@ -194,22 +187,22 @@ def p_one_par(p):
 		spCuad = [204, OStack.pop(), -1, -1]
 	
 	quads.append(spCuad)
-	global numCuad 
-	numCuad += 1
+	global numQuad 
+	numQuad += 1
 
 def p_poly(p):
 	'''poly : POL LP idList p_fill RP SC'''
 	spCuad = [205, OStack.pop(), -1, -1]
 	quads.append(spCuad)
-	global numCuad 
-	numCuad += 1
+	global numQuad 
+	numQuad += 1
 
 def p_lstrip(p):
 	'''lstrip : LS LP idList RP SC'''
 	spCuad = [206, OStack.pop(), -1, -1]
 	quads.append(spCuad)
-	global numCuad 
-	numCuad += 1
+	global numQuad 
+	numQuad += 1
 
 def p_idList(p):
 	'''idList : ID'''
@@ -222,8 +215,8 @@ def p_p_arc(p):
 	'''p_arc : ARC LP exp RP SC'''
 	spCuad = [207, OStack.pop(), -1, -1]
 	quads.append(spCuad)
-	global numCuad 
-	numCuad += 1
+	global numQuad 
+	numQuad += 1
 
 
 def p_expresion(p):
@@ -235,12 +228,12 @@ def p_ex2(p):
 	if(OpStack.size() > 0):
 		if(OpStack.peek() == '>' or OpStack.peek() == '<' or OpStack.peek() == '<>' or OpStack.peek() == '=='):
 			#checar tipos
-			#tipo_resultante_ver(p[1])
+			#tipo_resultante_ver()
 			TStack.pop()
 			TStack.pop()	
-			global numCuad
-			numCuad += 1
-			tem = 'T'+ str(numCuad)
+			global numQuad
+			numQuad += 1
+			tem = 'T'+ str(numQuad)
 			spCuad = [OpStack.pop(), OStack.pop(), OStack.pop(), tem]
 			quads.append(spCuad)	
 			#meter temporal
@@ -253,7 +246,6 @@ def p_ex3(p):
 | D 
 | SEQ'''
 	OpStack.push(p[1])
-	operadorStack.push(p[1])
 
 def p_exp(p):
 	'''exp : term exp2'''
@@ -264,12 +256,12 @@ def p_exp2(p):
 	if(OpStack.size() > 0):
 		if(OpStack.peek() == '+' or OpStack.peek() == '-'):
 			#checar tipos
-			#tipo_resultante_ver(p[1])
+			tipo_resultante_ver()
 			TStack.pop()
 			TStack.pop()	
-			global numCuad
-			numCuad += 1
-			tem = 'T'+ str(numCuad)
+			global numQuad
+			numQuad += 1
+			tem = 'T'+ str(numQuad)
 			second = OStack.pop() 
 			if(OpStack.peek() == '+'):
 				spCuad = [102, OStack.pop(), second, tem]
@@ -284,13 +276,10 @@ def p_exp2(p):
 def p_exp3(p):
 	'''exp3 : ADD 
 | SUB'''
-#/*mete a poper*/
 	OpStack.push(p[1])
-	operadorStack.push(p[1])
+
 def p_term(p):
-	'''term : fact term2'''
-#/*une a poper * o / */
-	
+	'''term : fact term2'''	
 
 def p_term2(p):
 	'''term2 : term3 term 
@@ -301,9 +290,9 @@ def p_term2(p):
 			#tipo_resultante_ver(p[1])
 			TStack.pop()
 			TStack.pop()			
-			global numCuad
-			numCuad += 1
-			tem = 'T'+ str(numCuad)
+			global numQuad
+			numQuad += 1
+			tem = 'T'+ str(numQuad)
 			second = OStack.pop() 
 			if(OpStack.peek() == '*'):
 				spCuad = [104, OStack.pop(), second, tem]
@@ -318,9 +307,7 @@ def p_term2(p):
 def p_term3(p):
 	'''term3 : M 
 | DIV'''
-#/*mete a poper*/
 	OpStack.push(p[1])
-	operadorStack.push(p[1])
 
 def p_fact(p):
 	'''fact : fact2 exp RP 
@@ -331,7 +318,6 @@ def p_fact(p):
 def p_fact2(p):
 	'''fact2 : LP '''
 	OpStack.push(p[1])
-	operadorStack.push(p[1])
 
 def p_fact4(p):
 	'''fact4 : valExp 
@@ -340,7 +326,6 @@ def p_fact4(p):
 		declared_variables(p[1])
 		TStack.push(type_variable(p[1], "var"))
 		OStack.push(p[1])
-		operandoStack.push(p[1])
 					
 def p_valExp(p):
 	'''valExp : VALI 
@@ -365,9 +350,9 @@ def p_WID(p):
 		if(OStack.size() > 0):
 			#checar tipos
 			#tipo_resultante_ver(p[1])			
-			global numCuad
-			numCuad += 1
-			tem = 'T'+ str(numCuad)
+			global numQuad
+			numQuad += 1
+			tem = 'T'+ str(numQuad)
 			spCuad = [101, OStack.pop(), -1, p[1]]
 			quads.append(spCuad)
 			#meter temporal
@@ -449,8 +434,8 @@ def p_lab(p):
 	'''lab : LA LP stExp lab2 RP SC'''
 	spCuad = [208, OStack.pop(), -1, -1]
 	quads.append(spCuad)
-	global numCuad 
-	numCuad += 1
+	global numQuad 
+	numQuad += 1
 
 def p_lab2(p):
 	'''lab2 : ADD stExp lab2
@@ -534,38 +519,24 @@ def type_variable(p, type_v):
 				return proDict["globals"][p][0]
 
 
-def tipo_resultante_ver(p): #operando1, operando2, operador
-	if p in ht:
-		operador = operadorStack.pop()
-		operando2 = operandoStack.pop()
-		operando1 = operandoStack.pop()
-		if (operador == "+" or operador == "-" or operador == "*" or operador == "/" or operator == "(" or operator == ")"):
-			if (operando1 == "int" and operando2 == "int"):
-				tipo_resultante = "int"
-			else:
-				tipo_resultante = "float"
-			print "Resultante.", tipo_resultante, " ", p
-
-		elif (operador == ">" or operador == "<" or operador =="==" or operador == "<>"):
-			tipo_resultante = "true"
-			print "Resultante.", tipo_resultante, " ", p
+def tipo_resultante_ver(): #operando1, operando2, operador
+	operador = OpStack.peek()
+	operando2 = OStack.peek()
+	operando1 = OStack.peek()
+	if (operador == "+" or operador == "-" or 
+operador == "*" or operador == "/" or operator == "(" or operator == ")"):
+		if (operando1 == "int" and operando2 == "int"):
+			tipo_resultante = "int"
 		else:
-			print "Invalid operator", p
-			sys.exit(0)
+			tipo_resultante = "float"
+		print "Resultante.", tipo_resultante
+	elif (operador == ">" or operador == "<" or operador =="==" or operador == "<>"):
+		tipo_resultante = "true"
+		print "Resultante.", tipo_resultante
 	else:
-		if("globals" in proDict):
-			if (operador == "+" or operador == "-" or operador == "*" or operador == "/" or operator == "(" or operator == ")"):
-				if (operando1 == "int" and operando2 == "int"):
-					tipo_resultante = "int"
-				else:
-					tipo_resultante = "float"
-				print "Resultante.", tipo_resultante, " ", p
-			elif (operador == ">" or operador == "<" or operador =="==" or operador == "<>"):
-				tipo_resultante = "true"
-				print "Resultante.", tipo_resultante, " ", p
-			else:
-				print "Invalid operator", p
-				sys.exit(0)
+		print "Invalid operator"
+		sys.exit(0)
+	
 
 def p_error(p):
 	print "Syntax error in input!", p.type
