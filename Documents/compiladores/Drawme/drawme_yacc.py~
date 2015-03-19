@@ -263,17 +263,19 @@ def p_exp2(p):
 			print
 			global numQuad
 			numQuad += 1
-			tem = 'T'+ str(numQuad)
+			h = avail.get_temp(OpStack.peek(), TStack.pop(), TStack.pop()) 
+			print h[0]
+			tem = h[0]
 			second = OStack.pop() 
-			if(OpStack.peek() == '+'):
+			if(OpStack.pop() == '+'):
 				spCuad = [102, OStack.pop(), second, tem] 		
 			else:
 				spCuad = [103, OStack.pop(), second, tem]
-			print "ll", len(TStack.pop()),"ll", TStack.pop(),"ll" 			
+						
 			quads.append(spCuad)	
 			#meter temporal
 			OStack.push(tem)
-			TStack.push('tType')
+			TStack.push(h[1])
 	
 def p_exp3(p):
 	'''exp3 : ADD 

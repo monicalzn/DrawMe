@@ -119,7 +119,6 @@ class avail:
 	}
 
 	def get_temp(self, operator, type1, type2):
-		print self.next_temp
 		if(self.temp_unused.size() == 0):
 			temp = 't' + str(self.next_temp)
 			self.temp_used.push(temp)
@@ -134,5 +133,5 @@ class avail:
 			typ = typ.get(type1)
 			if typ != None:
 				typ = typ.get(type2)
-		return typ
-	
+				return typ
+		print 'error'	

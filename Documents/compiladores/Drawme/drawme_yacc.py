@@ -260,20 +260,20 @@ def p_exp2(p):
 			#checar tipos
 			#tipo_resultante_ver()
 			
-			print
 			global numQuad
 			numQuad += 1
-			tem = 'T'+ str(numQuad)
+			h = avail.get_temp(OpStack.peek(), TStack.pop(), TStack.pop()) 
+			tem = h[0]
 			second = OStack.pop() 
-			if(OpStack.peek() == '+'):
+			if(OpStack.pop() == '+'):
 				spCuad = [102, OStack.pop(), second, tem] 		
 			else:
 				spCuad = [103, OStack.pop(), second, tem]
-			print avail.get_temp(OpStack.pop(), TStack.pop(), TStack.pop()) 			
+						
 			quads.append(spCuad)	
 			#meter temporal
 			OStack.push(tem)
-			TStack.push('tType')
+			TStack.push(h[1])
 	
 def p_exp3(p):
 	'''exp3 : ADD 
