@@ -12,10 +12,10 @@ vType = None
 proDict = dict()
 scope = None
 idFunc = None
-OStack = Stack()
+OStack = Stack() 
 TStack = Stack()
 OpStack = Stack()
-cuads = []
+quads = [] #Quadruples queue
 funCheck = []
 numCuad = 0
 
@@ -23,7 +23,7 @@ def p_prog(p):
 	'''prog : PR p2 p3 MAIN vars block'''
 	proDict["main"] = ht
 	print numCuad
-	print cuads
+	print quads
 
 def p_p2(p):
 	'''p2 : globals 
@@ -109,7 +109,7 @@ def p_val(p):
 def p_position(p):
 	'''position : PENP LP exp C exp RP SC'''
 	spCuad = [307, OStack.pop(), OStack.pop(), -1]
-	cuads.append(spCuad)
+	quads.append(spCuad)
 	global numCuad 
 	numCuad += 1
 
@@ -123,7 +123,7 @@ def p_colors(p):
 		spCuad = [302, OStack.pop(), OStack.pop(), OStack.pop()]
 	else:
 		spCuad = [303, OStack.pop(), OStack.pop(), OStack.pop()]
-	cuads.append(spCuad)
+	quads.append(spCuad)
 	global numCuad 
 	numCuad += 1
 
@@ -131,7 +131,7 @@ def p_colors(p):
 def p_p_width(p):
 	'''p_width : PENW LP exp RP SC '''
 	spCuad = [304, OStack.pop(), OStack.pop(), -1]
-	cuads.append(spCuad)
+	quads.append(spCuad)
 	global numCuad 
 	numCuad += 1
 
@@ -142,7 +142,7 @@ def p_penwrite(p):
 		spCuad = [308, -1, -1, -1]
 	else:
 		spCuad = [309, -1, -1, -1]
-	cuads.append(spCuad)
+	quads.append(spCuad)
 	global numCuad 
 	numCuad += 1
 
@@ -156,7 +156,7 @@ def p_mueve2(p):
 def p_rect(p):
 	'''rect : REC LP exp C exp p_fill RP SC'''
 	spCuad = [201, OStack.pop(), OStack.pop(), -1]
-	cuads.append(spCuad)
+	quads.append(spCuad)
 	global numCuad 
 	numCuad += 1
 
@@ -167,14 +167,14 @@ def p_p_fill(p):
 		spCuad = [209, -1, -1, 1]
 	else:
 		spCuad = [209, -1, -1, -1]
-	cuads.append(spCuad)
+	quads.append(spCuad)
 	global numCuad 
 	numCuad += 1
 
 def p_tria(p):
 	'''tria : TRI LP exp C exp C exp p_fill RP SC'''
 	spCuad = [202, OStack.pop(), OStack.pop(), OStack.pop()]
-	cuads.append(spCuad)
+	quads.append(spCuad)
 	global numCuad 
 	numCuad += 1
 
@@ -186,21 +186,21 @@ def p_one_par(p):
 	else:
 		spCuad = [204, OStack.pop(), -1, -1]
 	
-	cuads.append(spCuad)
+	quads.append(spCuad)
 	global numCuad 
 	numCuad += 1
 
 def p_poly(p):
 	'''poly : POL LP idList p_fill RP SC'''
 	spCuad = [205, OStack.pop(), -1, -1]
-	cuads.append(spCuad)
+	quads.append(spCuad)
 	global numCuad 
 	numCuad += 1
 
 def p_lstrip(p):
 	'''lstrip : LS LP idList RP SC'''
 	spCuad = [206, OStack.pop(), -1, -1]
-	cuads.append(spCuad)
+	quads.append(spCuad)
 	global numCuad 
 	numCuad += 1
 
@@ -214,7 +214,7 @@ def p_idList(p):
 def p_p_arc(p):
 	'''p_arc : ARC LP exp RP SC'''
 	spCuad = [207, OStack.pop(), -1, -1]
-	cuads.append(spCuad)
+	quads.append(spCuad)
 	global numCuad 
 	numCuad += 1
 
@@ -234,7 +234,7 @@ def p_ex2(p):
 			numCuad += 1
 			tem = 'T'+ str(numCuad)
 			spCuad = [OpStack.pop(), OStack.pop(), OStack.pop(), tem]
-			cuads.append(spCuad)	
+			quads.append(spCuad)	
 			#meter temporal
 			OStack.push(tem)
 			TStack.push('tType')
@@ -266,7 +266,7 @@ def p_exp2(p):
 			else:
 				spCuad = [103, OStack.pop(), second, tem]
 			OpStack.pop()			
-			cuads.append(spCuad)	
+			quads.append(spCuad)	
 			#meter temporal
 			OStack.push(tem)
 			TStack.push('tType')
@@ -299,7 +299,7 @@ def p_term2(p):
 			else:
 				spCuad = [105, OStack.pop(), second, tem]
 			OpStack.pop()
-			cuads.append(spCuad)
+			quads.append(spCuad)
 			#meter temporal
 			OStack.push(tem)
 			TStack.push('tType')			
@@ -354,7 +354,7 @@ def p_WID(p):
 			numCuad += 1
 			tem = 'T'+ str(numCuad)
 			spCuad = [101, OStack.pop(), -1, p[1]]
-			cuads.append(spCuad)
+			quads.append(spCuad)
 			#meter temporal
 			OStack.push(tem)
 	else:
@@ -433,7 +433,7 @@ def p_li4(p):
 def p_lab(p):
 	'''lab : LA LP stExp lab2 RP SC'''
 	spCuad = [208, OStack.pop(), -1, -1]
-	cuads.append(spCuad)
+	quads.append(spCuad)
 	global numCuad 
 	numCuad += 1
 

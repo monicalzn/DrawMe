@@ -353,7 +353,7 @@ def p_WID(p):
 			global numCuad
 			numCuad += 1
 			tem = 'T'+ str(numCuad)
-			spCuad = ['=', OStack.pop(), -1, p[1]]
+			spCuad = [101, OStack.pop(), -1, p[1]]
 			cuads.append(spCuad)
 			#meter temporal
 			OStack.push(tem)
