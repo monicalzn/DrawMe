@@ -32,11 +32,6 @@ class avail:
 				'int': 'bool',
 				'float': 'bool',
 				'TEXTO': 'error'
-			},
-			'TEXTO': {
-				'int': 'error',
-				'float': 'error',
-				'TEXTO': 'bool'
 			}
 		},
 		'<': {

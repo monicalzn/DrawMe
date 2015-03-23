@@ -17,6 +17,7 @@ avail = avail()
 OStack = Stack()  #Operand Stack
 TStack = Stack() #Type stack
 OpStack = Stack() #Operator stack
+jumps = Stack() #jump stack
 quads = [] #Quadruples queue
 funCheck = [] #Check function parameters
 numQuad = 0
@@ -24,8 +25,8 @@ numQuad = 0
 def p_prog(p):
 	'''prog : PR p2 p3 MAIN vars block'''
 	proDict["main"] = ht
-	#print numQuad
-	#print quads
+	print numQuad
+	print quads
 
 def p_p2(p):
 	'''p2 : globals 
@@ -303,7 +304,7 @@ def p_term2(p):
 			quads.append(spCuad)
 			#meter temporal
 			OStack.push(tem)
-			TStack.push('tType')			
+			TStack.push(h[1])			
 
 def p_term3(p):
 	'''term3 : M 
@@ -342,7 +343,36 @@ def p_valExp(p):
 
 
 def p_rep(p):
-	'''rep : RE exp block'''
+	'''rep : RE rep3 block'''
+	global numQuad 
+	tem = OStack.pop()
+	spCuad = ['-', tem, 1, tem]
+	numQuad += 1
+	quads.append(spCuad)
+	jumps.push(numQuad)
+	jump = jumps.pop()
+	print "JJ", jump
+	h = avail.get_temp('==', TStack.pop(), 'int') 
+	spCuad = ['==', tem, 0, h[0]]
+	numQuad += 1
+	quads.append(spCuad)
+	
+	spCuad = ['GOTOT', h[0], -1, jump]
+	numQuad += 1
+	quads.append(spCuad)
+
+
+def p_rep3(p):
+	'''rep3 : exp'''
+	global numQuad 
+	h = avail.get_temp('-', TStack.peek(), TStack.pop()) 
+	tem = h[0]
+	spCuad = ['=', OStack.pop(), -1, tem]
+	numQuad += 1
+	quads.append(spCuad)
+	
+	OStack.push(tem)
+	TStack.push(h[1])
 
 def p_WID(p):
 	'''WID : ID WID2'''
@@ -447,11 +477,42 @@ def p_stExp(p):
 | exp'''
 
 def p_condition(p):
-	'''condition : IF LP expresion RP block con2'''
+	'''condition : IF LP expresion condRP block con2'''
+	if(jumps.size() > 0):
+		global numQuad 
+		jump = jumps.pop() - 1
+		spCuad = quads[jump]
+		spCuad[3] = numQuad + 1
+		quads[jump] = spCuad
+
+def p_condRP(p):
+	'''condRP : RP'''
+	condition = OStack.pop()
+	cond_type = TStack.pop()
+	if(cond_type != "bool"):
+		print "error, type missmatch"
+	else:
+		global numQuad 
+		spCuad = ['GOTOF', condition, -1, -1]
+		quads.append(spCuad)
+		numQuad += 1
+		jumps.push(numQuad)		
 
 def p_con2(p):
 	'''con2 : empty  
-| ELSE block'''
+| con3 block'''
+
+def p_con3(p):
+	'''con3 : ELSE '''
+	global numQuad 
+	jump = jumps.pop() -1
+	spCuad = quads[jump]
+	spCuad[3] = numQuad +2
+	quads[jump] = spCuad
+	spCuad = ['GOTO', -1, -1, -1]
+	quads.append(spCuad)
+	numQuad += 1
+	jumps.push(numQuad)
 
 def p_block(p):
 	'''block : LB block3 RB'''

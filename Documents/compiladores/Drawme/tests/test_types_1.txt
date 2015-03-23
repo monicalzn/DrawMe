@@ -1,10 +1,15 @@
 program
 global var 
-int j, k, d,b ;
+int a,b,c,d,e, k, f;
 list int p = {2,3};
-main {
-	j = 4 /3.5;
-	k = 4 *5;
-	b = j / k;
-	if(b > 7 ){}
+main {	
+	if(a*b < c+d*e )
+	{
+		a = b+c;
+		if(b < c+d)
+		{
+			b = d+e*f;
+		}
+	} 
+	b = 0+9;
 }

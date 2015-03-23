@@ -32,11 +32,6 @@ class avail:
 				'int': 'bool',
 				'float': 'bool',
 				'TEXTO': 'error'
-			},
-			'TEXTO': {
-				'int': 'error',
-				'float': 'error',
-				'TEXTO': 'bool'
 			}
 		},
 		'<': {
@@ -128,10 +123,11 @@ class avail:
 		return [temp, self.get_type(operator, type1, type2)]
 
 	def get_type(self, operator, type1, type2): #operando1, operando2, operador
+		print "EEE",operator, type1, type2
 		typ = self.semantic_cube.get(operator)
 		if typ != None:
 			typ = typ.get(type1)
 			if typ != None:
 				typ = typ.get(type2)
-		return typ
-	
+				return typ
+		print 'error'	
