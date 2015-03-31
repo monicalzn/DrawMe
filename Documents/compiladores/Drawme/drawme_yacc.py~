@@ -344,24 +344,22 @@ def p_valExp(p):
 
 def p_rep(p):
 	'''rep : RE rep3 block'''
-	if(jumps.size() > 0):
-		global numQuad 
-		tem = OStack.pop()
-		spCuad = ['-', tem, 1, tem]
-		numQuad += 1
-		quads.append(spCuad)
-		jumps.push(numQuad)
-
-		jump = jumps.pop()
-		print "JJ", jump
-		h = avail.get_temp('==', TStack.pop(), 'int') 
-		spCuad = ['==', tem, 0, h[0]]
-		numQuad += 1
-		quads.append(spCuad)
+	global numQuad 
+	tem = OStack.pop()
+	spCuad = ['-', tem, 1, tem]
+	numQuad += 1
+	quads.append(spCuad)
+	jumps.push(numQuad)
+	jump = jumps.pop()
+	print "JJ", jump
+	h = avail.get_temp('==', TStack.pop(), 'int') 
+	spCuad = ['==', tem, 0, h[0]]
+	numQuad += 1
+	quads.append(spCuad)
 	
-		spCuad = ['GOTOT', h[0], -1, jump]
-		numQuad += 1
-		quads.append(spCuad)
+	spCuad = ['GOTOT', h[0], -1, jump]
+	numQuad += 1
+	quads.append(spCuad)
 
 
 def p_rep3(p):

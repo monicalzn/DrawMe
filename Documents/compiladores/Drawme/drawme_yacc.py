@@ -235,14 +235,7 @@ def p_ex2(p):
 			h = avail.get_temp(OpStack.peek(), TStack.pop(), TStack.pop()) 
 			tem = h[0]
 			second = OStack.pop() 
-			if(OpStack.peek() == '>'):
-				spCuad = [107, OStack.pop(), second, tem] 
-			elif(OpStack.peek() == '<'):
-				spCuad = [106, OStack.pop(), second, tem]
-			elif(OpStack.peek() == '<>'):
-				spCuad = [108, OStack.pop(), second, tem]
-			elif(OpStack.peek() == '=='):
-				spCuad = [109, OStack.pop(), second, tem]
+			spCuad = [OpStack.peek(), OStack.pop(), second, tem]
 			OpStack.pop()
 			quads.append(spCuad)	
 			#meter temporal
@@ -269,10 +262,7 @@ def p_exp2(p):
 			h = avail.get_temp(OpStack.peek(), TStack.pop(), TStack.pop()) 
 			tem = h[0]
 			second = OStack.pop() 
-			if(OpStack.pop() == '+'):
-				spCuad = [102, OStack.pop(), second, tem] 		
-			else:
-				spCuad = [103, OStack.pop(), second, tem]
+			spCuad = [OpStack.pop() , OStack.pop(), second, tem]
 						
 			quads.append(spCuad)	
 			#meter temporal
@@ -296,11 +286,8 @@ def p_term2(p):
 			numQuad += 1
 			h = avail.get_temp(OpStack.peek(), TStack.pop(), TStack.pop()) 
 			tem = h[0]
-			second = OStack.pop() 
-			if(OpStack.pop() == '*'):
-				spCuad = [104, OStack.pop(), second, tem]
-			else:
-				spCuad = [105, OStack.pop(), second, tem]
+			second = OStack.pop()
+			spCuad = [OpStack.pop(), OStack.pop(), second, tem]
 			quads.append(spCuad)
 			#meter temporal
 			OStack.push(tem)

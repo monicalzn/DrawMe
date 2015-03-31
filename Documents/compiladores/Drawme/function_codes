@@ -1,0 +1,19 @@
+201 rectangle 
+202 triangle
+203 circle
+204 square
+205 polygon
+206 linestrip
+207 arc
+208 label
+209 fill
+
+301 pencolor
+302 setcolor
+303 backcolor
+304 penwidth
+305 forward
+306 backward
+307 penpos
+308 penup
+309 pendown
