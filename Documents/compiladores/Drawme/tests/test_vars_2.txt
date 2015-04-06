@@ -2,23 +2,9 @@ program
 global var 
 int j, k=2.0 ;
 float f, h = 9;
-list int mo = {2,5,9};
-function ko():
-	var float g;
-	{
-		j = 0;
-		ko();
-	}
-function kolllll():
-	var float g;
-	int lll;
-	{
-		lll =9;
-		ko();
-	}
-
 main 
 var int n;
 {
-	rectangle(9,9);
+	f = k + h;
+	rectangle(n,n);
 }

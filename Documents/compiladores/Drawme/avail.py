@@ -138,17 +138,17 @@ class avail:
 	def expression(self):
 		if(self.OpStack.size() > 0):
 			if(self.OpStack.peek() == '>' or self.OpStack.peek() == '<' or self.OpStack.peek() == '<>' or self.OpStack.peek() == '=='):
-				quad()
+				self.quad()
 
 	def add_sub(self):
 		if(self.OpStack.size() > 0):
 			if(self.OpStack.peek() == '+' or self.OpStack.peek() == '-'):
-				quad()
+				self.quad()
 
 	def mul_div(self):
 		if(self.OpStack.size() > 0):
 			if(self.OpStack.peek() == '*' or self.OpStack.peek() == '/'):
-				quad()
+				self.quad()
 
 	def rep_jump(self):
 		tem = self.OStack.pop()
@@ -158,7 +158,7 @@ class avail:
 		self.jumps.push(numQuad)
 		jump = self.jumps.pop()
 		print "JJ", jump
-		h = get_temp('==', self.TStack.pop(), 'int') 
+		h = self.get_temp('==', self.TStack.pop(), 'int') 
 		spCuad = ['==', tem, 0, h[0]]
 		numQuad += 1
 		self.quads.append(spCuad)
@@ -203,7 +203,7 @@ class avail:
 		self.jumps.push(numQuad)
 
 	def rep(self):
-		h = avail.get_temp('-', self.TStack.peek(), self.TStack.pop()) 
+		h = self.get_temp('-', self.TStack.peek(), self.TStack.pop()) 
 		tem = h[0]
 		spCuad = ['=', self.OStack.pop(), -1, tem]
 		self.numQuad += 1
@@ -231,9 +231,9 @@ class avail:
 		spQuad = [fun, self.OStack.pop(), self.OStack.pop(), self.OStack.pop()]
 		self.quads.append(spQuad)
 
-	def quad():
+	def quad(self):
 		self.numQuad += 1
-		h = get_temp(self.OpStack.peek(), self.TStack.pop(), self.TStack.pop()) 
+		h = self.get_temp(self.OpStack.peek(), self.TStack.pop(), self.TStack.pop()) 
 		tem = h[0]
 		second = self.OStack.pop() 
 		spCuad = [self.OpStack.pop(), self.OStack.pop(), second, tem]
@@ -257,3 +257,6 @@ class avail:
 		
 	def print_quads(self):
 		print self.quads
+
+	def get_quads(self):
+		return self.quads

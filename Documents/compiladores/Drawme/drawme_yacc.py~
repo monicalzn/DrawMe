@@ -11,24 +11,27 @@ ht = dict()
 funPar = dict()
 vType = None
 proDict = dict()
+const = dict()
 scope = None
 idFunc = None
 avail = avail()
-OStack = Stack()  #Operand Stack
-TStack = Stack() #Type stack
-OpStack = Stack() #Operator stack
-jumps = Stack() #jump stack
-quads = [] #Quadruples queue
 funCheck = [] #Check function parameters
-numQuad = 0
+global toFile
+toFile = ''
 int_qty = 2000
 float_qty = 3000
+const_qty = 40000
 
 def p_prog(p):
-	'''prog : PR p2 p3 MAIN vars block'''
+	'''prog : PR p2 p3 MAIN mainVDir block'''
 	proDict["main"] = ht
-	print proDict
-	print quads
+	#print proDict
+	print const
+	#avail.print_quads()
+
+def p_mainVDir(p):
+	'''mainVDir : vars'''
+	block_dir(2)
 
 def p_p2(p):
 	'''p2 : globals 
@@ -44,20 +47,30 @@ def p_globals(p):
 	vaDict = dict(ht)
 	proDict["globals"] = vaDict
 	ht.clear()
+	global int_qty, float_qty, toFile
+	toFile += 'globals' + '/n'
+	toFile += str(int_qty-2000) + ' ' + str(float_qty-3000) + '\n'
+	toFile += '%%%%' + '\n'
 	int_qty = 2000
 	float_qty = 3000
 	
 
 def p_functions(p): 
-	'''functions : fun2 DP vars block'''	
+	'''functions : fun2 DP funVDir block'''	
 	ht.clear()
+	global int_qty, float_qty
+	int_qty = 2000
+	float_qty = 3000
+
+def p_funVDir(p):
+	'''funVDir : vars '''
+	block_dir(3)
 
 def p_fun2(p):
         '''fun2 : FUN ID LP fun3 RP'''
 	vaDict = dict(funPar)
 	proDict[p[2]] = vaDict
 	funPar.clear()
-	
 
 def p_fun3(p):
 	'''fun3 : fun5 fun4
@@ -108,6 +121,10 @@ def p_type(p):
 def p_val(p):
 	'''val : VALI 
 | VALF  '''
+	if p[1] not in const:
+		global const_qty
+		const[p[1]] = const_qty
+		const_qty += 1
 
 def p_position(p):
 	'''position : PENP LP exp C exp RP SC'''
@@ -184,7 +201,7 @@ def p_idList(p):
 	'''idList : ID'''
 	declared_variables(p[1])
 	type_variable(p[1], "list")
-	avail.OStack_push(p[1])	
+	avail.OStack_push(var_dir(p[1]))	
 #id debe ser tipo list not var
 
 def p_p_arc(p):
@@ -248,12 +265,16 @@ def p_fact4(p):
 	if(p[1] != None):
 		declared_variables(p[1])
 		avail.TStack_push(type_variable(p[1], "var"))
-		avail.OStack_push(p[1])
+		avail.OStack_push(var_dir(p[1]))
 					
 def p_valExp(p):
 	'''valExp : VALI 
 | VALF  '''
-	avail.OStack_push(p[1])
+	if p[1] not in const:
+		global const_qty
+		const[p[1]] = const_qty
+		const_qty += 1
+	avail.OStack_push(const[p[1]])
 	global vType
 	a = re.compile('\d+\.\d+')
 	if(a.match(p[1])):
@@ -261,7 +282,6 @@ def p_valExp(p):
 	else:
 		vType = "int"
 	avail.TStack_push(vType)
-
 
 def p_rep(p):
 	'''rep : RE rep3 block'''
@@ -276,7 +296,7 @@ def p_WID(p):
 	'''WID : ID WID2'''
 	if(idFunc == "ass"):
 		declared_variables(p[1])
-		avail.assig(p[1])
+		avail.assig(var_dir(p[1]))
 	else:
 		if(p[1] not in proDict):
 			print "Undeclared function", p[1]
@@ -418,7 +438,6 @@ def save_var(var):
 	if var in ht:
 		print "Existing var, ", var
 	else:
-		global float_qty
 		if vType == "int":
 			global int_qty
 			int_qty += 1
@@ -433,7 +452,6 @@ def block_dir(block):
 		info = ht[key]
 		info[2] = info[2] + (block * 10000)
 		ht[key] = info
-		print info
 
 def declared_variables(p):
 	global vType
@@ -467,9 +485,27 @@ def type_variable(p, type_v):
 			else:
 				return proDict["globals"][p][0]
 
+def var_dir(p):
+	if p in ht:
+		return ht[p][2]
+	else:
+		if "globals" in proDict:
+			return proDict["globals"][p][2]
 
+def dict_to_string(convDict):
+	s = ''
+	for key in convDict:
+		info = convDict[key]
+		s += str(key) + ' ' + str(info) + ' '
+	s += '\n' + '%%%%' + '\n'
+	return s
 
-	
+def quads_to_file():
+	global toFile
+	quads = avail.get_quads()
+	print " AAAA", quads
+	for q in quads:
+		toFile += str(q) + '\n'
 
 def p_error(p):
 	print "Syntax error in input!", p.type
@@ -478,12 +514,18 @@ def p_error(p):
 parser = yacc.yacc()
 
 if(len(sys.argv) > 1):
-    if sys.argv[1] == "-f":
-        f = open(sys.argv[2], "r")
-        s = f.readlines()
-    string = ""
-    for line in s:
-        string += line
-    result = parser.parse(string)
+	if sys.argv[1] == "-f":
+		f = open(sys.argv[2], "r")
+		s = f.readlines()
+		string = ""
+		for line in s:
+			string += line
+		result = parser.parse(string)	
+		toFile += str(dict_to_string(const))
+		quads_to_file()
+		print toFile
+		wFile = open('program.txt', 'w+')
+		wFile.write(const)
+		wFile.close()	
 else:
     print "):"

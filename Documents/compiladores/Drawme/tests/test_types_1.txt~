@@ -1,6 +1,7 @@
 program
 global var 
 int a,b,c,d,e, k, f;
+float bb, b, g;
 list int p = {2,3};
 main {	
 	if(a*b < c+d*e )
