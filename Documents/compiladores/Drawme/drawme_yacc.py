@@ -21,12 +21,14 @@ jumps = Stack() #jump stack
 quads = [] #Quadruples queue
 funCheck = [] #Check function parameters
 numQuad = 0
+int_qty = 2000
+float_qty = 3000
 
 def p_prog(p):
 	'''prog : PR p2 p3 MAIN vars block'''
 	proDict["main"] = ht
-	print numQuad
-	print quads
+	print proDict
+	avail.print_quads()
 
 def p_p2(p):
 	'''p2 : globals 
@@ -38,9 +40,13 @@ def p_p3(p):
 
 def p_globals(p):
 	'''globals : GL vars'''
+	block_dir(1)
 	vaDict = dict(ht)
 	proDict["globals"] = vaDict
 	ht.clear()
+	int_qty = 2000
+	float_qty = 3000
+	
 
 def p_functions(p): 
 	'''functions : fun2 DP vars block'''	
@@ -77,19 +83,13 @@ def p_var2(p):
 
 def p_var3(p):
 	'''var3 : ID var4 var33 '''
-	if p[1] in ht:
-		print "Existing var, ", p[1]
-	else:
-		ht[p[1]] = [vType, "var"]
+	save_var(p[1])
 
 def p_var33(p):
 	'''var33 : C ID var4 var33 
 | empty '''
 	if(len(p) == 5):
-		if p[2] in ht:
-			print "Existing var, ", p[2]
-		else:
-			ht[p[2]] = [vType, "var"]
+		save_var(p[2])
 
 def p_var4(p):
         '''var4 : EQ exp 
@@ -111,32 +111,24 @@ def p_val(p):
 
 def p_position(p):
 	'''position : PENP LP exp C exp RP SC'''
-	spCuad = [307, OStack.pop(), OStack.pop(), -1]
-	quads.append(spCuad)
-	global numQuad 
-	numQuad += 1
+	avail.append_quad_two(307)
 
 def p_colors(p):
 	'''colors : PENC LP exp C exp C exp RP SC 
 | SETC LP exp C exp C exp RP SC 
 | BACO LP exp C exp C exp RP SC '''
 	if(p[1] == 'penColor'):
-		spCuad = [301, OStack.pop(), OStack.pop(), OStack.pop()]
+		fun = 301
 	elif(p[1] == 'setColor'):
-		spCuad = [302, OStack.pop(), OStack.pop(), OStack.pop()]
+		fun = 302
 	else:
-		spCuad = [303, OStack.pop(), OStack.pop(), OStack.pop()]
-	quads.append(spCuad)
-	global numQuad 
-	numQuad += 1
+		fun = 303
+	avail.append_quad_three(fun)
 
 
 def p_p_width(p):
 	'''p_width : PENW LP exp RP SC '''
-	spCuad = [304, OStack.pop(), OStack.pop(), -1]
-	quads.append(spCuad)
-	global numQuad 
-	numQuad += 1
+	avail.append_quad_two(304)
 
 def p_penwrite(p):
 	'''penwrite : PENU SC 
@@ -145,9 +137,7 @@ def p_penwrite(p):
 		spCuad = [308, -1, -1, -1]
 	else:
 		spCuad = [309, -1, -1, -1]
-	quads.append(spCuad)
-	global numQuad 
-	numQuad += 1
+	avail.append_quad(spCuad)
 
 def p_move(p):
 	'''move : F mueve2
@@ -158,10 +148,7 @@ def p_mueve2(p):
 
 def p_rect(p):
 	'''rect : REC LP exp C exp p_fill RP SC'''
-	spCuad = [201, OStack.pop(), OStack.pop(), -1]
-	quads.append(spCuad)
-	global numQuad 
-	numQuad += 1
+	avail.append_quad_two(201)
 
 def p_p_fill(p):
 	'''p_fill : C FILL 
@@ -170,57 +157,39 @@ def p_p_fill(p):
 		spCuad = [209, -1, -1, 1]
 	else:
 		spCuad = [209, -1, -1, -1]
-	quads.append(spCuad)
-	global numQuad 
-	numQuad += 1
+	avail.append_quad(spCuad)
 
 def p_tria(p):
 	'''tria : TRI LP exp C exp C exp p_fill RP SC'''
-	spCuad = [202, OStack.pop(), OStack.pop(), OStack.pop()]
-	quads.append(spCuad)
-	global numQuad 
-	numQuad += 1
+	avail.append_quad(202)
 
 def p_one_par(p):
 	'''one_par : CIR LP exp p_fill RP SC
 | SQ LP exp p_fill RP SC'''
 	if(p[1] == 'circle'):
-		spCuad = [203, OStack.pop(),-1, -1]
+		spCuad = 203
 	else:
-		spCuad = [204, OStack.pop(), -1, -1]
-	
-	quads.append(spCuad)
-	global numQuad 
-	numQuad += 1
+		spCuad = 204
+	avail.append_quad_one(spCuad)
 
 def p_poly(p):
 	'''poly : POL LP idList p_fill RP SC'''
-	spCuad = [205, OStack.pop(), -1, -1]
-	quads.append(spCuad)
-	global numQuad 
-	numQuad += 1
+	avail.append_quad_one(205)
 
 def p_lstrip(p):
 	'''lstrip : LS LP idList RP SC'''
-	spCuad = [206, OStack.pop(), -1, -1]
-	quads.append(spCuad)
-	global numQuad 
-	numQuad += 1
+	avail.append_quad_one(206)
 
 def p_idList(p):
 	'''idList : ID'''
 	declared_variables(p[1])
 	type_variable(p[1], "list")
-	OStack.push(p[1])	
+	avail.OStack_push(p[1])	
 #id debe ser tipo list not var
 
 def p_p_arc(p):
 	'''p_arc : ARC LP exp RP SC'''
-	spCuad = [207, OStack.pop(), -1, -1]
-	quads.append(spCuad)
-	global numQuad 
-	numQuad += 1
-
+	avail.append_quad_one(207)
 
 def p_expresion(p):
 	'''expresion : exp ex2 '''
@@ -228,26 +197,14 @@ def p_expresion(p):
 def p_ex2(p):
 	'''ex2 : ex3 exp 
 | empty'''
-	if(OpStack.size() > 0):
-		if(OpStack.peek() == '>' or OpStack.peek() == '<' or OpStack.peek() == '<>' or OpStack.peek() == '=='):	
-			global numQuad
-			numQuad += 1
-			h = avail.get_temp(OpStack.peek(), TStack.pop(), TStack.pop()) 
-			tem = h[0]
-			second = OStack.pop() 
-			spCuad = [OpStack.peek(), OStack.pop(), second, tem]
-			OpStack.pop()
-			quads.append(spCuad)	
-			#meter temporal
-			OStack.push(tem)
-			TStack.push(h[1])
+	avail.expression()
 
 def p_ex3(p):
 	'''ex3 : LT 
 | MT 
 | D 
 | SEQ'''
-	OpStack.push(p[1])
+	avail.OpStack_push(p[1])
 
 def p_exp(p):
 	'''exp : term exp2'''
@@ -255,24 +212,12 @@ def p_exp(p):
 def p_exp2(p):
 	'''exp2 : exp3 exp 
 | empty'''
-	if(OpStack.size() > 0):
-		if(OpStack.peek() == '+' or OpStack.peek() == '-'):
-			global numQuad
-			numQuad += 1
-			h = avail.get_temp(OpStack.peek(), TStack.pop(), TStack.pop()) 
-			tem = h[0]
-			second = OStack.pop() 
-			spCuad = [OpStack.pop() , OStack.pop(), second, tem]
-						
-			quads.append(spCuad)	
-			#meter temporal
-			OStack.push(tem)
-			TStack.push(h[1])
+	avail.add_sub()
 	
 def p_exp3(p):
 	'''exp3 : ADD 
 | SUB'''
-	OpStack.push(p[1])
+	avail.OpStack_push(p[1])
 
 def p_term(p):
 	'''term : fact term2'''	
@@ -280,101 +225,58 @@ def p_term(p):
 def p_term2(p):
 	'''term2 : term3 term 
 | empty'''
-	if(OpStack.size() > 0):
-		if(OpStack.peek() == '*' or OpStack.peek() == '/'):			
-			global numQuad
-			numQuad += 1
-			h = avail.get_temp(OpStack.peek(), TStack.pop(), TStack.pop()) 
-			tem = h[0]
-			second = OStack.pop()
-			spCuad = [OpStack.pop(), OStack.pop(), second, tem]
-			quads.append(spCuad)
-			#meter temporal
-			OStack.push(tem)
-			TStack.push(h[1])			
+	avail.mul_div()			
 
 def p_term3(p):
 	'''term3 : M 
 | DIV'''
-	OpStack.push(p[1])
+	avail.OpStack_push(p[1])
 
 def p_fact(p):
 	'''fact : fact2 exp RP 
 | fact4'''
 	if(len(p) == 4):
-		OpStack.pop()
+		avail.OpStack_pop()
 
 def p_fact2(p):
 	'''fact2 : LP '''
-	OpStack.push(p[1])
+	avail.OpStack_push(p[1])
 
 def p_fact4(p):
 	'''fact4 : valExp 
 | ID'''	
 	if(p[1] != None):
 		declared_variables(p[1])
-		TStack.push(type_variable(p[1], "var"))
-		OStack.push(p[1])
+		avail.TStack_push(type_variable(p[1], "var"))
+		avail.OStack_push(p[1])
 					
 def p_valExp(p):
 	'''valExp : VALI 
 | VALF  '''
-	OStack.push(p[1])
+	avail.OStack_push(p[1])
 	global vType
 	a = re.compile('\d+\.\d+')
 	if(a.match(p[1])):
 		vType = "float"
 	else:
 		vType = "int"
-	TStack.push(vType)
+	avail.TStack_push(vType)
 
 
 def p_rep(p):
 	'''rep : RE rep3 block'''
-	global numQuad 
-	tem = OStack.pop()
-	spCuad = ['-', tem, 1, tem]
-	numQuad += 1
-	quads.append(spCuad)
-	jumps.push(numQuad)
-	jump = jumps.pop()
-	print "JJ", jump
-	h = avail.get_temp('==', TStack.pop(), 'int') 
-	spCuad = ['==', tem, 0, h[0]]
-	numQuad += 1
-	quads.append(spCuad)
-	
-	spCuad = ['GOTOT', h[0], -1, jump]
-	numQuad += 1
-	quads.append(spCuad)
-
+	avail.rep_jump()
 
 def p_rep3(p):
 	'''rep3 : exp'''
-	global numQuad 
-	h = avail.get_temp('-', TStack.peek(), TStack.pop()) 
-	tem = h[0]
-	spCuad = ['=', OStack.pop(), -1, tem]
-	numQuad += 1
-	quads.append(spCuad)
+	avail.rep()
 	
-	OStack.push(tem)
-	TStack.push(h[1])
 
 def p_WID(p):
 	'''WID : ID WID2'''
 	if(idFunc == "ass"):
 		declared_variables(p[1])
-		if(OStack.size() > 0):
-			#checar tipos
-			#tipo_resultante_ver(p[1])			
-			global numQuad
-			numQuad += 1
-			tem = 'T'+ str(numQuad)
-			spCuad = [101, OStack.pop(), -1, p[1]]
-			quads.append(spCuad)
-			#meter temporal
-			OStack.push(tem)
+		avail.assig(p[1])
 	else:
 		if(p[1] not in proDict):
 			print "Undeclared function", p[1]
@@ -428,7 +330,7 @@ def p_list(p):
 	if p[3] in ht:
 		print "Existing var, ", p[3]
 	else:
-		ht[p[3]] = [vType, "list"]
+		ht[p[3]] = [vType, "list", 0]
 
 def p_prelistAss(p):
 	'''prelistAss : EQ listAss
@@ -450,10 +352,7 @@ def p_li4(p):
 
 def p_lab(p):
 	'''lab : LA LP stExp lab2 RP SC'''
-	spCuad = [208, OStack.pop(), -1, -1]
-	quads.append(spCuad)
-	global numQuad 
-	numQuad += 1
+	avail.append_quad_one(208)
 
 def p_lab2(p):
 	'''lab2 : ADD stExp lab2
@@ -465,25 +364,12 @@ def p_stExp(p):
 
 def p_condition(p):
 	'''condition : IF LP expresion condRP block con2'''
-	if(jumps.size() > 0):
-		global numQuad 
-		jump = jumps.pop() - 1
-		spCuad = quads[jump]
-		spCuad[3] = numQuad + 1
-		quads[jump] = spCuad
+	avail.condition_start
 
 def p_condRP(p):
 	'''condRP : RP'''
-	condition = OStack.pop()
-	cond_type = TStack.pop()
-	if(cond_type != "bool"):
-		print "error, type missmatch"
-	else:
-		global numQuad 
-		spCuad = ['GOTOF', condition, -1, -1]
-		quads.append(spCuad)
-		numQuad += 1
-		jumps.push(numQuad)		
+	avail.condition()
+				
 
 def p_con2(p):
 	'''con2 : empty  
@@ -491,15 +377,8 @@ def p_con2(p):
 
 def p_con3(p):
 	'''con3 : ELSE '''
-	global numQuad 
-	jump = jumps.pop() -1
-	spCuad = quads[jump]
-	spCuad[3] = numQuad +2
-	quads[jump] = spCuad
-	spCuad = ['GOTO', -1, -1, -1]
-	quads.append(spCuad)
-	numQuad += 1
-	jumps.push(numQuad)
+	avail.condition_else()
+	
 
 def p_block(p):
 	'''block : LB block3 RB'''
@@ -534,6 +413,27 @@ def p_block2(p):
 
 def p_empty(p):
     '''empty : '''
+
+def save_var(var):
+	if var in ht:
+		print "Existing var, ", var
+	else:
+		global float_qty
+		if vType == "int":
+			global int_qty
+			int_qty += 1
+			ht[var] = [vType, "var", int_qty] 
+		else:
+			global float_qty
+			float_qty += 1
+			ht[var] = [vType, "var", float_qty] 
+
+def block_dir(block):
+	for key in ht:
+		info = ht[key]
+		info[2] = info[2] + (block * 10000)
+		ht[key] = info
+		print info
 
 def declared_variables(p):
 	global vType

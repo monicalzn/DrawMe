@@ -13,12 +13,12 @@ function kolllll():
 	var float g;
 	int lll;
 	{
+		lll =9;
 		ko();
 	}
 
 main 
 var int n;
 {
-	rectangle(9,g);
-	polygon(j);
+	rectangle(9,9);
 }

@@ -8,4 +8,6 @@ class memory:
 		self.bool_block = None
 
 	def setMem(self, intQ, floatQ, boolQ):
-		self.int_block
+		self.int_block = []
+		self.float_block = []
+		self.bool_block = []

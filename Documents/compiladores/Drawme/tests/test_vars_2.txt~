@@ -19,6 +19,5 @@ function kolllll():
 main 
 var int n;
 {
-	rectangle(9,g);
-	polygon(mo);
+	rectangle(9,9);
 }
