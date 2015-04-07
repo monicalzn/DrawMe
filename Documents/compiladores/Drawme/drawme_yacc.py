@@ -64,6 +64,7 @@ def p_globals(p):
 
 def p_functions(p): 
 	'''functions : fun2 DP funVDir block'''	
+	avail.function_begin()	
 	ht.clear()
 	
 
@@ -83,7 +84,9 @@ def p_fun2(p):
 	global int_qty, float_qty, idFunc
 	idFunc = p[2]
 	proDict[p[2]] = [vaDict, (int_qty-2000), (float_qty-3000)]
+	avail.function_param(funPar)
 	funPar.clear()
+	avail.function_end(idFunc)
 
 def p_fun3(p):
 	'''fun3 : fun5 fun4
@@ -345,10 +348,12 @@ def p_funCall(p):
 	'''funCall : LP func2 RP SC'''
 	global idFunc
 	idFunc = "func"
+	avail.call_function(idFunc)
 	
 def p_func2(p):
 	'''func2 : func4 func3
 | empty'''
+	avail.function_param(funPar)
 
 def p_func3(p):
 	'''func3 : C func4 func3
@@ -357,6 +362,7 @@ def p_func3(p):
 def p_func4(p):
 	'''func4 : exp '''
 	funCheck.append(vType)
+	avail.call_function_end(idFunc)
 
 def p_list(p):
 	'''list : L type ID prelistAss'''
