@@ -231,6 +231,35 @@ class avail:
 		self.OStack.push(tem)
 		self.TStack.push(h[1])
 
+
+	def function_begin(self):
+		spCuad = ['GOTO', function_begin, -1, 'main']
+		self.numQuad += 1
+		self.quads.append(spCuad)
+
+	def function_end(self, param):
+		spCuad = ['RETURN', function_end, -1, param]
+		self.numQuad += 1
+		self.quads.append(spCuad)
+		spCuad = ['ENDPROC', function_end, -1, -1]
+		self.numQuad += 1
+		self.quads.append(spCuad)
+
+	def function_param(self, param):
+		spCuad = ['PARAMETRO', function_param, -1, param]
+		self.numQuad += 1
+		self.quads.append(spCuad)
+
+	def call_function(self, var):
+		spCuad = ['ERA', call_function, -1, var]
+		self.numQuad += 1
+		self.quads.append(spCuad)
+
+	def call_function_end(self,var):
+		spCuad = ['GOSUB', call_function_end, -1, var]
+		self.numQuad += 1
+		self.quads.append(spCuad)
+		
 	def append_quad(self, quad):
 		self.numQuad += 1
 		self.quads.append(quad)
