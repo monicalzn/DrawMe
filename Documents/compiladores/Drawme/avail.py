@@ -190,18 +190,30 @@ class avail:
 			spCuad = ['GOTOF', condition, -1, -1]
 			self.quads.append(spCuad)
 			self.numQuad += 1
-			self.jumps.push(numQuad)
+			self.jumps.push(self.numQuad)
 
 	def condition_else(self):
 		jump = self.jumps.pop() -1
 		spCuad = self.quads[jump]
-		spCuad[3] = numQuad +2
+		spCuad[3] = self.numQuad +2
 		self.quads[jump] = spCuad
 		spCuad = ['GOTO', -1, -1, -1]
 		self.quads.append(spCuad)
 		self.numQuad += 1
 		self.jumps.push(numQuad)
+	
+	def main(self):
+		spCuad = ['GOTO', -1, -1, -1]
+		self.quads.append(spCuad)
+		self.jumps.push(self.numQuad)
+		self.numQuad += 1
 
+	def main_goto(self):
+		jump = self.jumps.pop()
+		spCuad = self.quads[jump]
+		spCuad[3] = self.numQuad 
+		self.quads[jump] = spCuad
+		
 	def rep(self):
 		h = self.get_temp('-', self.TStack.peek(), self.TStack.pop()) 
 		tem = h[0]

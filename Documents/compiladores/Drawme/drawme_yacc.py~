@@ -23,11 +23,15 @@ float_qty = 3000
 const_qty = 40000
 
 def p_prog(p):
-	'''prog : PR p2 p3 MAIN mainVDir block'''
-	proDict["main"] = ht
+	'''prog : PR p2 p3 main mainVDir block'''
+	proDict["main"] = [ht, (int_qty-2000), (float_qty-3000)]
 	print proDict
 	print const
 	#avail.print_quads()
+
+def p_main(p):
+	'''main : MAIN '''
+	avail.main_goto()
 
 def p_mainVDir(p):
 	'''mainVDir : vars'''
@@ -36,6 +40,7 @@ def p_mainVDir(p):
 def p_p2(p):
 	'''p2 : globals 
 | empty'''
+	avail.main()
 
 def p_p3(p):
 	'''p3 : functions p3
