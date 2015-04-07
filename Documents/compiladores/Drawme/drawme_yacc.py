@@ -24,14 +24,14 @@ const_qty = 40000
 
 def p_prog(p):
 	'''prog : PR p2 p3 MAIN mainVDir block'''
-	proDict["main"] = ht
-	#print proDict
+	proDict["main"] = [ht, (int_qty-2000), (float_qty-3000)]
+	print proDict
 	print const
 	#avail.print_quads()
 
 def p_mainVDir(p):
 	'''mainVDir : vars'''
-	block_dir(2)
+	block_dir(ht, 2)
 
 def p_p2(p):
 	'''p2 : globals 
@@ -43,11 +43,11 @@ def p_p3(p):
 
 def p_globals(p):
 	'''globals : GL vars'''
-	block_dir(1)
-	vaDict = dict(ht)
-	proDict["globals"] = vaDict
-	ht.clear()
 	global int_qty, float_qty, toFile
+	block_dir(ht, 1)
+	vaDict = dict(ht)
+	proDict["globals"] = [vaDict, (int_qty-2000), (float_qty-3000)]
+	ht.clear()
 	toFile += 'globals' + '/n'
 	toFile += str(int_qty-2000) + ' ' + str(float_qty-3000) + '\n'
 	toFile += '%%%%' + '\n'
@@ -58,18 +58,24 @@ def p_globals(p):
 def p_functions(p): 
 	'''functions : fun2 DP funVDir block'''	
 	ht.clear()
-	global int_qty, float_qty
-	int_qty = 2000
-	float_qty = 3000
+	
 
 def p_funVDir(p):
 	'''funVDir : vars '''
-	block_dir(3)
+	print "function    ", ht, '\n'
+	block_dir(ht, 3)
+	global int_qty, float_qty, idFunc
+	proDict[idFunc][1] = (int_qty-2000)
+	proDict[idFunc][2] = (float_qty-3000)
+	int_qty = 2000
+	float_qty = 3000
 
 def p_fun2(p):
         '''fun2 : FUN ID LP fun3 RP'''
 	vaDict = dict(funPar)
-	proDict[p[2]] = vaDict
+	global int_qty, float_qty, idFunc
+	idFunc = p[2]
+	proDict[p[2]] = [vaDict, (int_qty-2000), (float_qty-3000)]
 	funPar.clear()
 
 def p_fun3(p):
@@ -83,7 +89,7 @@ def p_fun4(p):
 
 def p_fun5(p):
 	'''fun5 : type ID '''
-	ht[p[2]] = [vType, "var"]
+	save_var(p[2])
 	funPar[p[2]] = [vType, "var"]
 
 def p_vars(p): 
@@ -384,7 +390,7 @@ def p_stExp(p):
 
 def p_condition(p):
 	'''condition : IF LP expresion condRP block con2'''
-	avail.condition_start
+	avail.condition_start()
 
 def p_condRP(p):
 	'''condRP : RP'''
@@ -447,22 +453,22 @@ def save_var(var):
 			float_qty += 1
 			ht[var] = [vType, "var", float_qty] 
 
-def block_dir(block):
-	for key in ht:
-		info = ht[key]
+def block_dir(blockDict, block):
+	for key in blockDict:
+		info = blockDict[key]
 		info[2] = info[2] + (block * 10000)
-		ht[key] = info
+		blockDict[key] = info
 
 def declared_variables(p):
 	global vType
 	if(p != None):
 		if(p not in ht):
 			if("globals" in proDict):
-				if(p not in proDict["globals"]):
+				if(p not in proDict["globals"][0]):
 					print "Undeclared variable. ", p
 					sys.exit(0)
 				else:
-					vType = proDict["globals"][p][0]
+					vType = proDict["globals"][0][p][0]
 			else:
 				print "Undeclared variable. ", p
 				sys.exit(0)
@@ -479,18 +485,18 @@ def type_variable(p, type_v):
 			return ht[p][0]
 	else:
 		if("globals" in proDict):
-			if(proDict["globals"][p][1] != type_v):
+			if(proDict["globals"][0][p][1] != type_v):
 				print "Type miss match.", type_v, " " , p
 				sys.exit(0)
 			else:
-				return proDict["globals"][p][0]
+				return proDict["globals"][0][p][0]
 
 def var_dir(p):
 	if p in ht:
 		return ht[p][2]
 	else:
 		if "globals" in proDict:
-			return proDict["globals"][p][2]
+			return proDict["globals"][0][p][2]
 
 def dict_to_string(convDict):
 	s = ''
@@ -503,7 +509,6 @@ def dict_to_string(convDict):
 def quads_to_file():
 	global toFile
 	quads = avail.get_quads()
-	print " AAAA", quads
 	for q in quads:
 		toFile += str(q) + '\n'
 

@@ -2,8 +2,15 @@ program
 global var 
 int j, k=2.0 ;
 float f, h = 9;
+function hola(int t, float m):
+var float y;
+list int g = {23, t};
+{
+	j = t + 9 * y;
+}
 main 
 var int n;
 {
-	rectangle(n,n);
+	f = k + h;
+	rectangle(n,9);
 }
