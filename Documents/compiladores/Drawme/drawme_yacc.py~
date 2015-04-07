@@ -25,6 +25,8 @@ const_qty = 40000
 def p_prog(p):
 	'''prog : PR p2 p3 main mainVDir block'''
 	proDict["main"] = [ht, (int_qty-2000), (float_qty-3000)]
+	spCuad = ['ENDPROG', -1, -1, -1]
+	avail.append_quad(spCuad)
 	print proDict
 	print const
 	#avail.print_quads()
@@ -532,6 +534,7 @@ if(len(sys.argv) > 1):
 			string += line
 		result = parser.parse(string)	
 		toFile += str(dict_to_string(const))
+		toFile += str(dict_to_string(proDict)
 		quads_to_file()
 		print toFile
 		wFile = open('program.txt', 'w+')

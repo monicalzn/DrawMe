@@ -14,6 +14,9 @@ class avail:
 		self.OpStack = Stack() #Operator stack
 		self.jumps = Stack() #jump stack
 		self.numQuad = 0
+		self.temp_int = 5000
+		self.temp_float = 6000
+		self.temp_bool = 4000 
 		self.quads = []
 		self.semantic_cube = {
 		'=': {
@@ -118,12 +121,16 @@ class avail:
 	}
 
 	def get_temp(self, operator, type1, type2):
-		if(self.temp_unused.size() == 0):
-			temp = 't' + str(self.next_temp)
-			self.temp_used.push(temp)
-			self.next_temp += 1
-		else:
-			temp = self.temp_unused.pop()
+		temp_type = self.get_type(operator, type1, type2)
+		if temp_type == 'int':
+			temp = self.temp_int
+			self.temp_int += 1 
+		elif temp_type == 'float':
+			temp = self.temp_float
+			self.temp_float += 1
+		elif temp_type == 'bool':
+			temp = self.temp_bool
+			self.temp_bool += 1
 		return [temp, self.get_type(operator, type1, type2)]
 
 	def get_type(self, operator, type1, type2): #operando1, operando2, operador

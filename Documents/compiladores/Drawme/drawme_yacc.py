@@ -534,6 +534,7 @@ if(len(sys.argv) > 1):
 			string += line
 		result = parser.parse(string)	
 		toFile += str(dict_to_string(const))
+		toFile += str(dict_to_string(proDict))
 		quads_to_file()
 		print toFile
 		wFile = open('program.txt', 'w+')
