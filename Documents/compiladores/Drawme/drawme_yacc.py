@@ -24,7 +24,9 @@ const_qty = 40000
 
 def p_prog(p):
 	'''prog : PR p2 p3 main mainVDir block'''
-	proDict["main"] = [ht, (int_qty-2000), (float_qty-3000)]
+	temp = [ht, (int_qty-2000), (float_qty-3000)]
+	temp.extend(avail.get_temp_dirs())
+	proDict["main"] = temp
 	spCuad = ['ENDPROG', -1, -1, -1]
 	avail.append_quad(spCuad)
 	#print proDict
@@ -115,7 +117,8 @@ def p_fun4(p):
 def p_fun5(p):
 	'''fun5 : type ID '''
 	save_var(p[2])
-	funPar[p[2]] = [vType, "var"]
+	print p[2]
+	funPar[p[2]] = [vType, "var", (ht[p[2]][2]+30000)]
 
 def p_vars(p): 
 	'''vars : V var2 var5
@@ -530,8 +533,8 @@ def dict_to_string(convDict):
 	s = ''
 	for key in convDict:
 		info = convDict[key]
-		s += str(key) + ' ' + str(info) + ' '
-	s += '\n' + '%%%%' + '\n'
+		s += str(key) + ' ' + str(info) + '\n'
+	s += '%%%%' + '\n'
 	return s
 
 def quads_to_file():

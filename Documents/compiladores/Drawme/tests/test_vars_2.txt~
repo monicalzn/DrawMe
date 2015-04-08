@@ -1,6 +1,6 @@
 program
 global var 
-int j, k=2.0 ;
+int j, k=2.0*3;
 float f, h = 9;
 function hola(int t, float m):
 var float y, b;

@@ -11,6 +11,6 @@ list int g = {23, t};
 main 
 var int n;
 {
-	f = k + h;
+	f = k + h - 10;
 	rectangle(n,9);
 }
