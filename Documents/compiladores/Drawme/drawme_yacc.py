@@ -27,13 +27,14 @@ def p_prog(p):
 	proDict["main"] = [ht, (int_qty-2000), (float_qty-3000)]
 	spCuad = ['ENDPROG', -1, -1, -1]
 	avail.append_quad(spCuad)
-	print proDict
-	print const
+	#print proDict
+	#print const
 	#avail.print_quads()
 
 def p_main(p):
 	'''main : MAIN '''
 	avail.main_goto()
+	avail.setblock(2)
 
 def p_mainVDir(p):
 	'''mainVDir : vars'''
@@ -49,28 +50,36 @@ def p_p3(p):
 | empty'''
 
 def p_globals(p):
-	'''globals : GL vars'''
-	global int_qty, float_qty, toFile
+	'''globals : glob vars'''
+	global int_qty, float_qty
 	block_dir(ht, 1)
 	vaDict = dict(ht)
-	proDict["globals"] = [vaDict, (int_qty-2000), (float_qty-3000)]
+	temp = [vaDict, (int_qty-2000), (float_qty-3000)]
+	temp.extend(avail.get_temp_dirs())
+	proDict["globals"] = temp
 	ht.clear()
-	toFile += 'globals' + '/n'
-	toFile += str(int_qty-2000) + ' ' + str(float_qty-3000) + '\n'
-	toFile += '%%%%' + '\n'
 	int_qty = 2000
 	float_qty = 3000
+
+def p_glob(p):
+	'''glob : GL'''
+	avail.setblock(1)
 	
 
 def p_functions(p): 
 	'''functions : fun2 DP funVDir block'''	
-	avail.function_begin()	
+	#avail.function_begin()	
+	temps = avail.get_temp_dirs()
+	print "GETSCOPE", proDict[avail.getScope()]
+	proDict[avail.getScope()][3] = temps[0]
+	proDict[avail.getScope()][4] = temps[1]
+	proDict[avail.getScope()][5] = temps[2]
 	ht.clear()
 	
 
 def p_funVDir(p):
 	'''funVDir : vars '''
-	print "function    ", ht, '\n'
+	#print "function    ", ht, '\n'
 	block_dir(ht, 3)
 	global int_qty, float_qty, idFunc
 	proDict[idFunc][1] = (int_qty-2000)
@@ -79,14 +88,20 @@ def p_funVDir(p):
 	float_qty = 3000
 
 def p_fun2(p):
-        '''fun2 : FUN ID LP fun3 RP'''
+        '''fun2 : funBlock ID LP fun3 RP'''
 	vaDict = dict(funPar)
+	avail.setScope(p[2])
 	global int_qty, float_qty, idFunc
 	idFunc = p[2]
-	proDict[p[2]] = [vaDict, (int_qty-2000), (float_qty-3000)]
-	avail.function_param(funPar)
+	temp = [vaDict, (int_qty-2000), (float_qty-3000), 0, 0, 0]
+	proDict[p[2]] = temp
+	#avail.function_param(funPar)
 	funPar.clear()
-	avail.function_end(idFunc)
+	#avail.function_end(idFunc)
+
+def p_funBlock(p):
+        '''funBlock : FUN '''
+	avail.setblock(3)
 
 def p_fun3(p):
 	'''fun3 : fun5 fun4
@@ -348,12 +363,12 @@ def p_funCall(p):
 	'''funCall : LP func2 RP SC'''
 	global idFunc
 	idFunc = "func"
-	avail.call_function(idFunc)
+	#avail.call_function(idFunc)
 	
 def p_func2(p):
 	'''func2 : func4 func3
 | empty'''
-	avail.function_param(funPar)
+	#avail.function_param(funPar)
 
 def p_func3(p):
 	'''func3 : C func4 func3
@@ -362,7 +377,7 @@ def p_func3(p):
 def p_func4(p):
 	'''func4 : exp '''
 	funCheck.append(vType)
-	avail.call_function_end(idFunc)
+	#avail.call_function_end(idFunc)
 
 def p_list(p):
 	'''list : L type ID prelistAss'''

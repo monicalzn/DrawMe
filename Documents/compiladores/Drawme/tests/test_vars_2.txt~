@@ -3,10 +3,10 @@ global var
 int j, k=2.0 ;
 float f, h = 9;
 function hola(int t, float m):
-var float y;
+var float y, b;
 list int g = {23, t};
 {
-	j = t + 9 * y;
+	j = t + 9 * y / b;
 }
 main 
 var int n;

@@ -18,6 +18,8 @@ class avail:
 		self.temp_float = 6000
 		self.temp_bool = 4000 
 		self.quads = []
+		self.block = 0
+		self.scope = ''
 		self.semantic_cube = {
 		'=': {
 			'int': {
@@ -131,6 +133,7 @@ class avail:
 		elif temp_type == 'bool':
 			temp = self.temp_bool
 			self.temp_bool += 1
+		temp += (self.block * 10000)
 		return [temp, self.get_type(operator, type1, type2)]
 
 	def get_type(self, operator, type1, type2): #operando1, operando2, operador
@@ -141,6 +144,16 @@ class avail:
 				typ = typ.get(type2)
 				return typ
 		print 'error'	
+
+	def setblock(self, block):
+		self.block = block
+		self.temp_int = 5000
+		self.temp_float = 6000
+		self.temp_bool = 4000 
+	
+	def get_temp_dirs(self):
+		print "BOOL", self.temp_float
+		return [(self.temp_bool-4000), (self.temp_int-5000), (self.temp_float-6000)]
 
 	def expression(self):
 		if(self.OpStack.size() > 0):
@@ -173,6 +186,12 @@ class avail:
 		spCuad = ['GOTOT', h[0], -1, jump]
 		self.numQuad += 1
 		self.quads.append(spCuad)
+
+	def setScope(self, scope):
+		self.scope = scope
+
+	def getScope(self):
+		return self.scope
 
 	def assig(self, var):
 		if(self.OStack.size() > 0):
