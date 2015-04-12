@@ -74,12 +74,13 @@ def p_glob(p):
 
 def p_functions(p): 
 	'''functions : fun2 DP funVDir block'''	
-	#avail.function_begin()	
+	avail.function_begin()	
 	temps = avail.get_temp_dirs()
 	proDict[avail.getScope()][3] = temps[0]
 	proDict[avail.getScope()][4] = temps[1]
 	proDict[avail.getScope()][5] = temps[2]
 	ht.clear()
+	avail.function_end()
 	
 
 def p_funVDir(p):
@@ -100,9 +101,9 @@ def p_fun2(p):
 	idFunc = p[2]
 	temp = [vaDict, (int_qty-2000), (float_qty-3000), 0, 0, 0]
 	proDict[p[2]] = temp
-	#avail.function_param(funPar)
+	avail.function_param(vaDict)
 	funPar.clear()
-	#avail.function_end(idFunc)
+	
 
 def p_funBlock(p):
         '''funBlock : FUN '''
@@ -121,6 +122,7 @@ def p_fun5(p):
 	'''fun5 : type ID '''
 	save_var(p[2])
 	funPar[p[2]] = [vType, "var", (ht[p[2]][2]+30000)]
+	
 
 def p_vars(p): 
 	'''vars : V var2 var5
@@ -377,22 +379,23 @@ def p_funCall(p):
 	'''funCall : LP func2 RP SC'''
 	global idFunc
 	idFunc = "func"
-	#avail.call_function(idFunc)
 	
 def p_func2(p):
 	'''func2 : func4 func3
 | empty'''
-	#avail.function_param(funPar)
+	
+	avail.call_function_end(idFunc)
 
 def p_func3(p):
 	'''func3 : C func4 func3
 | empty'''
+	avail.function_param(funPar)
 
 def p_func4(p):
 	'''func4 : exp '''
 	funCheck.append(vType)
-	#avail.call_function_end(idFunc)
-
+	avail.call_function(idFunc)
+	
 def p_list(p):
 	'''list : L type ID prelistAss'''
 	if p[3] in ht:
