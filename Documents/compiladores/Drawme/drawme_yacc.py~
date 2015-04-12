@@ -25,12 +25,14 @@ const_float_qty = 41000
 
 def p_prog(p):
 	'''prog : PR p2 p3 main mainVDir block'''
+	print ht
 	temp = [(int_qty-2000), (float_qty-3000)]
 	temp.extend(avail.get_temp_dirs())
 	proDict["main"] = temp
-	temp = proDict["globals"]
-	temp.pop(0)
-	proDict["globals"] = temp
+	if("globals" in proDict):
+		temp = proDict["globals"]
+		temp.pop(0)
+		proDict["globals"] = temp
 	spCuad = ['ENDPROG', -1, -1, -1]
 	avail.append_quad(spCuad)
 	#print proDict
@@ -58,6 +60,7 @@ def p_p3(p):
 def p_globals(p):
 	'''globals : glob vars'''
 	global int_qty, float_qty
+	print "GLOB", ht
 	block_dir(ht, 1)
 	vaDict = dict(ht)
 	temp = [vaDict, (int_qty-2000), (float_qty-3000)]
@@ -74,12 +77,13 @@ def p_glob(p):
 
 def p_functions(p): 
 	'''functions : fun2 DP funVDir block'''	
-	#avail.function_begin()	
+	avail.function_begin()	
 	temps = avail.get_temp_dirs()
 	proDict[avail.getScope()][3] = temps[0]
 	proDict[avail.getScope()][4] = temps[1]
 	proDict[avail.getScope()][5] = temps[2]
 	ht.clear()
+	avail.function_end()
 	
 
 def p_funVDir(p):
@@ -100,9 +104,9 @@ def p_fun2(p):
 	idFunc = p[2]
 	temp = [vaDict, (int_qty-2000), (float_qty-3000), 0, 0, 0]
 	proDict[p[2]] = temp
-	#avail.function_param(funPar)
+	avail.function_param(vaDict)
 	funPar.clear()
-	#avail.function_end(idFunc)
+	
 
 def p_funBlock(p):
         '''funBlock : FUN '''
@@ -121,6 +125,7 @@ def p_fun5(p):
 	'''fun5 : type ID '''
 	save_var(p[2])
 	funPar[p[2]] = [vType, "var", (ht[p[2]][2]+30000)]
+	
 
 def p_vars(p): 
 	'''vars : V var2 var5
@@ -377,22 +382,23 @@ def p_funCall(p):
 	'''funCall : LP func2 RP SC'''
 	global idFunc
 	idFunc = "func"
-	#avail.call_function(idFunc)
 	
 def p_func2(p):
 	'''func2 : func4 func3
 | empty'''
-	#avail.function_param(funPar)
+	
+	avail.call_function_end(idFunc)
 
 def p_func3(p):
 	'''func3 : C func4 func3
 | empty'''
+	avail.function_param(funPar)
 
 def p_func4(p):
 	'''func4 : exp '''
 	funCheck.append(vType)
-	#avail.call_function_end(idFunc)
-
+	avail.call_function(idFunc)
+	
 def p_list(p):
 	'''list : L type ID prelistAss'''
 	if p[3] in ht:
@@ -488,12 +494,12 @@ def save_var(var):
 	else:
 		if vType == "int":
 			global int_qty
-			int_qty += 1
-			ht[var] = [vType, "var", int_qty] 
+			ht[var] = [vType, "var", int_qty]
+			int_qty += 1 
 		else:
 			global float_qty
-			float_qty += 1
 			ht[var] = [vType, "var", float_qty] 
+			float_qty += 1
 
 def block_dir(blockDict, block):
 	for key in blockDict:
@@ -544,7 +550,7 @@ def dict_to_string(convDict):
 	s = ''
 	for key in convDict:
 		info = convDict[key]
-		if(key == 'main' || key == 'globals'):
+		if(key == 'main' or key == 'globals'):
 			s += str(key) + ' ' + str(info[0]) + ' ' + str(info[1]) + ' ' + str(info[2]) + ' ' + str(info[3]) + ' ' + str(info[4]) + '\n'
 		else:
 			s += str(key) + ' ' + str(info) + '\n'

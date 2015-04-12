@@ -152,7 +152,7 @@ class avail:
 		self.temp_bool = 4000 
 	
 	def get_temp_dirs(self):
-		print "BOOL", self.temp_bool
+		print "BOOL", self.temp_float
 		return [(self.temp_bool-4000), (self.temp_int-5000), (self.temp_float-6000)]
 
 	def expression(self):
@@ -252,30 +252,30 @@ class avail:
 
 
 	def function_begin(self):
-		spCuad = ['GOTO', function_begin, -1, 'main']
+		spCuad = ['GOTO', 1, -1, 'main']
 		self.numQuad += 1
 		self.quads.append(spCuad)
 
-	def function_end(self, param):
-		spCuad = ['RETURN', function_end, -1, param]
+	def function_end(self):
+		spCuad = ['RETURN', 1, -1, 1]
 		self.numQuad += 1
 		self.quads.append(spCuad)
-		spCuad = ['ENDPROC', function_end, -1, -1]
+		spCuad = ['ENDPROC', 1, -1, 1]
 		self.numQuad += 1
 		self.quads.append(spCuad)
 
 	def function_param(self, param):
-		spCuad = ['PARAMETRO', function_param, -1, param]
+		spCuad = ['PARAMETRO', 1, -1, param]
 		self.numQuad += 1
 		self.quads.append(spCuad)
 
 	def call_function(self, var):
-		spCuad = ['ERA', call_function, -1, var]
+		spCuad = ['ERA', 1, -1, var]
 		self.numQuad += 1
 		self.quads.append(spCuad)
 
 	def call_function_end(self,var):
-		spCuad = ['GOSUB', call_function_end, -1, var]
+		spCuad = ['GOSUB', 1, -1, var]
 		self.numQuad += 1
 		self.quads.append(spCuad)
 		

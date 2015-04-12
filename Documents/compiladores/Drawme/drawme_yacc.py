@@ -25,12 +25,14 @@ const_float_qty = 41000
 
 def p_prog(p):
 	'''prog : PR p2 p3 main mainVDir block'''
+	print ht
 	temp = [(int_qty-2000), (float_qty-3000)]
 	temp.extend(avail.get_temp_dirs())
 	proDict["main"] = temp
-	temp = proDict["globals"]
-	temp.pop(0)
-	proDict["globals"] = temp
+	if("globals" in proDict):
+		temp = proDict["globals"]
+		temp.pop(0)
+		proDict["globals"] = temp
 	spCuad = ['ENDPROG', -1, -1, -1]
 	avail.append_quad(spCuad)
 	#print proDict
@@ -491,12 +493,12 @@ def save_var(var):
 	else:
 		if vType == "int":
 			global int_qty
-			int_qty += 1
-			ht[var] = [vType, "var", int_qty] 
+			ht[var] = [vType, "var", int_qty]
+			int_qty += 1 
 		else:
 			global float_qty
-			float_qty += 1
 			ht[var] = [vType, "var", float_qty] 
+			float_qty += 1
 
 def block_dir(blockDict, block):
 	for key in blockDict:

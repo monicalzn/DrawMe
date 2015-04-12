@@ -15,6 +15,18 @@ class Memory:
 		self.temp_bool_block = [True] * boolQ
 		self.temp_int_block = [0] * intTQ
 		self.temp_float_block = [0.0] * floatTQ
+		print "int", self.int_block, 
+		"float", self.float_block, 
+		"Tbool", self.temp_bool_block, 
+		"Tint", self.temp_int_block, 
+		"Tfloat", self.temp_float_block
+	
+	def printstuff(self):
+		print self.int_block, "\n",
+		self.float_block, "\n",
+		self.temp_bool_block, "\n",
+		self.temp_int_block, "\n",
+		self.temp_float_block
 
 	def writeValue(self, vDir, value):
 		print "WRITEV ", vDir, "  ",value 
