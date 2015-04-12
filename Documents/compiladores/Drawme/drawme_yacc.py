@@ -20,13 +20,17 @@ global toFile
 toFile = ''
 int_qty = 2000
 float_qty = 3000
-const_qty = 40000
+const_int_qty = 40000
+const_float_qty = 41000
 
 def p_prog(p):
 	'''prog : PR p2 p3 main mainVDir block'''
-	temp = [ht, (int_qty-2000), (float_qty-3000)]
+	temp = [(int_qty-2000), (float_qty-3000)]
 	temp.extend(avail.get_temp_dirs())
 	proDict["main"] = temp
+	temp = proDict["globals"]
+	temp.pop(0)
+	proDict["globals"] = temp
 	spCuad = ['ENDPROG', -1, -1, -1]
 	avail.append_quad(spCuad)
 	#print proDict
@@ -72,7 +76,6 @@ def p_functions(p):
 	'''functions : fun2 DP funVDir block'''	
 	#avail.function_begin()	
 	temps = avail.get_temp_dirs()
-	print "GETSCOPE", proDict[avail.getScope()]
 	proDict[avail.getScope()][3] = temps[0]
 	proDict[avail.getScope()][4] = temps[1]
 	proDict[avail.getScope()][5] = temps[2]
@@ -117,7 +120,6 @@ def p_fun4(p):
 def p_fun5(p):
 	'''fun5 : type ID '''
 	save_var(p[2])
-	print p[2]
 	funPar[p[2]] = [vType, "var", (ht[p[2]][2]+30000)]
 
 def p_vars(p): 
@@ -156,9 +158,14 @@ def p_val(p):
 	'''val : VALI 
 | VALF  '''
 	if p[1] not in const:
-		global const_qty
-		const[p[1]] = const_qty
-		const_qty += 1
+		global const_int_qty, const_float_qty
+		a = re.compile('\d+\.\d+')
+		if(a.match(p[1])):
+			const[p[1]] = const_float_qty
+			const_float_qty += 1
+		else:
+			const[p[1]] = const_int_qty
+			const_int_qty += 1
 
 def p_position(p):
 	'''position : PENP LP exp C exp RP SC'''
@@ -304,13 +311,17 @@ def p_fact4(p):
 def p_valExp(p):
 	'''valExp : VALI 
 | VALF  '''
+	a = re.compile('\d+\.\d+')
 	if p[1] not in const:
-		global const_qty
-		const[p[1]] = const_qty
-		const_qty += 1
+		global const_int_qty, const_float_qty
+		if(a.match(p[1])):
+			const[p[1]] = const_float_qty
+			const_float_qty += 1
+		else:
+			const[p[1]] = const_int_qty
+			const_int_qty += 1
 	avail.OStack_push(const[p[1]])
 	global vType
-	a = re.compile('\d+\.\d+')
 	if(a.match(p[1])):
 		vType = "float"
 	else:
@@ -533,15 +544,18 @@ def dict_to_string(convDict):
 	s = ''
 	for key in convDict:
 		info = convDict[key]
-		s += str(key) + ' ' + str(info) + '\n'
-	s += '%%%%' + '\n'
+		if(key == 'main' or key == 'globals'):
+			s += str(key) + ' ' + str(info[0]) + ' ' + str(info[1]) + ' ' + str(info[2]) + ' ' + str(info[3]) + ' ' + str(info[4]) + '\n'
+		else:
+			s += str(key) + ' ' + str(info) + '\n'
+	s += '%%' + '\n'
 	return s
 
 def quads_to_file():
 	global toFile
 	quads = avail.get_quads()
 	for q in quads:
-		toFile += str(q) + '\n'
+		toFile += str(q[0]) + " " + str(q[1]) + " " + str(q[2]) + " " + str(q[3]) + " " + '\n'
 
 def p_error(p):
 	print "Syntax error in input!", p.type
@@ -556,7 +570,8 @@ if(len(sys.argv) > 1):
 		string = ""
 		for line in s:
 			string += line
-		result = parser.parse(string)	
+		result = parser.parse(string)
+		toFile += str(const_int_qty - 40000) + " " + str(const_float_qty - 41000) + '\n'	
 		toFile += str(dict_to_string(const))
 		toFile += str(dict_to_string(proDict))
 		quads_to_file()
