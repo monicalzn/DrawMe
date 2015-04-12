@@ -152,7 +152,6 @@ class avail:
 		self.temp_bool = 4000 
 	
 	def get_temp_dirs(self):
-		print "BOOL", self.temp_float
 		return [(self.temp_bool-4000), (self.temp_int-5000), (self.temp_float-6000)]
 
 	def expression(self):
@@ -163,6 +162,7 @@ class avail:
 	def add_sub(self):
 		if(self.OpStack.size() > 0):
 			if(self.OpStack.peek() == '+' or self.OpStack.peek() == '-'):
+				print self.OpStack.peek(), " ", self.OStack.peek()
 				self.quad()
 
 	def mul_div(self):
@@ -177,7 +177,6 @@ class avail:
 		self.quads.append(spCuad)
 		self.jumps.push(numQuad)
 		jump = self.jumps.pop()
-		print "JJ", jump
 		h = self.get_temp('==', self.TStack.pop(), 'int') 
 		spCuad = ['==', tem, 0, h[0]]
 		numQuad += 1

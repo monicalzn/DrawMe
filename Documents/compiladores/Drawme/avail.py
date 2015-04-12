@@ -162,6 +162,7 @@ class avail:
 	def add_sub(self):
 		if(self.OpStack.size() > 0):
 			if(self.OpStack.peek() == '+' or self.OpStack.peek() == '-'):
+				print self.OpStack.peek(), " ", self.OpStack.size(), " " , self.OStack.peek()
 				self.quad()
 
 	def mul_div(self):

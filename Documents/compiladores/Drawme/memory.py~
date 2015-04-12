@@ -15,21 +15,11 @@ class Memory:
 		self.temp_bool_block = [True] * boolQ
 		self.temp_int_block = [0] * intTQ
 		self.temp_float_block = [0.0] * floatTQ
-		print "int", self.int_block, "\n",
-		"float", self.float_block, "\n",
-		"Tbool", self.temp_bool_block, "\n",
-		"Tint", self.temp_int_block, "\n",
-		"Tfloat", self.temp_float_block
 	
 	def printstuff(self):
-		print self.int_block, "\n",
-		self.float_block, "\n",
-		self.temp_bool_block, "\n",
-		self.temp_int_block, "\n",
-		self.temp_float_block
+		print "int", self.int_block, "float", self.float_block, "Tbool", self.temp_bool_block, "Tint", self.temp_int_block, "Tfloat", self.temp_float_block
 
 	def writeValue(self, vDir, value):
-		print "WRITEV ", vDir, "  ",value 
 		if(vDir >= 2000 and vDir <= 2999):
 			self.int_block[(vDir-2000)] = int(value)
 		elif(vDir >= 3000 and vDir <= 3999):

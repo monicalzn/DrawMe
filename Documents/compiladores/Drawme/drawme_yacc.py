@@ -21,7 +21,7 @@ toFile = ''
 int_qty = 2000
 float_qty = 3000
 const_int_qty = 40000
-const_float_qty = 41000
+const_float_qty = 41002
 
 def p_prog(p):
 	'''prog : PR p2 p3 main mainVDir block'''
@@ -272,10 +272,13 @@ def p_exp(p):
 	'''exp : term exp2'''
 
 def p_exp2(p):
-	'''exp2 : exp3 exp 
-| empty'''
+	'''exp2 : exp4 exp3 exp 
+| exp4 empty'''
+
+def p_exp4(p):
+	'''exp4 : empty'''
 	avail.add_sub()
-	
+
 def p_exp3(p):
 	'''exp3 : ADD 
 | SUB'''
@@ -285,9 +288,12 @@ def p_term(p):
 	'''term : fact term2'''	
 
 def p_term2(p):
-	'''term2 : term3 term 
-| empty'''
-	avail.mul_div()			
+	'''term2 : term4 term3 term 
+| term4 empty'''	
+
+def p_term4(p):
+	'''term4 : empty'''
+	avail.mul_div()	
 
 def p_term3(p):
 	'''term3 : M 

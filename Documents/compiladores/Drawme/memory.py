@@ -3,11 +3,11 @@ class Memory:
 
 	def __init__(self):
 		int_size = float_size = bool_size = 0
-		self.int_block = None
-		self.float_block = None
-		self.temp_bool_block = None
-		self.temp_int_block = None
-		self.temp_float_block = None
+		self.int_block = []
+		self.float_block = []
+		self.temp_bool_block = []
+		self.temp_int_block = []
+		self.temp_float_block = []
 
 	def setMem(self, intQ, floatQ, boolQ, intTQ, floatTQ):
 		self.int_block = [0] * intQ
@@ -15,21 +15,11 @@ class Memory:
 		self.temp_bool_block = [True] * boolQ
 		self.temp_int_block = [0] * intTQ
 		self.temp_float_block = [0.0] * floatTQ
-		print "int", self.int_block, 
-		"float", self.float_block, 
-		"Tbool", self.temp_bool_block, 
-		"Tint", self.temp_int_block, 
-		"Tfloat", self.temp_float_block
 	
 	def printstuff(self):
-		print self.int_block, "\n",
-		self.float_block, "\n",
-		self.temp_bool_block, "\n",
-		self.temp_int_block, "\n",
-		self.temp_float_block
+		print "int", self.int_block, "float", self.float_block, "Tbool", self.temp_bool_block, "Tint", self.temp_int_block, "Tfloat", self.temp_float_block
 
 	def writeValue(self, vDir, value):
-		print "WRITEV ", vDir, "  ",value 
 		if(vDir >= 2000 and vDir <= 2999):
 			self.int_block[(vDir-2000)] = int(value)
 		elif(vDir >= 3000 and vDir <= 3999):
