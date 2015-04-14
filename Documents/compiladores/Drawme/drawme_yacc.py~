@@ -20,7 +20,7 @@ global toFile
 toFile = ''
 int_qty = 2000
 float_qty = 3000
-const_int_qty = 40000
+const_int_qty = 40003
 const_float_qty = 41002
 
 def p_prog(p):
@@ -282,16 +282,18 @@ def p_exp4(p):
 def p_exp3(p):
 	'''exp3 : ADD 
 | SUB'''
-	print p[1]
 	avail.OpStack_push(p[1])
 
 def p_term(p):
 	'''term : fact term2'''	
 
 def p_term2(p):
-	'''term2 : term3 term 
-| empty'''
-	avail.mul_div()			
+	'''term2 : term4 term3 term 
+| term4 empty'''	
+
+def p_term4(p):
+	'''term4 : empty'''
+	avail.mul_div()	
 
 def p_term3(p):
 	'''term3 : M 
@@ -584,7 +586,7 @@ if(len(sys.argv) > 1):
 		toFile += str(dict_to_string(const))
 		toFile += str(dict_to_string(proDict))
 		quads_to_file()
-		print toFile
+		#print toFile
 		wFile = open('program.txt', 'w+')
 		wFile.write(toFile)
 		wFile.close()	

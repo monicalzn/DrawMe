@@ -20,7 +20,7 @@ global toFile
 toFile = ''
 int_qty = 2000
 float_qty = 3000
-const_int_qty = 40000
+const_int_qty = 40003
 const_float_qty = 41002
 
 def p_prog(p):
@@ -51,6 +51,7 @@ def p_mainVDir(p):
 def p_p2(p):
 	'''p2 : globals 
 | empty'''
+	avail.colors()
 	avail.main()
 
 def p_p3(p):
@@ -586,7 +587,7 @@ if(len(sys.argv) > 1):
 		toFile += str(dict_to_string(const))
 		toFile += str(dict_to_string(proDict))
 		quads_to_file()
-		print toFile
+		#print toFile
 		wFile = open('program.txt', 'w+')
 		wFile.write(toFile)
 		wFile.close()	

@@ -162,7 +162,6 @@ class avail:
 	def add_sub(self):
 		if(self.OpStack.size() > 0):
 			if(self.OpStack.peek() == '+' or self.OpStack.peek() == '-'):
-				print self.OpStack.peek(), " ", self.OpStack.size(), " " , self.OStack.peek()
 				self.quad()
 
 	def mul_div(self):
@@ -231,6 +230,11 @@ class avail:
 		spCuad = ['GOTO', -1, -1, -1]
 		self.quads.append(spCuad)
 		self.jumps.push(self.numQuad)
+		self.numQuad += 1
+
+	def colors(self):
+		spCuad = ['CLR', -1, -1, -1]
+		self.quads.append(spCuad)
 		self.numQuad += 1
 
 	def main_goto(self):
