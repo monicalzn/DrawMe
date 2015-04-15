@@ -298,7 +298,9 @@ class avail:
 
 	def append_quad_three(self, fun):
 		self.numQuad += 1
-		spQuad = [fun, self.OStack.pop(), self.OStack.pop(), self.OStack.pop()]
+		blue = self.OStack.pop()
+		green = self.OStack.pop()
+		spQuad = [fun, self.OStack.pop(), green, blue]
 		self.quads.append(spQuad)
 
 	def quad(self):

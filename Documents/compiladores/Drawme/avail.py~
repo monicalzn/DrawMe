@@ -233,7 +233,7 @@ class avail:
 		self.numQuad += 1
 
 	def colors(self):
-		spCuad = ['Clr', -1, -1, -1]
+		spCuad = ['CLR', -1, -1, -1]
 		self.quads.append(spCuad)
 		self.numQuad += 1
 
@@ -298,7 +298,9 @@ class avail:
 
 	def append_quad_three(self, fun):
 		self.numQuad += 1
-		spQuad = [fun, self.OStack.pop(), self.OStack.pop(), self.OStack.pop()]
+		blue = self.OStack.pop()
+		green = self.OStack.pop()
+		spQuad = [fun, self.OStack.pop(), green, blue ]
 		self.quads.append(spQuad)
 
 	def quad(self):
