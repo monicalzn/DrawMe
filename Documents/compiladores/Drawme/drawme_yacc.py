@@ -20,7 +20,7 @@ global toFile
 toFile = ''
 int_qty = 2000
 float_qty = 3000
-const_int_qty = 40003
+const_int_qty = 40004
 const_float_qty = 41002
 
 def p_prog(p):
@@ -341,7 +341,7 @@ def p_valExp(p):
 
 def p_rep(p):
 	'''rep : RE rep3 block'''
-	avail.rep_jump()
+	avail.rep_jump(const[1], const[0])
 
 def p_rep3(p):
 	'''rep3 : exp'''
@@ -569,6 +569,14 @@ def quads_to_file():
 	for q in quads:
 		toFile += str(q[0]) + " " + str(q[1]) + " " + str(q[2]) + " " + str(q[3]) + " " + '\n'
 
+def one():
+	global const_int_qty
+	if 1 not in const:
+		const[1] = const_int_qty
+		const_int_qty += 1
+	if 0 not in const:		
+		const[0] = const_int_qty
+		const_int_qty += 1
 def p_error(p):
 	print "Syntax error in input!", p.type
 
@@ -578,6 +586,7 @@ parser = yacc.yacc()
 if(len(sys.argv) > 1):
 	if sys.argv[1] == "-f":
 		f = open(sys.argv[2], "r")
+		one()
 		s = f.readlines()
 		string = ""
 		for line in s:

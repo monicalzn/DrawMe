@@ -169,19 +169,18 @@ class avail:
 			if(self.OpStack.peek() == '*' or self.OpStack.peek() == '/'):
 				self.quad()
 
-	def rep_jump(self):
+	def rep_jump(self, dirOne, dirZero):
 		tem = self.OStack.pop()
-		spCuad = ['-', tem, 1, tem]
+		spCuad = ['-', tem, dirOne, tem]
 		self.numQuad += 1
 		self.quads.append(spCuad)
-		self.jumps.push(self.numQuad)
 		jump = self.jumps.pop()
 		h = self.get_temp('==', self.TStack.pop(), 'int') 
-		spCuad = ['==', tem, 0, h[0]]
-		numQuad += 1
+		spCuad = ['==', tem, dirZero, h[0]]
+		self.numQuad += 1
 		self.quads.append(spCuad)
 	
-		spCuad = ['GOTOT', h[0], -1, jump]
+		spCuad = ['GOTOF', h[0], -1, jump]
 		self.numQuad += 1
 		self.quads.append(spCuad)
 
@@ -246,10 +245,10 @@ class avail:
 	def rep(self):
 		h = self.get_temp('-', self.TStack.peek(), self.TStack.pop()) 
 		tem = h[0]
-		spCuad = ['=', self.OStack.pop(), -1, tem]
+		spCuad = [101, self.OStack.pop(), -1, tem]
 		self.numQuad += 1
 		self.quads.append(spCuad)
-	
+		self.jumps.push(self.numQuad)
 		self.OStack.push(tem)
 		self.TStack.push(h[1])
 
