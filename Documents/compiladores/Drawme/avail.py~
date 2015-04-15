@@ -174,7 +174,7 @@ class avail:
 		spCuad = ['-', tem, 1, tem]
 		self.numQuad += 1
 		self.quads.append(spCuad)
-		self.jumps.push(numQuad)
+		self.jumps.push(self.numQuad)
 		jump = self.jumps.pop()
 		h = self.get_temp('==', self.TStack.pop(), 'int') 
 		spCuad = ['==', tem, 0, h[0]]
@@ -224,7 +224,7 @@ class avail:
 		spCuad = ['GOTO', -1, -1, -1]
 		self.quads.append(spCuad)
 		self.numQuad += 1
-		self.jumps.push(numQuad)
+		self.jumps.push(self.numQuad)
 	
 	def main(self):
 		spCuad = ['GOTO', -1, -1, -1]
@@ -300,7 +300,7 @@ class avail:
 		self.numQuad += 1
 		blue = self.OStack.pop()
 		green = self.OStack.pop()
-		spQuad = [fun, self.OStack.pop(), green, blue ]
+		spQuad = [fun, self.OStack.pop(), green, blue]
 		self.quads.append(spQuad)
 
 	def quad(self):

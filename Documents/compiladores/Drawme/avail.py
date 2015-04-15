@@ -174,7 +174,7 @@ class avail:
 		spCuad = ['-', tem, 1, tem]
 		self.numQuad += 1
 		self.quads.append(spCuad)
-		self.jumps.push(numQuad)
+		self.jumps.push(self.numQuad)
 		jump = self.jumps.pop()
 		h = self.get_temp('==', self.TStack.pop(), 'int') 
 		spCuad = ['==', tem, 0, h[0]]
@@ -202,7 +202,7 @@ class avail:
 		if(self.jumps.size() > 0):
 			jump = self.jumps.pop() - 1
 			spCuad = self.quads[jump]
-			spCuad[3] = self.numQuad + 1
+			spCuad[3] = self.numQuad 
 			self.quads[jump] = spCuad
 
 	def condition(self):
@@ -224,7 +224,7 @@ class avail:
 		spCuad = ['GOTO', -1, -1, -1]
 		self.quads.append(spCuad)
 		self.numQuad += 1
-		self.jumps.push(numQuad)
+		self.jumps.push(self.numQuad)
 	
 	def main(self):
 		spCuad = ['GOTO', -1, -1, -1]

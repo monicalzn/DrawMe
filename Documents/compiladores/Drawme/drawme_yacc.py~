@@ -51,6 +51,7 @@ def p_mainVDir(p):
 def p_p2(p):
 	'''p2 : globals 
 | empty'''
+	avail.colors()
 	avail.main()
 
 def p_p3(p):
@@ -321,6 +322,7 @@ def p_fact4(p):
 def p_valExp(p):
 	'''valExp : VALI 
 | VALF  '''
+	print "VALEXP", p[1]
 	a = re.compile('\d+\.\d+')
 	if p[1] not in const:
 		global const_int_qty, const_float_qty
