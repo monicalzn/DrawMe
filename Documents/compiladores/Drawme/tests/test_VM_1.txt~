@@ -1,0 +1,20 @@
+program
+global var 
+int j;
+main 
+var int n;
+float g;
+{
+	n = 3 + 10;
+	n = 2 - 4 + 90;
+	setColor(255, 45, 78);
+penWidth(3);
+rectangle(30,n,fill);
+forward(100, angle 90);
+	penColor(255, 45, 78);
+	
+	repeat 3{
+		rectangle(30,n,fill);
+	}
+	
+}
