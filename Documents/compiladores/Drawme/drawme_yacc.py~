@@ -191,7 +191,7 @@ def p_colors(p):
 
 def p_p_width(p):
 	'''p_width : PENW LP exp RP SC '''
-	avail.append_quad_two(304)
+	avail.append_quad_one(304)
 
 def p_penwrite(p):
 	'''penwrite : PENU SC 
@@ -205,6 +205,10 @@ def p_penwrite(p):
 def p_move(p):
 	'''move : F mueve2
 | B mueve2'''
+	if(p[1] == 'forward'):
+		avail.append_quad_two(305)
+	else:
+		avail.append_quad_two(306)
 
 def p_mueve2(p):
 	'''mueve2 : LP exp C A exp RP SC'''
@@ -570,12 +574,11 @@ def quads_to_file():
 		toFile += str(q[0]) + " " + str(q[1]) + " " + str(q[2]) + " " + str(q[3]) + " " + '\n'
 
 def one():
+	global const_int_qty
 	if 1 not in const:
-		global const_int_qty
 		const[1] = const_int_qty
 		const_int_qty += 1
-	if 0 not in const:
-		global const_int_qty
+	if 0 not in const:		
 		const[0] = const_int_qty
 		const_int_qty += 1
 def p_error(p):

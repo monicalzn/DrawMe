@@ -191,7 +191,7 @@ def p_colors(p):
 
 def p_p_width(p):
 	'''p_width : PENW LP exp RP SC '''
-	avail.append_quad_two(304)
+	avail.append_quad_one(304)
 
 def p_penwrite(p):
 	'''penwrite : PENU SC 
