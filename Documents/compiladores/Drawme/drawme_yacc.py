@@ -223,8 +223,8 @@ def p_p_fill(p):
 	avail.append_quad(spCuad)
 
 def p_tria(p):
-	'''tria : TRI LP exp C exp C exp p_fill RP SC'''
-	avail.append_quad(202)
+	'''tria : TRI LP LC exp C exp RC C LC exp C exp RC C LC exp C exp RC p_fill RP SC'''
+	avail.append_quad_tri(202)
 
 def p_one_par(p):
 	'''one_par : CIR LP exp p_fill RP SC

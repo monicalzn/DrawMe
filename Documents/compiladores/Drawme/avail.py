@@ -292,7 +292,8 @@ class avail:
 
 	def append_quad_two(self, fun):
 		self.numQuad += 1
-		spQuad = [fun, self.OStack.pop(), self.OStack.pop(), -1]
+		two = self.OStack.pop()
+		spQuad = [fun, self.OStack.pop(),two, -1]
 		self.quads.append(spQuad)
 
 	def append_quad_three(self, fun):
@@ -300,6 +301,19 @@ class avail:
 		blue = self.OStack.pop()
 		green = self.OStack.pop()
 		spQuad = [fun, self.OStack.pop(), green, blue]
+		self.quads.append(spQuad)
+
+	def append_quad_tri(self, fun):
+		self.numQuad += 1
+		y3 = self.OStack.pop()
+		x3 = self.OStack.pop()
+		y2 = self.OStack.pop()
+		x2 = self.OStack.pop()
+		y = self.OStack.pop()
+		x = self.OStack.pop()
+		spQuad = [fun, x, y, -1]
+		self.quads.append(spQuad)
+		spQuad = [x2, y2, x3, y3]
 		self.quads.append(spQuad)
 
 	def quad(self):
@@ -312,7 +326,6 @@ class avail:
 		#meter temporal
 		self.OStack.push(tem)
 		self.TStack.push(h[1])
-
 
 	def OpStack_pop(self):
 		self.OpStack.pop()
