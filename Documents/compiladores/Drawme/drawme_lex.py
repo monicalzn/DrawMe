@@ -17,7 +17,7 @@ reserved = {
    'penDown':'PEND',
    'setColor':'SETC',
    'backgroundColor' : 'BACO',
-   'forward':'F',
+   'line':'LI',
    'rectangle' :'REC',
    'fill' :'FILL',
    'triangle' :'TRI',
@@ -27,7 +27,6 @@ reserved = {
    'angle' : 'A',
    'arc' : 'ARC',
    'lineStrip' : 'LS',
-   'back' : 'B',
    'angle' : 'A',
    'repeat' : 'RE',
    'list' : 'L',
@@ -36,7 +35,7 @@ reserved = {
 
 #List of token name.
 tokens = [
-	'LB', 'RB', 'DP', 'C', 'LP', 'RP', 'EQ', 'VALI', 'VALF', 'SEQ', 'D', 'MT', 'LT', 'ADD', 'SUB', 'M', 'DIV', 'STR', 'SC', 'ID'
+	'LB', 'RB', 'DP', 'C', 'LP', 'RP', 'EQ', 'VALI', 'VALF', 'SEQ', 'D', 'MT', 'LT', 'ADD', 'SUB', 'M', 'DIV', 'STR', 'SC', 'ID', 'LC', 'RC'
 	] + list(reserved.values())
 
 t_ignore 	= ' \t\n\r'

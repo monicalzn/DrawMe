@@ -14,6 +14,7 @@ class avail:
 		self.OpStack = Stack() #Operator stack
 		self.jumps = Stack() #jump stack
 		self.numQuad = 0
+		self.funcQuad = 0
 		self.temp_int = 5000
 		self.temp_float = 6000
 		self.temp_bool = 4000 
@@ -184,12 +185,6 @@ class avail:
 		self.numQuad += 1
 		self.quads.append(spCuad)
 
-	def setScope(self, scope):
-		self.scope = scope
-
-	def getScope(self):
-		return self.scope
-
 	def assig(self, var):
 		if(self.OStack.size() > 0):
 			self.numQuad += 1
@@ -252,12 +247,6 @@ class avail:
 		self.OStack.push(tem)
 		self.TStack.push(h[1])
 
-
-	def function_begin(self):
-		spCuad = ['GOTO', 1, -1, 'main']
-		self.numQuad += 1
-		self.quads.append(spCuad)
-
 	def function_end(self):
 		spCuad = ['RETURN', 1, -1, 1]
 		self.numQuad += 1
@@ -267,17 +256,23 @@ class avail:
 		self.quads.append(spCuad)
 
 	def function_param(self, param):
-		spCuad = ['PARAMETRO', 1, -1, param]
-		self.numQuad += 1
-		self.quads.append(spCuad)
+		listh = []
+		cont = len(param)-1
+		for key in param:
+			listh.append(self.OStack.pop())
+		for key in param:
+			spCuad = ['PARAMETRO', listh[cont], -1, param[key][2]]
+			cont -= 1
+			self.numQuad += 1
+			self.quads.append(spCuad)
 
 	def call_function(self, var):
-		spCuad = ['ERA', 1, -1, var]
+		spCuad = ['ERA', -1, -1, var]
 		self.numQuad += 1
 		self.quads.append(spCuad)
 
 	def call_function_end(self,var):
-		spCuad = ['GOSUB', 1, -1, var]
+		spCuad = ['GOSUB', -1, -1, var]
 		self.numQuad += 1
 		self.quads.append(spCuad)
 		
@@ -304,7 +299,7 @@ class avail:
 		self.quads.append(spQuad)
 
 	def append_quad_tri(self, fun):
-		self.numQuad += 1
+		self.numQuad += 2
 		y3 = self.OStack.pop()
 		x3 = self.OStack.pop()
 		y2 = self.OStack.pop()
@@ -344,3 +339,15 @@ class avail:
 
 	def get_quads(self):
 		return self.quads
+
+	def setScope(self, scope):
+		self.scope = scope
+
+	def getScope(self):
+		return self.scope
+	
+	def setfuncQuad(self):
+		self.funcQuad = self.numQuad
+
+	def getfuncQuad(self):
+		return self.funcQuad

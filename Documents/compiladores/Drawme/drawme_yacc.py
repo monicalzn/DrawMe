@@ -77,11 +77,12 @@ def p_glob(p):
 
 def p_functions(p): 
 	'''functions : fun2 DP funVDir block'''	
-	avail.function_begin()	
+	
 	temps = avail.get_temp_dirs()
-	proDict[avail.getScope()][3] = temps[0]
-	proDict[avail.getScope()][4] = temps[1]
-	proDict[avail.getScope()][5] = temps[2]
+	proDict[avail.getScope()][4] = temps[0]
+	proDict[avail.getScope()][5] = temps[1]
+	proDict[avail.getScope()][6] = temps[2]
+	print avail.getScope()
 	ht.clear()
 	avail.function_end()
 	
@@ -91,8 +92,8 @@ def p_funVDir(p):
 	#print "function    ", ht, '\n'
 	block_dir(ht, 3)
 	global int_qty, float_qty, idFunc
-	proDict[idFunc][1] = (int_qty-2000)
-	proDict[idFunc][2] = (float_qty-3000)
+	proDict[idFunc][2] = (int_qty-2000)
+	proDict[idFunc][3] = (float_qty-3000)
 	int_qty = 2000
 	float_qty = 3000
 
@@ -102,14 +103,14 @@ def p_fun2(p):
 	avail.setScope(p[2])
 	global int_qty, float_qty, idFunc
 	idFunc = p[2]
-	temp = [vaDict, (int_qty-2000), (float_qty-3000), 0, 0, 0]
+	temp = [vaDict, avail.getfuncQuad(), (int_qty-2000), (float_qty-3000), 0, 0, 0]
 	proDict[p[2]] = temp
-	avail.function_param(vaDict)
 	funPar.clear()
 	
 
 def p_funBlock(p):
         '''funBlock : FUN '''
+	avail.setfuncQuad()
 	avail.setblock(3)
 
 def p_fun3(p):
@@ -203,8 +204,8 @@ def p_penwrite(p):
 	avail.append_quad(spCuad)
 
 def p_move(p):
-	'''move : F mueve2
-| B mueve2'''
+	'''move : LI mueve2 '''
+	avail.append_quad_two(305)
 
 def p_mueve2(p):
 	'''mueve2 : LP exp C A exp RP SC'''
@@ -358,15 +359,17 @@ def p_WID(p):
 			print "Undeclared function", p[1]
 			sys.exit(0)	
 		else:
-			if(len(proDict[p[1]]) != len(funCheck)):
-				print "Error, function call, ", p[1]
+			if((len(proDict[p[1]][0])) != len(funCheck)):
+				print funCheck
+				print "ONE Error, function call, ", p[1]
 			else:
 				cont = 0
-				for key in proDict[p[1]]:
-					if(proDict[p[1]][key][0] != funCheck[cont]):
+				for key in proDict[p[1]][0]:
+					if(proDict[p[1]][0][key][0] != funCheck[cont]):
 						
-						print "Error, function call type miss match"
+						print "TWO Error, function call type miss match"
 					cont += 1 
+	funCheck[:] = []
 
 def p_WID2(p):
 	'''WID2 : assigment
@@ -385,25 +388,28 @@ def p_varAss(p):
 	'''varAss : exp SC'''
 
 def p_funCall(p):
-	'''funCall : LP func2 RP SC'''
+	'''funCall : funEra func2 RP SC'''
 	global idFunc
 	idFunc = "func"
-	
+	avail.function_param(proDict[avail.getScope()][0])
+	avail.call_function_end(proDict[avail.getScope()][1])
+
+def p_funEra(p):
+	'''funEra : LP '''
+	print "ERA ", avail.getScope()
+	avail.call_function(avail.getScope())
+
 def p_func2(p):
 	'''func2 : func4 func3
 | empty'''
-	
-	avail.call_function_end(idFunc)
 
 def p_func3(p):
 	'''func3 : C func4 func3
 | empty'''
-	avail.function_param(funPar)
 
 def p_func4(p):
 	'''func4 : exp '''
 	funCheck.append(vType)
-	avail.call_function(idFunc)
 	
 def p_list(p):
 	'''list : L type ID prelistAss'''
@@ -559,7 +565,15 @@ def dict_to_string(convDict):
 		if(key == 'main' or key == 'globals'):
 			s += str(key) + ' ' + str(info[0]) + ' ' + str(info[1]) + ' ' + str(info[2]) + ' ' + str(info[3]) + ' ' + str(info[4]) + '\n'
 		else:
-			s += str(key) + ' ' + str(info) + '\n'
+			s += str(key) + ' ' + str(info[2]) + ' ' + str(info[3]) + ' ' + str(info[4]) + ' ' + str(info[5]) + ' ' + str(info[6]) + '\n'
+	s += '%%' + '\n'
+	return s
+
+def dict_to_string_cons(convDict):
+	s = ''
+	for key in convDict:
+		info = convDict[key]
+		s += str(key) + ' ' + str(info) + '\n'
 	s += '%%' + '\n'
 	return s
 
@@ -593,8 +607,9 @@ if(len(sys.argv) > 1):
 			string += line
 		result = parser.parse(string)
 		toFile += str(const_int_qty - 40000) + " " + str(const_float_qty - 41000) + '\n'	
-		toFile += str(dict_to_string(const))
+		toFile += str(dict_to_string_cons(const))
 		toFile += str(dict_to_string(proDict))
+		print proDict
 		quads_to_file()
 		#print toFile
 		wFile = open('program.txt', 'w+')

@@ -7,14 +7,17 @@ float g;
 {
 	n = 3 + 10;
 	n = 2 - 4 + 90;
+	backgroundColor(79, 128,182);
 	setColor(255, 45, 78);
 penWidth(3);
 rectangle(30,n,fill);
-forward(100, angle 90);
-	penColor(255, 45, 78);
+	penColor(35, 45, 178);
+	triangle([2,4],[6,8],[20,90]);
 	
 	repeat 3{
 		rectangle(30,n,fill);
 	}
+	
+line(50, angle 40);
 	
 }
