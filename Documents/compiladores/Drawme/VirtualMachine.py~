@@ -96,9 +96,9 @@ def equal_to():
 
 def setColor():
 	global current_quad
-	memory.writeValue(40000, 000)
-	memory.writeValue(40001, 000)
-	memory.writeValue(40002, 000)
+	memory.writeValue('40000', 000)
+	memory.writeValue('40001', 000)
+	memory.writeValue('40002', 000)
 	current_quad += 1
 
 def stringColor(red, green, blue):
@@ -156,8 +156,8 @@ def assign():
 
 def rectangle():
 	global current_quad, fill, fillColor, penColor, penWidth
-	x = memory.getValue(41000)
-	y = memory.getValue(41001)
+	x = memory.getValue('41000')
+	y = memory.getValue('41001')
 	x2 = x + memory.getValue(quads[current_quad][1])
 	y2 = y + memory.getValue(quads[current_quad][2])
 	print "RECTANGLE ", x, " ", y, " ", x2, " ", y2, " ", fill 
@@ -166,8 +166,8 @@ def rectangle():
 		w.create_rectangle(x, y, x2, y2, fill=fillColor, outline=penColor, width=penWidth)	
 	else:
 		w.create_rectangle(x, y, x2, y2)
-	memory.writeValue(41000, x2)
-	memory.writeValue(41001, y2)
+	memory.writeValue('41000', x2)
+	memory.writeValue('41001', y2)
 	current_quad += 1
 
 def triangle():
@@ -190,8 +190,8 @@ def triangle():
 
 def circle():
 	global current_quad, fill, fillColor, penColor, penWidth
-	x = memory.getValue(41000)
-	y = memory.getValue(41001)
+	x = memory.getValue('41000')
+	y = memory.getValue('41001')
 	x2 = x + memory.getValue(quads[current_quad][1])
 	y2 = y + memory.getValue(quads[current_quad][1])
 	#print "CIRCLE ", x, " ", y, " ", x2, " ", y2, " ", fill 
@@ -216,8 +216,8 @@ def square():
 		w.create_rectangle(x, y, x2, y2, fill=fillColor, outline=penColor, width=penWidth)	
 	else:
 		w.create_rectangle(x, y, x2, y2)
-	memory.writeValue(41000, x2)
-	memory.writeValue(41001, y2)
+	memory.writeValue('41000', x2)
+	memory.writeValue('41001', y2)
 	current_quad += 1
 	
 def fill():
@@ -264,14 +264,14 @@ def get_x_and_y(angle, hypotenus):
 
 def penpos():
 	global current_quad
-	memory.writeValue(41001, memory.getValue(quads[current_quad][1]))
-	memory.writeValue(41000, memory.getValue(quads[current_quad][2]))
+	memory.writeValue('41001', memory.getValue(quads[current_quad][1]))
+	memory.writeValue('41000', memory.getValue(quads[current_quad][2]))
 	current_quad += 1
 
 def move():
 	global current_quad
-	x = memory.getValue(41000)
-	y = memory.getValue(41001)
+	x = memory.getValue('41000')
+	y = memory.getValue('41001')
 	hyp = memory.getValue(quads[current_quad][1])
 	angle = memory.getValue(quads[current_quad][2])
 	pos = get_x_and_y(angle, hyp)
@@ -315,6 +315,23 @@ def return_f():
 	global current_quad
 	current_quad += 1
 
+def dim():
+	global current_quad
+	value = memory.getValue(quads[current_quad][2])
+	dim = int(quads[current_quad][1])
+	if value < 0 or value > dim:
+		print "Out of bounds."
+		sys.exit(0)
+	current_quad += 1
+
+def pointerDir():
+	global current_quad
+	vDir = int(quads[current_quad][1])
+	vPoint = memory.getValue(quads[current_quad][2])
+	vDir = vDir + vPoint
+	memory.writeValue(quads[current_quad][3], str(vDir))
+	current_quad += 1
+
 def endPro():
 	global current_quad
 	memory.printFunctions()
@@ -353,7 +370,10 @@ options = { '+' : add,
 		'ERA' : era,
 		'PARAMETRO' : param,
 		'GOSUB' : goSub,
-		'RETURN' : return_f,
+		'RET' : return_f,
+		'RETURN' : param,
+		'DIM' : dim,
+		'DIR' : pointerDir,
 		'ENDPROC' : endPro}
 
 if(len(sys.argv) > 1):
@@ -379,11 +399,11 @@ if(len(sys.argv) > 1):
 				if(count == 2):
 					info = line.split(' ')
 					if(info[0] == 'main'):
-						memory.setMainMem(info[1], info[2], info[3], info[4], info[5]) 
+						memory.setMainMem(info[1], info[2], info[3], info[4], info[5], info[6]) 
 					elif(info[0] == 'globals'):
-						memory.setGlobalMem(info[1], info[2], info[3], info[4], info[5])
+						memory.setGlobalMem(info[1], info[2], info[3], info[4], info[5], info[6])
 					else:
-						proc[info[0]] = [info[1], info[2], info[3], info[4], info[5]]
+						proc[info[0]] = [info[1], info[2], info[3], info[4], info[5], info[6]]
 				if(count == 3):
 					info = line.split(' ')
 					sp = [info[0], info[1], info[2], info[3]]

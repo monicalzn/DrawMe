@@ -12,16 +12,19 @@ funPar = dict()
 vType = None
 proDict = dict()
 const = dict()
-scope = None
 idFunc = None
 avail = avail()
 funCheck = [] #Check function parameters
-global toFile
 toFile = ''
 int_qty = 2000
 float_qty = 3000
 const_int_qty = 40004
 const_float_qty = 41002
+empty = False
+vD = 0
+offset = 0
+ID = ''
+MDim = False
 
 def p_prog(p):
 	'''prog : PR p2 p3 main mainVDir block'''
@@ -82,7 +85,7 @@ def p_functions(p):
 	proDict[avail.getScope()][4] = temps[0]
 	proDict[avail.getScope()][5] = temps[1]
 	proDict[avail.getScope()][6] = temps[2]
-	print avail.getScope()
+	proDict[avail.getScope()][7] = temps[3]
 	ht.clear()
 	avail.function_end()
 	
@@ -103,15 +106,22 @@ def p_fun2(p):
 	avail.setScope(p[2])
 	global int_qty, float_qty, idFunc
 	idFunc = p[2]
-	temp = [vaDict, avail.getfuncQuad(), (int_qty-2000), (float_qty-3000), 0, 0, 0]
+	temp = [vaDict, avail.getfuncQuad(), (int_qty-2000), (float_qty-3000), 0, 0, 0, 0]
 	proDict[p[2]] = temp
 	funPar.clear()
-	
 
 def p_funBlock(p):
-        '''funBlock : FUN '''
+        '''funBlock : FUN tp'''
 	avail.setfuncQuad()
 	avail.setblock(3)
+
+def p_tp(p):
+        '''tp : VD 
+| type'''
+	global vType
+	if(p[1] == 'void'):
+		vType = p[1]
+	avail.setRT(vType)
 
 def p_fun3(p):
 	'''fun3 : fun5 fun4
@@ -129,7 +139,7 @@ def p_fun5(p):
 	
 
 def p_vars(p): 
-	'''vars : V var2 var5
+	'''vars : V var2 
 | empty'''
 
 def p_var2(p):
@@ -137,22 +147,39 @@ def p_var2(p):
 | empty'''
 
 def p_var3(p):
-	'''var3 : ID var4 var33 '''
-	save_var(p[1])
+	'''var3 : varSave var5 var4 var33 '''
 
 def p_var33(p):
-	'''var33 : C ID var4 var33 
+	'''var33 : C varSave var5 var4 var33 
 | empty '''
-	if(len(p) == 5):
-		save_var(p[2])
+
+def p_varSave(p):
+	'''varSave : ID '''
+	save_var(p[1])
+	global vD, ID
+	vD = var_dir(p[1]) + (avail.getblock() * 10000)
+	ID = p[1]
 
 def p_var4(p):
         '''var4 : EQ exp 
 | empty'''
+	global vD
+	avail.assig(vD)
 
 def p_var5(p):
-	'''var5 : list var5
+	'''var5 : LC exp RC
 | empty'''
+	global vType, int_qty, float_qty, ID
+	if(len(p) == 4):
+		exp = avail.OStack_pop()
+		for value, vDir in const.iteritems():
+			if exp == vDir :
+				if vType == 'int':
+					int_qty += int(value)
+				else:
+					float_qty += int(value)
+				ht[ID].append(value)
+				
 
 def p_type(p):
 	'''type : INT 
@@ -272,6 +299,8 @@ def p_ex3(p):
 
 def p_exp(p):
 	'''exp : term exp2'''
+	global empty
+	empty = False
 
 def p_exp2(p):
 	'''exp2 : exp4 exp3 exp 
@@ -314,12 +343,31 @@ def p_fact2(p):
 
 def p_fact4(p):
 	'''fact4 : valExp 
-| ID'''	
-	if(p[1] != None):
-		declared_variables(p[1])
-		avail.TStack_push(type_variable(p[1], "var"))
-		avail.OStack_push(var_dir(p[1]))
-					
+| factID fact5'''
+	global ID, MDim
+	if(len(p) == 3):
+		print "THREE"
+		if(MDim):		
+			pointer = avail.OStack_pop()
+		declared_variables(ID)
+		avail.TStack_push(type_variable(ID, "var"))
+		avail.OStack_push(var_dir(ID))
+		if(MDim):
+			avail.dim(dim(ID), pointer)
+	MDim = False
+
+def p_factID(p):
+	'''factID : ID '''	
+	global ID
+	ID = p[1]
+
+def p_fact5(p):
+	'''fact5 : LC exp RC
+| empty'''	
+	global MDim
+	if(len(p) == 4):
+		MDim = True
+
 def p_valExp(p):
 	'''valExp : VALI 
 | VALF  '''
@@ -361,19 +409,19 @@ def p_WID(p):
 		else:
 			if((len(proDict[p[1]][0])) != len(funCheck)):
 				print funCheck
-				print "ONE Error, function call, ", p[1]
+				print "Error, function call, ", p[1]
 			else:
 				cont = 0
 				for key in proDict[p[1]][0]:
 					if(proDict[p[1]][0][key][0] != funCheck[cont]):
 						
-						print "TWO Error, function call type miss match"
+						print "Error, function call type miss match"
 					cont += 1 
+	funCheck[:] = []
 
 def p_WID2(p):
 	'''WID2 : assigment
 | funCall'''
-	funCheck[:] = []
 
 def p_assigment(p):
 	'''assigment : EQ tipeAss'''
@@ -381,11 +429,9 @@ def p_assigment(p):
 	idFunc = "ass"
 
 def p_tipeAss(p):
-	'''tipeAss : varAss
-| listAss'''
-
-def p_varAss(p):
-	'''varAss : exp SC'''
+	'''tipeAss : exp SC
+| listAss
+| WID'''
 
 def p_funCall(p):
 	'''funCall : funEra func2 RP SC'''
@@ -396,7 +442,6 @@ def p_funCall(p):
 
 def p_funEra(p):
 	'''funEra : LP '''
-	print "ERA ", avail.getScope()
 	avail.call_function(avail.getScope())
 
 def p_func2(p):
@@ -464,7 +509,34 @@ def p_con2(p):
 def p_con3(p):
 	'''con3 : ELSE '''
 	avail.condition_else()
-	
+
+def p_rt(p):	
+	'''rt : RT rtE SC'''
+	if(avail.getScope() == 'main'):
+		print "ERROR, no return in main"
+
+def p_rtE(p):
+	'''rtE : exp 
+| empty'''
+	print "RTE ", proDict["globals"], " ", avail.getRT()
+	global empty, vType
+	vDir = 0
+	if(avail.getRT() != vType):
+		print "ERROR, MISSMATCH"
+	else:
+		vDir = 10000
+		if(vType == 'int'):
+			qty = proDict["globals"][4]
+			vDir += 5000 + qty
+			qty += 1
+			proDict["globals"][4] = qty
+		elif(vType == 'float'):
+			qty = proDict["globals"][5]
+			vDir += 6000 + qty
+			qty += 1
+			proDict["globals"][5] = qty
+	avail.function_return(empty, vDir)
+	empty = False
 
 def p_block(p):
 	'''block : LB block3 RB'''
@@ -488,6 +560,7 @@ def p_pen(p):
 | position 
 | penwrite '''
 
+
 def p_block2(p):
 	'''block2 : figure 
 | condition 
@@ -495,10 +568,13 @@ def p_block2(p):
 | lab 
 | list 
 | WID
-| rep'''
+| rep
+| rt'''
 
 def p_empty(p):
-    '''empty : '''
+	'''empty : '''
+	global empty
+	empty = True
 
 def save_var(var):
 	if var in ht:
@@ -557,6 +633,19 @@ def var_dir(p):
 	else:
 		if "globals" in proDict:
 			return proDict["globals"][0][p][2]
+
+def dim(p):
+	if p in ht:
+		try:
+			return ht[p][3]
+		except IndexError:
+			return -1
+	else:
+		if "globals" in proDict:
+			try:
+				return proDict["globals"][0][p][3]
+			except IndexError:
+				return -1
 
 def dict_to_string(convDict):
 	s = ''

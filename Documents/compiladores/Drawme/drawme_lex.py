@@ -8,6 +8,7 @@ reserved = {
    'main' : 'MAIN',
    'int' : 'INT',
    'float' : 'FLOAT',
+   'void' : 'VD',
    'global' : 'GL',
    'function': 'FUN',
    'penWidth':'PENW',
@@ -30,7 +31,8 @@ reserved = {
    'angle' : 'A',
    'repeat' : 'RE',
    'list' : 'L',
-   'label' : 'LA'
+   'label' : 'LA',
+   'return' : 'RT'
 }
 
 #List of token name.

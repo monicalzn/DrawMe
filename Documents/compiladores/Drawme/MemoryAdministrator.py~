@@ -5,24 +5,25 @@ class MemoryAdministrator:
 	def __init__(self):
 		self.constants_int = []
 		self.constants_float = []
+		self.pointers = []
 		self.globals = Memory()
 		self.main = Memory()
 		self.currentScope = 0
 		self.functions = dict()
-	
+
 	def constSize(self, sizeI, sizeF):
 		self.constants_int = [0] * sizeI
 		self.constants_float = [0.0] * sizeF
 	
-	def setMainMem(self, intQ, floatQ, boolQ, intTQ, floatTQ):
-		self.main.setMem(int(intQ), int(floatQ), int(boolQ), int(intTQ), int(floatTQ))
+	def setMainMem(self, intQ, floatQ, boolQ, intTQ, floatTQ, pointQ):
+		self.main.setMem(int(intQ), int(floatQ), int(boolQ), int(intTQ), int(floatTQ), int(pointQ))
 
-	def setGlobalMem(self, intQ, floatQ, boolQ, intTQ, floatTQ):
-		self.globals.setMem(int(intQ), int(floatQ), int(boolQ), int(intTQ), int(floatTQ))
+	def setGlobalMem(self, intQ, floatQ, boolQ, intTQ, floatTQ, pointQ):
+		self.globals.setMem(int(intQ), int(floatQ), int(boolQ), int(intTQ), int(floatTQ), int(pointQ))
 
-	def setFunction(self, intQ, floatQ, boolQ, intTQ, floatTQ):
+	def setFunction(self, intQ, floatQ, boolQ, intTQ, floatTQ, pointQ):
 		function = Memory()
-		function.setMem(int(intQ), int(floatQ), int(boolQ), int(intTQ), int(floatTQ))
+		function.setMem(int(intQ), int(floatQ), int(boolQ), int(intTQ), int(floatTQ), int(pointQ))
 		self.currentScope += 1
 		self.functions[self.currentScope] = function
 
@@ -61,6 +62,21 @@ class MemoryAdministrator:
 			return
 
 	def getValue(self, dirV):
+		print "GET ", dirV[1]
+		if dirV[1] == '7':
+			dirV = int(dirV)			
+			if((dirV-10000) < 10000):
+				#global values
+				dirV = self.globals.readValue(dirV-10000)
+			elif((dirV-20000) < 10000):
+				#main values
+				dirV = self.main.readValue(dirV-20000)
+			elif((dirV-30000) < 10000):
+				#function values
+				dirV = self.functions[self.currentScope].readValue(dirV-30000)
+			print dirV
+			dirV = str(dirV)
+		print dirV
 		dirV = int(dirV)			
 		if((dirV-10000) < 10000):
 			#global values
@@ -84,7 +100,6 @@ class MemoryAdministrator:
 
 	def printFunctions(self):
 		print self.currentScope
-		print self.functions[self.currentScope].printstuff()
 
 	def printMain(self):
 		self.main.printstuff()

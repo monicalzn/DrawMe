@@ -18,9 +18,11 @@ class avail:
 		self.temp_int = 5000
 		self.temp_float = 6000
 		self.temp_bool = 4000 
+		self.temp_dir = 7000 
 		self.quads = []
 		self.block = 0
 		self.scope = ''
+		self.RT = ''
 		self.semantic_cube = {
 		'=': {
 			'int': {
@@ -120,6 +122,11 @@ class avail:
 				'int': 'float',
 				'float': 'float'
 			}
+		},
+		'$': {
+			'dir': {
+				'-1': 'dir'
+			}
 		}
 	}
 
@@ -134,6 +141,9 @@ class avail:
 		elif temp_type == 'bool':
 			temp = self.temp_bool
 			self.temp_bool += 1
+		elif type1 == 'dir':
+			temp = self.temp_dir
+			self.temp_dir += 1
 		temp += (self.block * 10000)
 		return [temp, self.get_type(operator, type1, type2)]
 
@@ -151,9 +161,13 @@ class avail:
 		self.temp_int = 5000
 		self.temp_float = 6000
 		self.temp_bool = 4000 
+		self.temp_dir = 7000 
+
+	def getblock(self):
+		return self.block
 	
 	def get_temp_dirs(self):
-		return [(self.temp_bool-4000), (self.temp_int-5000), (self.temp_float-6000)]
+		return [(self.temp_bool-4000), (self.temp_int-5000), (self.temp_float-6000), (self.temp_dir-7000)]
 
 	def expression(self):
 		if(self.OpStack.size() > 0):
@@ -247,8 +261,32 @@ class avail:
 		self.OStack.push(tem)
 		self.TStack.push(h[1])
 
+	def dim(self, dim, pointer):
+		print "DIM"
+		spCuad = ['DIM', dim, pointer, -1]		
+		self.numQuad += 1
+		self.quads.append(spCuad)
+		self.numQuad += 1
+		h = self.get_temp('$', 'dir', -1) 
+		tem = h[0]
+		spCuad = ['DIR', self.OStack.pop(), pointer, tem]
+		self.quads.append(spCuad)	
+		#meter temporal
+		self.OStack.push(tem)
+
+	def function_return(self, empty, vDir):
+		if(empty):
+			spCuad = ['RETURN',-1, -1, -1]
+			self.numQuad += 1
+			self.quads.append(spCuad)
+		else:
+			spCuad = ['RETURN', self.OStack.pop(), -1, vDir]
+			self.OStack.push(vDir)
+			self.numQuad += 1
+			self.quads.append(spCuad)
+
 	def function_end(self):
-		spCuad = ['RETURN', 1, -1, 1]
+		spCuad = ['RET', -1, -1, -1]
 		self.numQuad += 1
 		self.quads.append(spCuad)
 		spCuad = ['ENDPROC', 1, -1, 1]
@@ -334,6 +372,9 @@ class avail:
 	def OStack_push(self, op):
 		self.OStack.push(op)
 		
+	def OStack_pop(self):
+		return self.OStack.pop()
+
 	def print_quads(self):
 		print self.quads
 
@@ -346,6 +387,12 @@ class avail:
 	def getScope(self):
 		return self.scope
 	
+	def setRT(self, RT):
+		self.RT = RT
+
+	def getRT(self):
+		return self.RT
+
 	def setfuncQuad(self):
 		self.funcQuad = self.numQuad
 
