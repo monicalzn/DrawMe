@@ -149,8 +149,8 @@ def penwidth():
 
 def assign():
 	global current_quad
-	print "ASS", quads[current_quad]
 	result = memory.getValue(quads[current_quad][1])
+	print "ASS", result
 	memory.writeValue(quads[current_quad][3], result)
 	current_quad += 1
 
@@ -200,17 +200,17 @@ def circle():
 		w.create_oval(x, y, x2, y2, fill=fillColor, outline=penColor, width=penWidth)	
 	else:
 		w.create_oval(x, y, x2, y2)
-	memory.writeValue(41000, x2)
-	memory.writeValue(41001, y2)
+	memory.writeValue('41000', x2)
+	memory.writeValue('41001', y2)
 	current_quad += 1
 
 def square():
 	global current_quad, fill, fillColor, penColor, penWidth
-	x = memory.getValue(41000)
-	y = memory.getValue(41001)
+	x = memory.getValue('41000')
+	y = memory.getValue('41001')
 	x2 = x + memory.getValue(quads[current_quad][1])
 	y2 = y + memory.getValue(quads[current_quad][1])
-	#print "SQUARE ", x, " ", y, " ", x2, " ", y2, " ", fill 
+	print "SQUARE ", x, " ", y, " ", x2, " ", y2, " ", quads[current_quad][1] 
 	
 	if(fill):
 		w.create_rectangle(x, y, x2, y2, fill=fillColor, outline=penColor, width=penWidth)	

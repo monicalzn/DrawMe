@@ -70,15 +70,13 @@ class MemoryAdministrator:
 				dirV = self.globals.readValue(dirV-10000)
 			elif((dirV-20000) < 10000):
 				#main values
-				print "DIRRR ", self.main.readValue(dirV-20000)
 				dirV = self.main.readValue(dirV-20000)
 			elif((dirV-30000) < 10000):
 				#function values
 				dirV = self.functions[self.currentScope].readValue(dirV-30000)
-			print dirV
 			dirV = str(dirV)
-		print dirV
-		dirV = int(dirV)			
+		
+		dirV = int(dirV)		
 		if((dirV-10000) < 10000):
 			#global values
 			dirV = dirV-10000

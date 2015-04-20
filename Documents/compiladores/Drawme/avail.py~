@@ -20,6 +20,8 @@ class avail:
 		self.temp_bool = 4000 
 		self.temp_dir = 7000 
 		self.quads = []
+		self.DStack = Stack()
+		self.IDStack = Stack()
 		self.block = 0
 		self.scope = ''
 		self.RT = ''
@@ -167,7 +169,7 @@ class avail:
 		return self.block
 	
 	def get_temp_dirs(self):
-		return [(self.temp_bool-4000), (self.temp_int-5000), (self.temp_float-6000)]
+		return [(self.temp_bool-4000), (self.temp_int-5000), (self.temp_float-6000), (self.temp_dir-7000)]
 
 	def expression(self):
 		if(self.OpStack.size() > 0):
@@ -374,6 +376,21 @@ class avail:
 		
 	def OStack_pop(self):
 		return self.OStack.pop()
+
+	def OStack_peek(self):
+		return self.OStack.peek()
+	
+	def DStack_push(self, op):
+		self.DStack.push(op)
+		
+	def DStack_pop(self):
+		return self.DStack.pop()
+
+	def IDStack_push(self, op):
+		self.IDStack.push(op)
+		
+	def IDStack_pop(self):
+		return self.IDStack.pop()
 
 	def print_quads(self):
 		print self.quads

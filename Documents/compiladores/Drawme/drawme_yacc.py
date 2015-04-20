@@ -64,6 +64,7 @@ def p_p3(p):
 def p_globals(p):
 	'''globals : glob vars'''
 	global int_qty, float_qty
+	print ht
 	block_dir(ht, 1)
 	vaDict = dict(ht)
 	temp = [vaDict, (int_qty-2000), (float_qty-3000)]
@@ -156,9 +157,9 @@ def p_var33(p):
 def p_varSave(p):
 	'''varSave : ID '''
 	save_var(p[1])
-	global vD, ID
+	global vD
 	vD = var_dir(p[1]) + (avail.getblock() * 10000)
-	ID = p[1]
+	avail.IDStack_push(p[1])
 
 def p_var4(p):
         '''var4 : EQ exp 
@@ -169,8 +170,9 @@ def p_var4(p):
 def p_var5(p):
 	'''var5 : LC exp RC
 | empty'''
-	global vType, int_qty, float_qty, ID
+	global vType, int_qty, float_qty
 	if(len(p) == 4):
+		ID = avail.IDStack_pop()
 		exp = avail.OStack_pop()
 		for value, vDir in const.iteritems():
 			if exp == vDir :
@@ -344,9 +346,9 @@ def p_fact2(p):
 def p_fact4(p):
 	'''fact4 : valExp 
 | factID fact5'''
-	global ID, MDim
 	if(len(p) == 3):
-		print "THREE"
+		ID = avail.IDStack_pop()
+		MDim = avail.DStack_pop()
 		if(MDim):		
 			pointer = avail.OStack_pop()
 		declared_variables(ID)
@@ -354,19 +356,19 @@ def p_fact4(p):
 		avail.OStack_push(var_dir(ID))
 		if(MDim):
 			avail.dim(dim(ID), pointer)
-	MDim = False
 
 def p_factID(p):
 	'''factID : ID '''	
-	global ID
-	ID = p[1]
+	avail.IDStack_push(p[1])
 
 def p_fact5(p):
 	'''fact5 : LC exp RC
 | empty'''	
-	global MDim
+	print 5
 	if(len(p) == 4):
-		MDim = True
+		avail.DStack_push(True)
+	else:
+		avail.DStack_push(False)
 
 def p_valExp(p):
 	'''valExp : VALI 
@@ -398,22 +400,37 @@ def p_rep3(p):
 	
 
 def p_WID(p):
-	'''WID : ID WID2'''
+	'''WID : factID fact5 WID2'''
+	ID = avail.IDStack_pop()
 	if(idFunc == "ass"):
-		declared_variables(p[1])
-		avail.assig(var_dir(p[1]))
+		print 6
+		MDim = avail.DStack_pop()		
+		declared_variables(ID)
+		print "IDD:", ID
+		if(MDim):
+			par = avail.OStack_pop()
+			par2 = avail.OStack_pop()
+			avail.OStack_push(par)
+			avail.TStack_push(type_variable(ID, "var"))
+			avail.OStack_push(var_dir(ID))
+			avail.OStack_push(par2)
+			print "THREE" ,  avail.OStack_peek()
+			avail.dim(dim(ID), avail.OStack_pop())
+			avail.assig(avail.OStack_pop())
+		else:
+			avail.assig(var_dir(ID))
 	else:
-		if(p[1] not in proDict):
-			print "Undeclared function", p[1]
+		if(ID not in proDict):
+			print "Undeclared function", ID
 			sys.exit(0)	
 		else:
-			if((len(proDict[p[1]][0])) != len(funCheck)):
+			if((len(proDict[ID][0])) != len(funCheck)):
 				print funCheck
-				print "Error, function call, ", p[1]
+				print "Error, function call, ", ID
 			else:
 				cont = 0
-				for key in proDict[p[1]][0]:
-					if(proDict[p[1]][0][key][0] != funCheck[cont]):
+				for key in proDict[ID][0]:
+					if(proDict[ID][0][key][0] != funCheck[cont]):
 						
 						print "Error, function call type miss match"
 					cont += 1 

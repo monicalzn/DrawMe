@@ -149,8 +149,8 @@ def penwidth():
 
 def assign():
 	global current_quad
-	print "ASS", quads[current_quad]
 	result = memory.getValue(quads[current_quad][1])
+	print "ASS", result
 	memory.writeValue(quads[current_quad][3], result)
 	current_quad += 1
 
@@ -210,7 +210,7 @@ def square():
 	y = memory.getValue('41001')
 	x2 = x + memory.getValue(quads[current_quad][1])
 	y2 = y + memory.getValue(quads[current_quad][1])
-	#print "SQUARE ", x, " ", y, " ", x2, " ", y2, " ", fill 
+	print "SQUARE ", x, " ", y, " ", x2, " ", y2, " ", memory.getValue(quads[current_quad][1]) 
 	
 	if(fill):
 		w.create_rectangle(x, y, x2, y2, fill=fillColor, outline=penColor, width=penWidth)	
