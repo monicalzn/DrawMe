@@ -150,7 +150,7 @@ def penwidth():
 def assign():
 	global current_quad
 	result = memory.getValue(quads[current_quad][1])
-	print "ASS", result
+	print "ASS", result, " ", quads[current_quad][3] 
 	memory.writeValue(quads[current_quad][3], result)
 	current_quad += 1
 
@@ -328,8 +328,9 @@ def pointerDir():
 	global current_quad
 	vDir = int(quads[current_quad][1])
 	vPoint = memory.getValue(quads[current_quad][2])
+	print "VDIR " , vDir+vPoint
 	vDir = vDir + vPoint
-	memory.writeValue(quads[current_quad][3], str(vDir))
+	memory.writePointValue(quads[current_quad][3], str(vDir))
 	current_quad += 1
 
 def endPro():

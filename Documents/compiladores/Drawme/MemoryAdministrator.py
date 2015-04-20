@@ -33,6 +33,19 @@ class MemoryAdministrator:
 		self.currentScope -= 1
 
 	def writeValue(self, dirV, value):
+		if dirV[1] == '7':
+			dirV = int(dirV)			
+			if((dirV-10000) < 10000):
+				#global values
+				dirV = self.globals.readValue(dirV-10000)
+			elif((dirV-20000) < 10000):
+				#main values
+				print "MAIN&7 ", self.main.readValue(dirV-20000)
+				dirV = self.main.readValue(dirV-20000)
+			elif((dirV-30000) < 10000):
+				#function values
+				dirV = self.functions[self.currentScope].readValue(dirV-30000)
+			dirV = str(dirV)
 		dirV = int(dirV)	
 		#print "DIRECTION ", dirV		
 		if((dirV-10000) < 10000):
@@ -62,7 +75,6 @@ class MemoryAdministrator:
 			return
 
 	def getValue(self, dirV):
-		print "GET ", dirV[1]
 		if dirV[1] == '7':
 			dirV = int(dirV)			
 			if((dirV-10000) < 10000):
@@ -70,6 +82,7 @@ class MemoryAdministrator:
 				dirV = self.globals.readValue(dirV-10000)
 			elif((dirV-20000) < 10000):
 				#main values
+				print "MAIN&7 ", self.main.readValue(dirV-20000)
 				dirV = self.main.readValue(dirV-20000)
 			elif((dirV-30000) < 10000):
 				#function values
@@ -96,6 +109,27 @@ class MemoryAdministrator:
 				return int(self.constants_int[dirV])
 			else:
 				return float(self.constants_float[dirV-1000])
+
+
+	def writePointValue(self, dirV, value):
+		dirV = int(dirV)	
+		#print "DIRECTION ", dirV		
+		if((dirV-10000) < 10000):
+			#global values
+			#print "ADMINGLOBAL ", dirV
+			dirV = dirV-10000
+			self.globals.writeValue(dirV, value)
+			return
+		if((dirV - 20000) < 10000):
+			#main values
+			dirV = dirV-20000
+			self.main.writeValue(dirV, value)
+			return
+		if((dirV-30000) < 10000):
+			#function values
+			dirV = dirV-30000
+			self.functions[self.currentScope].writeValue(dirV, value)
+			return
 
 	def printFunctions(self):
 		print self.currentScope

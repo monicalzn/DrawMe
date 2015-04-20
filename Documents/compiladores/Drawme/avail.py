@@ -264,8 +264,8 @@ class avail:
 		self.TStack.push(h[1])
 
 	def dim(self, dim, pointer):
-		print "DIM"
-		spCuad = ['DIM', dim, pointer, -1]		
+		spCuad = ['DIM', dim, pointer, -1]
+		print "DIM", spCuad		
 		self.numQuad += 1
 		self.quads.append(spCuad)
 		self.numQuad += 1

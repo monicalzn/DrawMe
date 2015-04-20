@@ -18,7 +18,7 @@ funCheck = [] #Check function parameters
 toFile = ''
 int_qty = 2000
 float_qty = 3000
-const_int_qty = 40004
+const_int_qty = 40000
 const_float_qty = 41002
 empty = False
 vD = 0
@@ -164,8 +164,26 @@ def p_varSave(p):
 def p_var4(p):
         '''var4 : EQ exp 
 | empty'''
-	global vD
-	avail.assig(vD)
+	global vD, vType
+	if len(p) == 3:
+		MDim = avail.DStack_pop()
+		if(MDim):
+			ID = avail.IDStack_pop()
+			par = avail.OStack_pop()
+			print par
+			par2 = avail.OStack_pop()
+			print par, " ", par2, " ", vD
+			avail.OStack_push(par)
+			avail.TStack_push(vType)
+			avail.OStack_push(vD)
+			avail.OStack_push(par2)
+			print "THREE" ,  avail.OStack_peek()
+			avail.dim(dim(ID), avail.OStack_pop())
+			avail.assig(avail.OStack_pop())
+		else:
+			avail.assig(vD)
+	else:
+		avail.DStack_pop()
 
 def p_var5(p):
 	'''var5 : LC exp RC
@@ -173,7 +191,7 @@ def p_var5(p):
 	global vType, int_qty, float_qty
 	if(len(p) == 4):
 		ID = avail.IDStack_pop()
-		exp = avail.OStack_pop()
+		exp = avail.OStack_peek()
 		for value, vDir in const.iteritems():
 			if exp == vDir :
 				if vType == 'int':
@@ -181,6 +199,11 @@ def p_var5(p):
 				else:
 					float_qty += int(value)
 				ht[ID].append(value)
+		avail.DStack_push(True)
+		avail.IDStack_push(ID)
+	else:
+		avail.DStack_push(False)
+		
 				
 
 def p_type(p):
@@ -364,7 +387,6 @@ def p_factID(p):
 def p_fact5(p):
 	'''fact5 : LC exp RC
 | empty'''	
-	print 5
 	if(len(p) == 4):
 		avail.DStack_push(True)
 	else:
