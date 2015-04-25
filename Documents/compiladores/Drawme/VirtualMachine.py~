@@ -17,14 +17,14 @@ penWidth = 1
 
 def actions():
 	while(run):
-		print "QUADS", quads[current_quad]
+		print "QUADS", quads[current_quad], " ", memory.getValue('40000')
 		options[quads[current_quad][0]]()
 
 def add():
 	global current_quad
 	first = memory.getValue(quads[current_quad][1])
 	second = memory.getValue(quads[current_quad][2])
-	#print "ADD ", first, " + ", second, " IN ", quads[current_quad][3]  
+	print "ADD ", quads[current_quad][1], " + ", second, " IN ", quads[current_quad][3]  
 	result = first + second
 	memory.writeValue(quads[current_quad][3], result)
 	current_quad += 1
@@ -96,9 +96,6 @@ def equal_to():
 
 def setColor():
 	global current_quad
-	memory.writeValue('40000', 000)
-	memory.writeValue('40001', 000)
-	memory.writeValue('40002', 000)
 	current_quad += 1
 
 def stringColor(red, green, blue):
@@ -199,7 +196,7 @@ def circle():
 	if(fill):
 		w.create_oval(x, y, x2, y2, fill=fillColor, outline=penColor, width=penWidth)	
 	else:
-		w.create_oval(x, y, x2, y2)
+		w.create_oval(x, y, x2, y2, fill='', outline=penColor, width=penWidth)
 	memory.writeValue('41000', x2)
 	memory.writeValue('41001', y2)
 	current_quad += 1
@@ -215,11 +212,49 @@ def square():
 	if(fill):
 		w.create_rectangle(x, y, x2, y2, fill=fillColor, outline=penColor, width=penWidth)	
 	else:
-		w.create_rectangle(x, y, x2, y2)
+		w.create_rectangle(x, y, x2, y2, fill='', outline=penColor, width=penWidth)
 	memory.writeValue('41000', x2)
 	memory.writeValue('41001', y2)
 	current_quad += 1
-	
+
+def linestrip():
+	global current_quad, penWidth, penColor
+	print quads[current_quad][2]
+	dire = int(quads[current_quad][1])
+	ren = int(quads[current_quad][2])
+	points = []
+	help = (memory.getValue('41000'), memory.getValue('41001'))
+	points.append(help)
+	cRen = 0
+	print dire
+	while cRen < ren:
+		help = (memory.getValue(str(cRen + dire)), memory.getValue(str(cRen + 1 + dire)))
+		points.append(help)
+		cRen += 2
+	print help
+	w.create_line(points, fill=penColor)
+	current_quad += 1
+
+def polygon():
+	global current_quad, penWidth, penColor
+	print quads[current_quad][2]
+	dire = int(quads[current_quad][1])
+	ren = int(quads[current_quad][2])
+	points = []
+	help = (memory.getValue('41000'), memory.getValue('41001'))
+	points.append(help)
+	cRen = 0
+	print dire
+	while cRen < ren:
+		help = (memory.getValue(str(cRen + dire)), memory.getValue(str(cRen + 1 + dire)))
+		points.append(help)
+		cRen += 2
+	if(fill):
+		w.create_polygon(points, fill=fillColor, outline=penColor, width=penWidth)	
+	else:
+		w.create_polygon(points, fill='', outline=penColor, width=penWidth)
+	current_quad += 1
+
 def fill():
 	global current_quad, fill
 	#print "FILL ", quads[current_quad][3]
@@ -269,14 +304,14 @@ def penpos():
 	current_quad += 1
 
 def move():
-	global current_quad
+	global current_quad, penColor
 	x = memory.getValue('41000')
 	y = memory.getValue('41001')
 	hyp = memory.getValue(quads[current_quad][1])
 	angle = memory.getValue(quads[current_quad][2])
 	pos = get_x_and_y(angle, hyp)
 	print "X Y", pos[0], " ", pos[1]
-	w.create_line(x, y,(x+pos[0]), (y+pos[1]))
+	w.create_line(x, y,(x+pos[0]), (y+pos[1]), fill=penColor)
 	current_quad += 1
 	
 def goto():
@@ -330,7 +365,7 @@ def pointerDir():
 	vPoint = memory.getValue(quads[current_quad][2])
 	print "VDIR " , vDir+vPoint
 	vDir = vDir + vPoint
-	memory.writeValue(quads[current_quad][3], str(vDir))
+	memory.writePointValue(quads[current_quad][3], str(vDir))
 	current_quad += 1
 
 def endPro():
@@ -361,6 +396,8 @@ options = { '+' : add,
 		'202' : triangle,
 		'203' : circle,
 		'204' : square,
+		'205' : polygon,
+		'206' : linestrip,
 		'209' : fill,
 		'301' : pencolor,
 		'302' : color,

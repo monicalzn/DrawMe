@@ -25,6 +25,8 @@ vD = 0
 offset = 0
 ID = ''
 MDim = False
+DT = False
+DTQty = 0
 
 def p_prog(p):
 	'''prog : PR p2 p3 main mainVDir block'''
@@ -162,48 +164,91 @@ def p_varSave(p):
 	avail.IDStack_push(p[1])
 
 def p_var4(p):
-        '''var4 : EQ exp 
+        '''var4 : EQ var6 
 | empty'''
-	global vD, vType
-	if len(p) == 3:
-		MDim = avail.DStack_pop()
-		if(MDim):
-			ID = avail.IDStack_pop()
-			par = avail.OStack_pop()
-			print par
-			par2 = avail.OStack_pop()
-			print par, " ", par2, " ", vD
-			avail.OStack_push(par)
-			avail.TStack_push(vType)
-			avail.OStack_push(vD)
-			avail.OStack_push(par2)
-			print "THREE" ,  avail.OStack_peek()
-			avail.dim(dim(ID), avail.OStack_pop())
-			avail.assig(avail.OStack_pop())
-		else:
-			avail.assig(vD)
-	else:
+	if len(p) != 3:
 		avail.DStack_pop()
 
 def p_var5(p):
-	'''var5 : LC exp RC
+	'''var5 : LC var51
+| LB var52
 | empty'''
-	global vType, int_qty, float_qty
-	if(len(p) == 4):
-		ID = avail.IDStack_pop()
-		exp = avail.OStack_peek()
-		for value, vDir in const.iteritems():
-			if exp == vDir :
-				if vType == 'int':
-					int_qty += int(value)
-				else:
-					float_qty += int(value)
-				ht[ID].append(value)
-		avail.DStack_push(True)
-		avail.IDStack_push(ID)
-	else:
+	if(len(p) < 3):
 		avail.DStack_push(False)
-		
+
+def p_var6(p):
+	'''var6 : exp
+| LB LP exp C exp RP var61 RB
+| LC exp var62 RC'''
+	global vD, vType, DTQty
+	if len(p) == 2: 
+		avail.assig(vD)
+	elif(len(p) == 5):
+		if(avail.DStack_pop()):
+			ID = avail.IDStack_pop()
+			vDim = dim(ID)
+			while DTQty >= 0 :
+				avail.dimP(vD, DTQty, vDim)
+				DTQty -= 1
+			DTQty = 0
+		else:
+			print "error, missmatch types"
+	else:
+		if not avail.DStack_pop():
+			print "error, missmatch types"
+		else:
+			ID = avail.IDStack_pop()
+			vDim = dim(ID)
+			while DTQty >= 0:
+				print "while", DTQty
+				avail.dimTP(vD, DTQty, vDim)
+				DTQty -= 1
+			DTQty = 0
+			
+
+def p_var61(p):
+	'''var61 : C LP exp C exp RP var61
+| empty'''
+	if(len(p) > 2):
+		global DTQty
+		DTQty += 1
+
+def p_var62(p):
+	'''var62 : C exp var62
+| empty'''
+	if(len(p) > 2):
+		global DTQty
+		DTQty += 1
+
+def p_var51(p):
+	'''var51 : exp RC '''
+	global vType, int_qty, float_qty
+	ID = avail.IDStack_pop()
+	exp = avail.OStack_pop()
+	for value, vDir in const.iteritems():
+		if exp == vDir :
+			if vType == 'int':
+				int_qty += int(value)
+			else:
+				float_qty += int(value)
+			ht[ID].append(value)
+	avail.DStack_push(True)
+	avail.IDStack_push(ID)
+	
+def p_var52(p):
+	'''var52 : exp RB'''
+	global vType, int_qty, float_qty
+	ID = avail.IDStack_pop()
+	exp = avail.OStack_pop()
+	for value, vDir in const.iteritems():
+		if exp == vDir :
+			if vType == 'int':
+				int_qty += int(value)*2 + 1
+			else:
+				float_qty += int(value)*2 + 1
+			ht[ID].append(int(value)*2+1)
+	avail.DStack_push(True)
+	avail.IDStack_push(ID)
 				
 
 def p_type(p):
@@ -212,18 +257,18 @@ def p_type(p):
 	global vType
 	vType = p[1]
 
-def p_val(p):
-	'''val : VALI 
-| VALF  '''
-	if p[1] not in const:
-		global const_int_qty, const_float_qty
-		a = re.compile('\d+\.\d+')
-		if(a.match(p[1])):
-			const[p[1]] = const_float_qty
-			const_float_qty += 1
-		else:
-			const[p[1]] = const_int_qty
-			const_int_qty += 1
+#def p_val(p):
+#	'''val : VALI 
+#| VALF  '''
+#	if p[1] not in const:
+#		global const_int_qty, const_float_qty
+#		a = re.compile('\d+\.\d+')
+#		if(a.match(p[1])):
+#			const[p[1]] = const_float_qty
+#			const_float_qty += 1
+#		else:
+#			const[p[1]] = const_int_qty
+#			const_int_qty += 1
 
 def p_position(p):
 	'''position : PENP LP exp C exp RP SC'''
@@ -290,17 +335,21 @@ def p_one_par(p):
 
 def p_poly(p):
 	'''poly : POL LP idList p_fill RP SC'''
-	avail.append_quad_one(205)
+	avail.append_quad_two(205)
 
 def p_lstrip(p):
 	'''lstrip : LS LP idList RP SC'''
-	avail.append_quad_one(206)
+	avail.append_quad_two(206)
 
 def p_idList(p):
 	'''idList : ID'''
 	declared_variables(p[1])
-	type_variable(p[1], "list")
-	avail.OStack_push(var_dir(p[1]))	
+	dimention = dim(p[1])
+	if dim(p[1]) == -1:
+		print "dimention error"
+	print proDict["globals"][0][p[1]]
+	avail.OStack_push(var_dir(p[1]))
+	avail.OStack_push(dimention)
 #id debe ser tipo list not var
 
 def p_p_arc(p):
@@ -386,9 +435,16 @@ def p_factID(p):
 
 def p_fact5(p):
 	'''fact5 : LC exp RC
+| LB exp RB
 | empty'''	
 	if(len(p) == 4):
 		avail.DStack_push(True)
+		if p == '[':
+			avail.DStack_push(True)
+		else:
+			global DT
+			DT = True
+			avail.DStack_push(False)
 	else:
 		avail.DStack_push(False)
 
@@ -426,19 +482,32 @@ def p_WID(p):
 	ID = avail.IDStack_pop()
 	if(idFunc == "ass"):
 		print 6
-		MDim = avail.DStack_pop()		
+		TDim = avail.DStack_pop()		
 		declared_variables(ID)
 		print "IDD:", ID
-		if(MDim):
-			par = avail.OStack_pop()
-			par2 = avail.OStack_pop()
-			avail.OStack_push(par)
-			avail.TStack_push(type_variable(ID, "var"))
-			avail.OStack_push(var_dir(ID))
-			avail.OStack_push(par2)
+		if(avail.DStack_pop()):
 			print "THREE" ,  avail.OStack_peek()
-			avail.dim(dim(ID), avail.OStack_pop())
-			avail.assig(avail.OStack_pop())
+			if(TDim):
+				par = avail.OStack_pop()
+				par2 = avail.OStack_pop()
+				avail.OStack_push(par)
+				avail.TStack_push(type_variable(ID, "var"))
+				avail.OStack_push(var_dir(ID))
+				avail.OStack_push(par2)
+				avail.dim(dim(ID), avail.OStack_pop())
+				avail.assig(avail.OStack_pop())
+			else:
+				par = avail.OStack_pop()
+				par2 = avail.OStack_pop()
+				par3 = avail.OStack_pop()
+				avail.OStack_push(par)
+				avail.OStack_push(par2)
+				avail.TStack_push(type_variable(ID, "var"))
+				avail.OStack_push(var_dir(ID))
+				avail.OStack_push(par3)
+				avail.dimT(dim(ID), avail.OStack_pop())
+				avail.assig(avail.OStack_pop())
+				avail.assig(avail.OStack_pop())
 		else:
 			avail.assig(var_dir(ID))
 	else:
@@ -507,18 +576,12 @@ def p_prelistAss(p):
 | SC'''
 
 def p_listAss(p):
-	'''listAss : LB lista3 RB SC'''
-
-def p_lista2(p):
-	'''lista2 : val 
-| ID'''
-
-def p_lista3(p):
-	'''lista3 : lista2 li4'''
-
-def p_li4(p):
-	'''li4 : C lista2 li4
-| empty'''
+	'''listAss : LB exp C exp RB SC'''
+	global DT
+	if(not DT):
+		print "dimension error"
+	else:
+		DT = False
 
 def p_lab(p):
 	'''lab : LA LP stExp lab2 RP SC'''
@@ -714,10 +777,13 @@ def quads_to_file():
 def one():
 	global const_int_qty
 	if 1 not in const:
-		const[1] = const_int_qty
+		const['1'] = const_int_qty
 		const_int_qty += 1
 	if 0 not in const:		
 		const[0] = const_int_qty
+		const_int_qty += 1
+	if 2 not in const:		
+		const['2'] = const_int_qty
 		const_int_qty += 1
 def p_error(p):
 	print "Syntax error in input!", p.type

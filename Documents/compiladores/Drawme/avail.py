@@ -275,6 +275,71 @@ class avail:
 		self.quads.append(spCuad)	
 		#meter temporal
 		self.OStack.push(tem)
+	
+	def dimT(self, dim, pointer):
+		h = self.get_temp('+', 'int', 'int') 
+		tem = h[0]
+		spCuad = ['*', pointer, '40002', tem]
+		self.quads.append(spCuad)
+		pointer = tem
+
+		spCuad = ['DIM', dim, pointer, -1]
+		print "DIM", dim
+		self.quads.append(spCuad)
+		
+		h = self.get_temp('$', 'dir', -1) 
+		tem = h[0]
+		ren = self.OStack.pop()
+		spCuad = ['DIR', ren, pointer, tem]
+		one = tem
+		self.quads.append(spCuad)	
+		#meter temporal
+		h = self.get_temp('+', 'int', 'int') 
+		tem = h[0]
+		spCuad = ['+', pointer, '40000', tem]
+		self.quads.append(spCuad)
+		self.OStack.push(tem)
+		h = self.get_temp('$', 'dir', -1) 
+		tem = h[0]
+		spCuad = ['DIR', ren, self.OStack.pop(), tem]
+		self.quads.append(spCuad)	
+		#meter temporal
+		help = self.OStack.pop()
+		self.OStack.push(tem)
+		self.OStack.push(help)
+		self.OStack.push(one)
+		self.numQuad += 4
+
+	def dimTP(self, direction, row, dim):
+		row *= 2
+		spCuad = ['DIMC', dim, row, -1]
+		self.quads.append(spCuad)
+		
+		h = self.get_temp('$', 'dir', -1) 
+		tem = h[0]
+		spCuad = ['DIRC', direction, (row+1), tem]
+		self.quads.append(spCuad)
+		self.assig(tem)
+
+		h = self.get_temp('$', 'dir', -1) 
+		tem = h[0]
+		spCuad = ['DIRC', direction, row, tem]
+		self.quads.append(spCuad)
+		self.assig(tem)
+
+		self.numQuad += 3
+
+	def dimP(self, direction, row, dim):
+		spCuad = ['DIMC', dim, row, -1]
+		self.quads.append(spCuad)
+		
+		h = self.get_temp('$', 'dir', -1) 
+		tem = h[0]
+		spCuad = ['DIRC', direction, row, tem]
+		self.quads.append(spCuad)
+		self.assig(tem)
+
+		self.numQuad += 2
 
 	def function_return(self, empty, vDir):
 		if(empty):
