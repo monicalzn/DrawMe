@@ -332,7 +332,7 @@ def goto_false():
 def era():
 	global current_quad
 	temp = proc[quads[current_quad][3]]
-	memory.setFunction(temp[0], temp[1], temp[2], temp[3], temp[4])
+	memory.setFunction(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5])
 	current_quad += 1
 
 def param():

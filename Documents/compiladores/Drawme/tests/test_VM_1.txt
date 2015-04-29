@@ -1,6 +1,10 @@
 program
 global var 
 int j;
+function int hoho(int h):{
+rectangle(30,9,fill);
+return 9;
+}
 main 
 var int n;
 float g;
@@ -17,6 +21,7 @@ rectangle(30,n,fill);
 	repeat 3{
 		rectangle(30,n,fill);
 	}
+hoho(8);
 	
 line(50, angle 40);
 	

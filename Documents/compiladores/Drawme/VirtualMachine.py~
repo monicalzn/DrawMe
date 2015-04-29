@@ -89,7 +89,7 @@ def equal_to():
 	memory.printFunctions()
 	first = memory.getValue(quads[current_quad][1])
 	second = memory.getValue(quads[current_quad][2])
-	print "Equal ", first, " / ", second, " = ", first/second, " IN ", quads[current_quad][3]  
+	print "Equal ", first, " / ", second, " =  IN ", quads[current_quad][3]  
 	result = first == second
 	memory.writeValue(quads[current_quad][3], result)
 	current_quad += 1
