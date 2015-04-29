@@ -229,7 +229,7 @@ class avail:
 	def condition_else(self):
 		jump = self.jumps.pop() -1
 		spCuad = self.quads[jump]
-		spCuad[3] = self.numQuad +2
+		spCuad[3] = self.numQuad +1
 		self.quads[jump] = spCuad
 		spCuad = ['GOTO', -1, -1, -1]
 		self.quads.append(spCuad)
@@ -240,11 +240,6 @@ class avail:
 		spCuad = ['GOTO', -1, -1, -1]
 		self.quads.append(spCuad)
 		self.jumps.push(self.numQuad)
-		self.numQuad += 1
-
-	def colors(self):
-		spCuad = ['CLR', -1, -1, -1]
-		self.quads.append(spCuad)
 		self.numQuad += 1
 
 	def main_goto(self):

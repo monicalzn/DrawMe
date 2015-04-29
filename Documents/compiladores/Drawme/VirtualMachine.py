@@ -60,7 +60,7 @@ def less_than():
 	global current_quad
 	first = memory.getValue(quads[current_quad][1])
 	second = memory.getValue(quads[current_quad][2])
-	#print "SUB ", first, " / ", second, " = ", first/second, " IN ", quads[current_quad][3]  
+	print "LESSSS ", first, " / ", second, " = ", first<second, " IN ", quads[current_quad][3]  
 	result = first < second
 	memory.writeValue(quads[current_quad][3], result)
 	current_quad += 1
@@ -69,7 +69,7 @@ def more_than():
 	global current_quad
 	first = memory.getValue(quads[current_quad][1])
 	second = memory.getValue(quads[current_quad][2])
-	#print "SUB ", first, " / ", second, " = ", first/second, " IN ", quads[current_quad][3]  
+	print "MOREE ", first, " / ", second, " = ", first>second, " IN ", quads[current_quad][3]  
 	result = first > second
 	memory.writeValue(quads[current_quad][3], result)
 	current_quad += 1
@@ -338,11 +338,12 @@ def era():
 def param():
 	global current_quad
 	print "PARAM ", quads[current_quad][3],  " ", memory.getValue(quads[current_quad][1])
-	memory.writeValue(quads[current_quad][3], memory.getValue(quads[current_quad][1]))
+	memory.writeValueS(quads[current_quad][3], memory.getValue(quads[current_quad][1]))
 	current_quad += 1
 
 def goSub():
 	global current_quad
+	memory.changeScope()
 	actionPointer.push(current_quad+1)
 	current_quad = int(quads[current_quad][3])
 

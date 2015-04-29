@@ -24,8 +24,12 @@ class MemoryAdministrator:
 	def setFunction(self, intQ, floatQ, boolQ, intTQ, floatTQ, pointQ):
 		function = Memory()
 		function.setMem(int(intQ), int(floatQ), int(boolQ), int(intTQ), int(floatTQ), int(pointQ))
+		
+		self.functions[self.currentScope+1] = function
+		print "FUNCTION ", self.currentScope
+
+	def changeScope(self):
 		self.currentScope += 1
-		self.functions[self.currentScope] = function
 
 	def delete_function(self):
 		self.functions[self.currentScope].releseMem()
@@ -65,7 +69,6 @@ class MemoryAdministrator:
 			self.functions[self.currentScope].writeValue(dirV, value)
 			return
 		if((dirV - 40000) < 10000):
-			print "CONSTANTS"
 			#constants
 			dirV = dirV-40000
 			if(dirV < 1000):

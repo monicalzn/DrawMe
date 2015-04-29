@@ -24,8 +24,12 @@ class MemoryAdministrator:
 	def setFunction(self, intQ, floatQ, boolQ, intTQ, floatTQ, pointQ):
 		function = Memory()
 		function.setMem(int(intQ), int(floatQ), int(boolQ), int(intTQ), int(floatTQ), int(pointQ))
+		
+		self.functions[self.currentScope+1] = function
+		print "FUNCTION ", self.currentScope
+
+	def changeScope(self):
 		self.currentScope += 1
-		self.functions[self.currentScope] = function
 
 	def delete_function(self):
 		self.functions[self.currentScope].releseMem()
@@ -63,6 +67,48 @@ class MemoryAdministrator:
 			#function values
 			dirV = dirV-30000
 			self.functions[self.currentScope].writeValue(dirV, value)
+			return
+		if((dirV - 40000) < 10000):
+			#constants
+			dirV = dirV-40000
+			if(dirV < 1000):
+				self.constants_int[dirV] = int(value)
+			else:
+				#print dirV
+				self.constants_float[dirV-1000] = float(value)
+			return
+
+	def writeValueS(self, dirV, value):
+		if dirV[1] == '7':
+			dirV = int(dirV)			
+			if((dirV-10000) < 10000):
+				#global values
+				dirV = self.globals.readValue(dirV-10000)
+			elif((dirV-20000) < 10000):
+				#main values
+				print "MAIN&7 ", self.main.readValue(dirV-20000)
+				dirV = self.main.readValue(dirV-20000)
+			elif((dirV-30000) < 10000):
+				#function values
+				dirV = self.functions[self.currentScope+1].readValue(dirV-30000)
+			dirV = str(dirV)
+		dirV = int(dirV)	
+		#print "DIRECTION ", dirV		
+		if((dirV-10000) < 10000):
+			#global values
+			#print "ADMINGLOBAL ", dirV
+			dirV = dirV-10000
+			self.globals.writeValue(dirV, value)
+			return
+		if((dirV - 20000) < 10000):
+			#main values
+			dirV = dirV-20000
+			self.main.writeValue(dirV, value)
+			return
+		if((dirV-30000) < 10000):
+			#function values
+			dirV = dirV-30000
+			self.functions[self.currentScope+1].writeValue(dirV, value)
 			return
 		if((dirV - 40000) < 10000):
 			#constants

@@ -56,7 +56,6 @@ def p_mainVDir(p):
 def p_p2(p):
 	'''p2 : globals 
 | empty'''
-	avail.colors()
 	avail.main()
 
 def p_p3(p):
