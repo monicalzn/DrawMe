@@ -183,13 +183,16 @@ def p_var6(p):
 	global vD, vType, DTQty
 	if len(p) == 2: 
 		avail.assig(vD)
-	elif(avail.DStack_pop() and len(p) == 5):
+	elif(len(p) == 5):
+		if(avail.DStack_pop()):
 			ID = avail.IDStack_pop()
 			vDim = dim(ID)
 			while DTQty >= 0 :
 				avail.dimP(vD, DTQty, vDim)
 				DTQty -= 1
 			DTQty = 0
+		else:
+			print "error, missmatch types"
 	else:
 		if not avail.DStack_pop():
 			print "error, missmatch types"
@@ -444,6 +447,7 @@ def p_fact5(p):
 			avail.DStack_push(False)
 	else:
 		avail.DStack_push(False)
+		avail.DStack_push(False)
 
 def p_valExp(p):
 	'''valExp : VALI 
@@ -467,7 +471,9 @@ def p_valExp(p):
 
 def p_rep(p):
 	'''rep : RE rep3 block'''
-	avail.rep_jump(const[1], const[0])
+	avail.printS()
+	print const
+	avail.rep_jump(const['1'], const['0'])
 
 def p_rep3(p):
 	'''rep3 : exp'''

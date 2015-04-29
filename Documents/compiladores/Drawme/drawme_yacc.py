@@ -447,6 +447,7 @@ def p_fact5(p):
 			avail.DStack_push(False)
 	else:
 		avail.DStack_push(False)
+		avail.DStack_push(False)
 
 def p_valExp(p):
 	'''valExp : VALI 
@@ -470,7 +471,9 @@ def p_valExp(p):
 
 def p_rep(p):
 	'''rep : RE rep3 block'''
-	avail.rep_jump(const[1], const[0])
+	avail.printS()
+	print const
+	avail.rep_jump(const['1'], const['0'])
 
 def p_rep3(p):
 	'''rep3 : exp'''
@@ -780,7 +783,7 @@ def one():
 		const['1'] = const_int_qty
 		const_int_qty += 1
 	if 0 not in const:		
-		const[0] = const_int_qty
+		const['0'] = const_int_qty
 		const_int_qty += 1
 	if 2 not in const:		
 		const['2'] = const_int_qty

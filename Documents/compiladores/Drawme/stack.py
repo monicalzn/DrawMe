@@ -16,3 +16,7 @@ class Stack:
 
      def size(self):
          return len(self.items)
+
+     def printi(self):
+         return self.items
+

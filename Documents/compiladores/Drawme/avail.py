@@ -427,6 +427,9 @@ class avail:
 		self.OStack.push(tem)
 		self.TStack.push(h[1])
 
+	def printS(self):
+		print self.OStack.printi()
+
 	def OpStack_pop(self):
 		self.OpStack.pop()
 

@@ -317,13 +317,13 @@ class avail:
 		
 		h = self.get_temp('$', 'dir', -1) 
 		tem = h[0]
-		spCuad = ['DIRC', direction, row, tem]
+		spCuad = ['DIRC', direction, (row+1), tem]
 		self.quads.append(spCuad)
 		self.assig(tem)
 
 		h = self.get_temp('$', 'dir', -1) 
 		tem = h[0]
-		spCuad = ['DIRC', direction, (row+1), tem]
+		spCuad = ['DIRC', direction, row, tem]
 		self.quads.append(spCuad)
 		self.assig(tem)
 
@@ -426,6 +426,9 @@ class avail:
 		#meter temporal
 		self.OStack.push(tem)
 		self.TStack.push(h[1])
+
+	def printS(self):
+		print self.OStack
 
 	def OpStack_pop(self):
 		self.OpStack.pop()

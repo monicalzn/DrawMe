@@ -89,7 +89,7 @@ def equal_to():
 	memory.printFunctions()
 	first = memory.getValue(quads[current_quad][1])
 	second = memory.getValue(quads[current_quad][2])
-	print "SUB ", first, " / ", second, " = ", first/second, " IN ", quads[current_quad][3]  
+	print "Equal ", first, " / ", second, " = ", first/second, " IN ", quads[current_quad][3]  
 	result = first == second
 	memory.writeValue(quads[current_quad][3], result)
 	current_quad += 1
@@ -359,10 +359,28 @@ def dim():
 		sys.exit(0)
 	current_quad += 1
 
+def dimC():
+	global current_quad
+	value = int(quads[current_quad][2])
+	dim = int(quads[current_quad][1])
+	if value < 0 or value > dim:
+		print "Out of bounds."
+		sys.exit(0)
+	current_quad += 1
+
 def pointerDir():
 	global current_quad
 	vDir = int(quads[current_quad][1])
 	vPoint = memory.getValue(quads[current_quad][2])
+	print "VDIR " , vDir+vPoint
+	vDir = vDir + vPoint
+	memory.writePointValue(quads[current_quad][3], str(vDir))
+	current_quad += 1
+
+def pointerDirC():
+	global current_quad
+	vDir = int(quads[current_quad][1])
+	vPoint = int(quads[current_quad][2])
 	print "VDIR " , vDir+vPoint
 	vDir = vDir + vPoint
 	memory.writePointValue(quads[current_quad][3], str(vDir))
@@ -411,7 +429,9 @@ options = { '+' : add,
 		'RET' : return_f,
 		'RETURN' : param,
 		'DIM' : dim,
+		'DIMC' : dimC,
 		'DIR' : pointerDir,
+		'DIRC' : pointerDirC,
 		'ENDPROC' : endPro}
 
 if(len(sys.argv) > 1):
