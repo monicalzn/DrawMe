@@ -8,7 +8,7 @@ var float h;
 if(k < 0){
 return 4;
 } else {
-return 3 + hoa(k-1);
+return 1 + hoa(k-1);
 }}
  main 
 {

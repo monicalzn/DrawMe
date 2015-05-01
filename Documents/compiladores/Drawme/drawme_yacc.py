@@ -81,7 +81,7 @@ def p_glob(p):
 	
 
 def p_functions(p): 
-	'''functions : fun2 DP funVDir block'''	
+	'''functions : fun2 funVDir block'''	
 	
 	temps = avail.get_temp_dirs()
 	proDict[avail.getScope()][4] = temps[0]
@@ -308,8 +308,8 @@ def p_p_width(p):
 	avail.append_quad_one(304)
 
 def p_penwrite(p):
-	'''penwrite : PENX exp SC 
-| PENY exp SC'''
+	'''penwrite : PENX LP exp RP SC 
+| PENY LP exp RP SC'''
 	if(p[1] == 'penX'):
 		spCuad = 308
 	else:
@@ -369,7 +369,7 @@ def p_idList(p):
 #id debe ser tipo list not var
 
 def p_p_arc(p):
-	'''p_arc : ARC LP exp RP SC'''
+	'''p_arc : ARC LP exp p_fill RP SC'''
 	avail.append_quad_one(207)
 
 def p_expresion(p):

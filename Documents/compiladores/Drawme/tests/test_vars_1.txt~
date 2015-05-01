@@ -2,11 +2,16 @@ program
 global var 
 int j, k=2.0, b;
 float f = k,  o = 89;
-function int hoa(int k, float f):
+function int hoa(int k):
 var float h;
-{return 100 * 3;}
+{
+if(k < 0){
+return 4;
+} else {
+return 3 + hoa(k-1);
+}}
  main 
 {
-j = hoa(2,3) + 100;
+j = hoa(5) + 100;
 square(j);
 }

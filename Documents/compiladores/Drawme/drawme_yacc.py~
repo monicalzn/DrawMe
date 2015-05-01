@@ -81,7 +81,7 @@ def p_glob(p):
 	
 
 def p_functions(p): 
-	'''functions : fun2 DP funVDir block'''	
+	'''functions : fun2 funVDir block'''	
 	
 	temps = avail.get_temp_dirs()
 	proDict[avail.getScope()][4] = temps[0]
@@ -308,8 +308,8 @@ def p_p_width(p):
 	avail.append_quad_one(304)
 
 def p_penwrite(p):
-	'''penwrite : PENX exp SC 
-| PENY exp SC'''
+	'''penwrite : PENX LP exp RP SC 
+| PENY LP exp RP SC'''
 	if(p[1] == 'penX'):
 		spCuad = 308
 	else:
@@ -638,10 +638,7 @@ def p_rtE(p):
 	'''rtE : exp 
 | empty'''
 	global empty, vType
-	vDir = 0
-	if(avail.getRT() != vType):
-		print "ERROR, MISSMATCH", avail.getRT()
-		sys.error(0)
+	
 	print "RETURN", avail.getScope()
 	avail.function_return(empty, var_dir(avail.getScope()))
 	empty = False
