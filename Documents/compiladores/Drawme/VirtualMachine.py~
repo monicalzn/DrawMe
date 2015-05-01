@@ -176,7 +176,7 @@ def triangle():
 	y2 = memory.getValue(quads[current_quad][1])
 	x3 = memory.getValue(quads[current_quad][2])
 	y3 = memory.getValue(quads[current_quad][3])
-	print "RECTANGLE ", x, " ", y, " ", x2, " ", y2, " ", fill 
+	print "TRIANGLE ", x, " ", quads[current_quad][1] , " ", x2, " ", quads[current_quad][0], " ", fill 
 	
 	if(fill):
 		w.create_polygon(x, y, x2, y2, x3, y3, fill=fillColor, outline=penColor, width=penWidth )	
@@ -197,6 +197,22 @@ def circle():
 		w.create_oval(x, y, x2, y2, fill=fillColor, outline=penColor, width=penWidth)	
 	else:
 		w.create_oval(x, y, x2, y2, fill='', outline=penColor, width=penWidth)
+	memory.writeValue('41000', x2)
+	memory.writeValue('41001', y2)
+	current_quad += 1
+
+def arc():
+	global current_quad, fill, fillColor, penColor, penWidth
+	x = memory.getValue('41000')
+	y = memory.getValue('41001')
+	x2 = x + memory.getValue(quads[current_quad][1])
+	y2 = y + memory.getValue(quads[current_quad][1])
+	#print "CIRCLE ", x, " ", y, " ", x2, " ", y2, " ", fill 
+	
+	if(fill):
+		w.create_arc(x, y, x2, y2, fill=fillColor, outline=penColor, width=penWidth)	
+	else:
+		w.create_arc(x, y, x2, y2, fill='', outline=penColor, width=penWidth)
 	memory.writeValue('41000', x2)
 	memory.writeValue('41001', y2)
 	current_quad += 1
@@ -296,11 +312,20 @@ def get_x_and_y(angle, hypotenus):
 	elif(angle == 90):
 		return [hypotenus, 0]
 	
-
 def penpos():
 	global current_quad
 	memory.writeValue('41001', memory.getValue(quads[current_quad][1]))
 	memory.writeValue('41000', memory.getValue(quads[current_quad][2]))
+	current_quad += 1
+
+def penX():
+	global current_quad
+	memory.writeValue('41000', memory.getValue(quads[current_quad][1]))
+	current_quad += 1
+
+def penY():
+	global current_quad
+	memory.writeValue('41001', memory.getValue(quads[current_quad][1]))
 	current_quad += 1
 
 def move():
@@ -338,7 +363,7 @@ def era():
 def param():
 	global current_quad
 	print "PARAM ", quads[current_quad][3],  " ", memory.getValue(quads[current_quad][1])
-	memory.writeValue(quads[current_quad][3], memory.getValue(quads[current_quad][1]))
+	memory.writeValueS(quads[current_quad][3], memory.getValue(quads[current_quad][1]))
 	current_quad += 1
 
 def goSub():
@@ -417,12 +442,15 @@ options = { '+' : add,
 		'204' : square,
 		'205' : polygon,
 		'206' : linestrip,
+		'207' : arc,
 		'209' : fill,
 		'301' : pencolor,
 		'302' : color,
 		'303' : backColor,
 		'304' : penwidth,
 		'307' : penpos,
+		'308' : penX,
+		'309' : penY,
 		'305' : move,
 		'ERA' : era,
 		'PARAMETRO' : param,

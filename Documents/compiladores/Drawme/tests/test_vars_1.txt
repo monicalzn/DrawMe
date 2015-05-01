@@ -1,12 +1,17 @@
 program
 global var 
-int j, k=2.0 ;
-float f = k, h = 9;
-function hola(int k, float f):
+int j, k=2.0, b;
+float f = k,  o = 89;
+function int hoa(int k):
 var float h;
-list int g = {23, d};
-list int g = {23, d};
-{};
+{
+if(k < 0){
+return 4;
+} else {
+return 3 + hoa(k-1);
+}}
  main 
 {
+j = hoa(5) + 100;
+square(j);
 }

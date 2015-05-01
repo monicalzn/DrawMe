@@ -14,8 +14,8 @@ reserved = {
    'penWidth':'PENW',
    'penPos':'PENP',
    'penColor':'PENC',
-   'penUp': 'PENU',
-   'penDown':'PEND',
+   'penX': 'PENX',
+   'penY':'PENY',
    'setColor':'SETC',
    'backgroundColor' : 'BACO',
    'line':'LI',
@@ -28,10 +28,7 @@ reserved = {
    'angle' : 'A',
    'arc' : 'ARC',
    'lineStrip' : 'LS',
-   'angle' : 'A',
    'repeat' : 'RE',
-   'list' : 'L',
-   'label' : 'LA',
    'return' : 'RT'
 }
 

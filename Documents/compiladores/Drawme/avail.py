@@ -23,6 +23,7 @@ class avail:
 		self.DStack = Stack()
 		self.IDStack = Stack()
 		self.block = 0
+		self.scopeF = Stack()
 		self.scope = ''
 		self.RT = ''
 		self.semantic_cube = {
@@ -341,16 +342,16 @@ class avail:
 			spCuad = ['RETURN',-1, -1, -1]
 			self.numQuad += 1
 			self.quads.append(spCuad)
+			return False
 		else:
 			spCuad = ['RETURN', self.OStack.pop(), -1, vDir]
-			self.OStack.push(vDir)
+			#self.OStack.push(vDir)
+			print "RETURN ", self.OStack.printi()
 			self.numQuad += 1
 			self.quads.append(spCuad)
+			return True
 
 	def function_end(self):
-		spCuad = ['RET', -1, -1, -1]
-		self.numQuad += 1
-		self.quads.append(spCuad)
 		spCuad = ['ENDPROC', 1, -1, 1]
 		self.numQuad += 1
 		self.quads.append(spCuad)
@@ -370,11 +371,19 @@ class avail:
 		spCuad = ['ERA', -1, -1, var]
 		self.numQuad += 1
 		self.quads.append(spCuad)
+		self.OpStack.push('(')
 
-	def call_function_end(self,var):
+	def call_function_end(self,var, vDir, temp):
 		spCuad = ['GOSUB', -1, -1, var]
 		self.numQuad += 1
 		self.quads.append(spCuad)
+		print "SUB", self.OStack.printi()
+		spCuad = ['101', vDir, -1, temp]
+		self.OStack.push(temp)
+		print "SUB", self.OStack.printi()
+		self.numQuad += 1
+		self.quads.append(spCuad)
+		self.OpStack.pop()
 		
 	def append_quad(self, quad):
 		self.numQuad += 1
@@ -417,6 +426,7 @@ class avail:
 		tem = h[0]
 		second = self.OStack.pop() 
 		spCuad = [self.OpStack.pop(), self.OStack.pop(), second, tem]
+		print spCuad
 		self.quads.append(spCuad)	
 		#meter temporal
 		self.OStack.push(tem)
@@ -433,6 +443,9 @@ class avail:
 
 	def TStack_push(self, op):
 		self.TStack.push(op)
+
+	def TStack_pop(self, ):
+		self.TStack.pop()
 
 	def OStack_push(self, op):
 		self.OStack.push(op)
@@ -463,9 +476,18 @@ class avail:
 
 	def setScope(self, scope):
 		self.scope = scope
-
+	
 	def getScope(self):
 		return self.scope
+
+	def setFuncScope(self, scope):
+		self.scopeF.push(scope)
+
+	def delFuncScope(self):
+		self.scopeF.pop()
+
+	def getFuncScope(self):
+		return self.scopeF.peek()
 	
 	def setRT(self, RT):
 		self.RT = RT

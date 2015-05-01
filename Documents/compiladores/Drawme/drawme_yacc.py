@@ -10,6 +10,7 @@ tokens = drawme_lex.tokens
 ht = dict()
 funPar = dict()
 vType = None
+aType = None
 proDict = dict()
 const = dict()
 idFunc = None
@@ -65,7 +66,6 @@ def p_p3(p):
 def p_globals(p):
 	'''globals : glob vars'''
 	global int_qty, float_qty
-	print ht
 	block_dir(ht, 1)
 	vaDict = dict(ht)
 	temp = [vaDict, (int_qty-2000), (float_qty-3000)]
@@ -110,6 +110,9 @@ def p_fun2(p):
 	idFunc = p[2]
 	temp = [vaDict, avail.getfuncQuad(), (int_qty-2000), (float_qty-3000), 0, 0, 0, 0]
 	proDict[p[2]] = temp
+	qty = proDict["globals"][2] + 1
+	proDict["globals"][0][p[2]] = ["float", 'func', 13000 + qty]
+	proDict["globals"][2] = qty
 	funPar.clear()
 
 def p_funBlock(p):
@@ -179,12 +182,20 @@ def p_var6(p):
 	'''var6 : exp
 | LB LP exp C exp RP var61 RB
 | LC exp var62 RC'''
+#whe declaring variables and you have a assing you have to check the type of assignation
 	global vD, vType, DTQty
 	if len(p) == 2: 
+#if it's a normal asign k=0 or k=j, i
+		if(avail.OStack_peek() < 10000):
+		#if the variable that is being assigned is from that bolck the correct direction is needed
+			dV = avail.OStack_pop() + (avail.getblock() * 10000)
+			avail.OStack_push(dV)
 		avail.assig(vD)
 	elif(len(p) == 5):
+	#array
 		if(avail.DStack_pop()):
 			ID = avail.IDStack_pop()
+			print ID
 			vDim = dim(ID)
 			while DTQty >= 0 :
 				avail.dimP(vD, DTQty, vDim)
@@ -193,6 +204,8 @@ def p_var6(p):
 		else:
 			print "error, missmatch types"
 	else:
+	#matrix
+		print "MATRIX", p[1]
 		if not avail.DStack_pop():
 			print "error, missmatch types"
 		else:
@@ -221,30 +234,33 @@ def p_var62(p):
 
 def p_var51(p):
 	'''var51 : exp RC '''
-	global vType, int_qty, float_qty
+#dir array
+	global aType, int_qty, float_qty
 	ID = avail.IDStack_pop()
 	exp = avail.OStack_pop()
 	for value, vDir in const.iteritems():
 		if exp == vDir :
-			if vType == 'int':
-				int_qty += int(value)
+			if aType == 'int':
+				int_qty += int(value) + 1
 			else:
-				float_qty += int(value)
+				float_qty += int(value) + 1
 			ht[ID].append(value)
 	avail.DStack_push(True)
 	avail.IDStack_push(ID)
 	
 def p_var52(p):
+#dir matrix
 	'''var52 : exp RB'''
-	global vType, int_qty, float_qty
+	global aType, int_qty, float_qty
 	ID = avail.IDStack_pop()
 	exp = avail.OStack_pop()
+	print "DIR MATRIX ", exp
 	for value, vDir in const.iteritems():
 		if exp == vDir :
-			if vType == 'int':
-				int_qty += int(value)*2 + 1
+			if aType == 'int':
+				int_qty += (int(value)+1)*2 + 1
 			else:
-				float_qty += int(value)*2 + 1
+				float_qty += (int(value)+1)*2 + 1
 			ht[ID].append(int(value)*2+1)
 	avail.DStack_push(True)
 	avail.IDStack_push(ID)
@@ -253,8 +269,9 @@ def p_var52(p):
 def p_type(p):
 	'''type : INT 
 | FLOAT  '''
-	global vType
+	global vType, aType
 	vType = p[1]
+	aType = p[1]
 
 #def p_val(p):
 #	'''val : VALI 
@@ -291,13 +308,13 @@ def p_p_width(p):
 	avail.append_quad_one(304)
 
 def p_penwrite(p):
-	'''penwrite : PENU SC 
-| PEND SC'''
-	if(p[1] == 'penUp'):
-		spCuad = [308, -1, -1, -1]
+	'''penwrite : PENX exp SC 
+| PENY exp SC'''
+	if(p[1] == 'penX'):
+		spCuad = 308
 	else:
-		spCuad = [309, -1, -1, -1]
-	avail.append_quad(spCuad)
+		spCuad = 309
+	avail.append_quad_one(spCuad)
 
 def p_move(p):
 	'''move : LI mueve2 '''
@@ -346,7 +363,7 @@ def p_idList(p):
 	dimention = dim(p[1])
 	if dim(p[1]) == -1:
 		print "dimention error"
-	print proDict["globals"][0][p[1]]
+		sys.error(0)
 	avail.OStack_push(var_dir(p[1]))
 	avail.OStack_push(dimention)
 #id debe ser tipo list not var
@@ -425,26 +442,39 @@ def p_fact4(p):
 		declared_variables(ID)
 		avail.TStack_push(type_variable(ID, "var"))
 		avail.OStack_push(var_dir(ID))
+		avail.printS()
 		if(MDim):
 			avail.dim(dim(ID), pointer)
+		if not MDim:
+			if avail.DStack_pop():
+				print avail.OStack_pop()
+				avail.TStack_pop()
+				avail.printS()
 
 def p_factID(p):
-	'''factID : ID '''	
+	'''factID : ID '''
+	avail.setFuncScope(p[1])	
 	avail.IDStack_push(p[1])
 
 def p_fact5(p):
 	'''fact5 : LC exp RC
 | LB exp RB
-| empty'''	
+| funCall
+| empty'''
+	global empty	
 	if(len(p) == 4):
 		avail.DStack_push(True)
-		if p == '[':
+		if p[1] == '[':
 			avail.DStack_push(True)
 		else:
 			global DT
 			DT = True
 			avail.DStack_push(False)
+	elif not empty:
+		avail.DStack_push(True)
+		avail.DStack_push(False)
 	else:
+		avail.delFuncScope()
 		avail.DStack_push(False)
 		avail.DStack_push(False)
 
@@ -470,7 +500,6 @@ def p_valExp(p):
 
 def p_rep(p):
 	'''rep : RE rep3 block'''
-	avail.printS()
 	print const
 	avail.rep_jump(const['1'], const['0'])
 
@@ -483,7 +512,7 @@ def p_WID(p):
 	'''WID : factID fact5 WID2'''
 	ID = avail.IDStack_pop()
 	if(idFunc == "ass"):
-		print 6
+		avail.delFuncScope()
 		TDim = avail.DStack_pop()		
 		declared_variables(ID)
 		print "IDD:", ID
@@ -520,18 +549,20 @@ def p_WID(p):
 			if((len(proDict[ID][0])) != len(funCheck)):
 				print funCheck
 				print "Error, function call, ", ID
+				sys.error(0)
 			else:
 				cont = 0
 				for key in proDict[ID][0]:
 					if(proDict[ID][0][key][0] != funCheck[cont]):
 						
 						print "Error, function call type miss match"
+						sys.error(0)
 					cont += 1 
 	funCheck[:] = []
 
 def p_WID2(p):
 	'''WID2 : assigment
-| funCall'''
+| funCall SC'''
 
 def p_assigment(p):
 	'''assigment : EQ tipeAss'''
@@ -544,11 +575,17 @@ def p_tipeAss(p):
 | WID'''
 
 def p_funCall(p):
-	'''funCall : funEra func2 RP SC'''
-	global idFunc
+	'''funCall : funEra func2 RP '''
+	global idFunc, empty
 	idFunc = "func"
+	print "funCall", avail.getScope()
 	avail.function_param(proDict[avail.getScope()][0])
-	avail.call_function_end(proDict[avail.getScope()][1])
+	vDir = 10000
+	qty = proDict["globals"][5]
+	vDir += 6000 + qty
+	proDict["globals"][5] = qty + 1
+	avail.call_function_end(proDict[avail.getScope()][1], var_dir(avail.getScope()), vDir)
+	empty = False
 
 def p_funEra(p):
 	'''funEra : LP '''
@@ -566,36 +603,14 @@ def p_func4(p):
 	'''func4 : exp '''
 	funCheck.append(vType)
 	
-def p_list(p):
-	'''list : L type ID prelistAss'''
-	if p[3] in ht:
-		print "Existing var, ", p[3]
-	else:
-		ht[p[3]] = [vType, "list", 0]
-
-def p_prelistAss(p):
-	'''prelistAss : EQ listAss
-| SC'''
-
 def p_listAss(p):
 	'''listAss : LB exp C exp RB SC'''
 	global DT
 	if(not DT):
-		print "dimension error"
+		print "Dimension error"
+		sys.error(0)
 	else:
 		DT = False
-
-def p_lab(p):
-	'''lab : LA LP stExp lab2 RP SC'''
-	avail.append_quad_one(208)
-
-def p_lab2(p):
-	'''lab2 : ADD stExp lab2
-| empty'''
-
-def p_stExp(p):
-	'''stExp : STR
-| exp'''
 
 def p_condition(p):
 	'''condition : IF LP expresion condRP block con2'''
@@ -622,24 +637,10 @@ def p_rt(p):
 def p_rtE(p):
 	'''rtE : exp 
 | empty'''
-	print "RTE ", proDict["globals"], " ", avail.getRT()
 	global empty, vType
-	vDir = 0
-	if(avail.getRT() != vType):
-		print "ERROR, MISSMATCH"
-	else:
-		vDir = 10000
-		if(vType == 'int'):
-			qty = proDict["globals"][4]
-			vDir += 5000 + qty
-			qty += 1
-			proDict["globals"][4] = qty
-		elif(vType == 'float'):
-			qty = proDict["globals"][5]
-			vDir += 6000 + qty
-			qty += 1
-			proDict["globals"][5] = qty
-	avail.function_return(empty, vDir)
+	
+	print "RETURN", avail.getScope()
+	avail.function_return(empty, var_dir(avail.getScope()))
 	empty = False
 
 def p_block(p):
@@ -669,8 +670,6 @@ def p_block2(p):
 	'''block2 : figure 
 | condition 
 | pen 
-| lab 
-| list 
 | WID
 | rep
 | rt'''
@@ -681,16 +680,18 @@ def p_empty(p):
 	empty = True
 
 def save_var(var):
+	global aType
 	if var in ht:
 		print "Existing var, ", var
+		sys.exit(0)
 	else:
-		if vType == "int":
+		if aType == "int":
 			global int_qty
-			ht[var] = [vType, "var", int_qty]
+			ht[var] = [aType, "var", int_qty]
 			int_qty += 1 
 		else:
 			global float_qty
-			ht[var] = [vType, "var", float_qty] 
+			ht[var] = [aType, "var", float_qty] 
 			float_qty += 1
 
 def block_dir(blockDict, block):
@@ -718,18 +719,10 @@ def declared_variables(p):
 
 def type_variable(p, type_v):
 	if p in ht:
-		if(ht[p][1] != type_v):
-			print "Type miss match.", type_v, " " ,p
-			sys.exit(0)
-		else:
-			return ht[p][0]
+		return ht[p][0]
 	else:
-		if("globals" in proDict):
-			if(proDict["globals"][0][p][1] != type_v):
-				print "Type miss match.", type_v, " " , p
-				sys.exit(0)
-			else:
-				return proDict["globals"][0][p][0]
+		if "globals" in proDict:
+			return proDict["globals"][0][p][0]
 
 def var_dir(p):
 	if p in ht:
@@ -810,6 +803,6 @@ if(len(sys.argv) > 1):
 		#print toFile
 		wFile = open('program.txt', 'w+')
 		wFile.write(toFile)
-		wFile.close()	
+		wFile.close()
 else:
     print "):"

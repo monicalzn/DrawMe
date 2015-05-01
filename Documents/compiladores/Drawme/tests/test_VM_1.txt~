@@ -17,8 +17,8 @@ float g;
 	n = 2 - 4 + 90;
 	setColor(255, 45, 78);
 penWidth(3);
-rectangle(30,n,fill);
 	penColor(35, 45, 178);
 	hoho(8);
+arc(67*(8/6));
 	
 }

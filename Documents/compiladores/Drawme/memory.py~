@@ -24,6 +24,7 @@ class Memory:
 		if(vDir >= 2000 and vDir <= 2999):
 			self.int_block[(vDir-2000)] = int(value)
 		elif(vDir >= 3000 and vDir <= 3999):
+			print self.float_block
 			self.float_block[(vDir-3000)] = float(value)
 		elif(vDir >= 4000 and vDir <= 4999):
 			self.temp_bool_block[(vDir-4000)] = bool(value)
@@ -32,7 +33,6 @@ class Memory:
 		elif vDir >= 6000 and vDir <= 6999:
 			self.temp_float_block[(vDir-6000)] = float(value)
 		elif(vDir >= 7000 and vDir <= 7999):
-			print "AAAAAAAAAAAAAAAAAAAAAAAAH", self.pointers
 			self.pointers[(vDir-7000)] = int(value)
 
 	def readValue(self, vDir):
