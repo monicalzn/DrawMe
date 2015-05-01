@@ -369,7 +369,7 @@ def p_idList(p):
 #id debe ser tipo list not var
 
 def p_p_arc(p):
-	'''p_arc : ARC LP exp RP SC'''
+	'''p_arc : ARC LP exp p_fill RP SC'''
 	avail.append_quad_one(207)
 
 def p_expresion(p):
@@ -442,18 +442,18 @@ def p_fact4(p):
 		declared_variables(ID)
 		avail.TStack_push(type_variable(ID, "var"))
 		avail.OStack_push(var_dir(ID))
-		avail.printS()
 		if(MDim):
 			avail.dim(dim(ID), pointer)
 		if not MDim:
 			if avail.DStack_pop():
 				print avail.OStack_pop()
 				avail.TStack_pop()
-				avail.printS()
+				
 
 def p_factID(p):
 	'''factID : ID '''
-	avail.setFuncScope(p[1])	
+	avail.setFuncScope(p[1])
+	print "OOOID", p[1]	
 	avail.IDStack_push(p[1])
 
 def p_fact5(p):
@@ -461,6 +461,7 @@ def p_fact5(p):
 | LB exp RB
 | funCall
 | empty'''
+#check if its a function, an array, matrix or a simple var.
 	global empty	
 	if(len(p) == 4):
 		avail.DStack_push(True)
@@ -474,6 +475,7 @@ def p_fact5(p):
 		avail.DStack_push(True)
 		avail.DStack_push(False)
 	else:
+		print "EMPOTY DEL"
 		avail.delFuncScope()
 		avail.DStack_push(False)
 		avail.DStack_push(False)
@@ -506,12 +508,14 @@ def p_rep(p):
 def p_rep3(p):
 	'''rep3 : exp'''
 	avail.rep()
+	print "REP"
 	
 
 def p_WID(p):
 	'''WID : factID fact5 WID2'''
 	ID = avail.IDStack_pop()
 	if(idFunc == "ass"):
+		print "DEL"
 		avail.delFuncScope()
 		TDim = avail.DStack_pop()		
 		declared_variables(ID)
@@ -571,20 +575,22 @@ def p_assigment(p):
 
 def p_tipeAss(p):
 	'''tipeAss : exp SC
-| listAss
-| WID'''
+| listAss '''
 
 def p_funCall(p):
 	'''funCall : funEra func2 RP '''
 	global idFunc, empty
 	idFunc = "func"
-	print "funCall", avail.getScope()
-	avail.function_param(proDict[avail.getScope()][0])
+	print "funCall", avail.getFuncScope()
+	if avail.getFuncScope() not in proDict:
+		print "Error, function doesn't exist"
+		sys.exit(0)
+	avail.function_param(proDict[avail.getFuncScope()][0])
 	vDir = 10000
 	qty = proDict["globals"][5]
 	vDir += 6000 + qty
 	proDict["globals"][5] = qty + 1
-	avail.call_function_end(proDict[avail.getScope()][1], var_dir(avail.getScope()), vDir)
+	avail.call_function_end(proDict[avail.getFuncScope()][1], var_dir(avail.getFuncScope()), vDir)
 	empty = False
 
 def p_funEra(p):

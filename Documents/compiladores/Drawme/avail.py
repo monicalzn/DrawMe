@@ -346,7 +346,6 @@ class avail:
 		else:
 			spCuad = ['RETURN', self.OStack.pop(), -1, vDir]
 			#self.OStack.push(vDir)
-			print "RETURN ", self.OStack.printi()
 			self.numQuad += 1
 			self.quads.append(spCuad)
 			return True
@@ -377,7 +376,6 @@ class avail:
 		spCuad = ['GOSUB', -1, -1, var]
 		self.numQuad += 1
 		self.quads.append(spCuad)
-		print "SUB", self.OStack.printi()
 		spCuad = ['101', vDir, -1, temp]
 		self.OStack.push(temp)
 		print "SUB", self.OStack.printi()

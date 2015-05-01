@@ -477,7 +477,7 @@ class avail:
 	def setScope(self, scope):
 		self.scope = scope
 	
-	def getFuncScope(self):
+	def getScope(self):
 		return self.scope
 
 	def setFuncScope(self, scope):

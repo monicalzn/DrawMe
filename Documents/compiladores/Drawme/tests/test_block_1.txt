@@ -1,19 +1,25 @@
 program
-global var 
-int j, k=2.0, d ;
-float f = k, h = 9;
-list int g = {23, d};
-function hola(int kp, float f):
-var float h;
-{ kp = 56;}
-main {
-	rectangle( 34*5, d/(9+2),fill);
-	triangle(23, f-2, d);
-	circle(34.6);
-	square(k, fill);
-	polygon(g, fill);
-	polygon(g);
-	lineStrip(g);
-	arc(67*(8/6));
-	hola(h,34.5);
+main 
+var
+int j=9 , l=4 ,p=5, k[7] = [10,1,2,3,4,5,6,7];
+float h=9.6, b=32.1, x{2} = {(3.4,33), (99,21), (31, 43)}, e;
+{
+square(j, fill);
+circle(l);
+circle(p, fill);
+rectangle(k[7], k[0]);
+penX(h);
+rectangle(h, b, fill);
+lineStrip(x);
+e = 23 +43;
+arc(e);
+penColor(12, 123, 223);
+e = e +2;
+arc(e, fill);
+repeat 8 {
+ h = 2;
+ setColor(h, 123, 223);
+ penY(h);
+ square(h, fill);
+}
 }

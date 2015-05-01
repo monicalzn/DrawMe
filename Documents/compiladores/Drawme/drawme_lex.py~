@@ -14,8 +14,8 @@ reserved = {
    'penWidth':'PENW',
    'penPos':'PENP',
    'penColor':'PENC',
-   'penUp': 'PENU',
-   'penDown':'PEND',
+   'penX': 'PENX',
+   'penY':'PENY',
    'setColor':'SETC',
    'backgroundColor' : 'BACO',
    'line':'LI',
@@ -28,10 +28,7 @@ reserved = {
    'angle' : 'A',
    'arc' : 'ARC',
    'lineStrip' : 'LS',
-   'angle' : 'A',
    'repeat' : 'RE',
-   'list' : 'L',
-   'label' : 'LA',
    'return' : 'RT'
 }
 
@@ -50,7 +47,6 @@ t_SUB    	= r'-'
 t_M     	= r'\*'
 t_DIV  		= r'/'
 t_SC    	= r';'
-t_DP 		= r':'
 t_C     	= r'\,'
 t_LB    	= r'\{'
 t_RB    	= r'\}'
