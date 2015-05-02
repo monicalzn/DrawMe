@@ -182,7 +182,7 @@ def p_var6(p):
 	'''var6 : exp
 | LB LP exp C exp RP var61 RB
 | LC exp var62 RC'''
-#whe declaring variables and you have a assing you have to check the type of assignation
+#whe declaring variables and you have an assing you have to check the type of assignation
 	global vD, vType, DTQty
 	if len(p) == 2: 
 #if it's a normal asign k=0 or k=j, i
@@ -254,14 +254,15 @@ def p_var52(p):
 	global aType, int_qty, float_qty
 	ID = avail.IDStack_pop()
 	exp = avail.OStack_pop()
-	print "DIR MATRIX ", exp
+	print "DIR MATRIX "
 	for value, vDir in const.iteritems():
 		if exp == vDir :
 			if aType == 'int':
 				int_qty += (int(value)+1)*2 + 1
 			else:
 				float_qty += (int(value)+1)*2 + 1
-			ht[ID].append(int(value)*2+1)
+			print "DIR MATRIX ", (int(value)+1)*2 + 1
+			ht[ID].append((int(value)+1)*2 + 1)
 	avail.DStack_push(True)
 	avail.IDStack_push(ID)
 				
@@ -453,7 +454,6 @@ def p_fact4(p):
 def p_factID(p):
 	'''factID : ID '''
 	avail.setFuncScope(p[1])
-	print "OOOID", p[1]	
 	avail.IDStack_push(p[1])
 
 def p_fact5(p):
@@ -475,7 +475,6 @@ def p_fact5(p):
 		avail.DStack_push(True)
 		avail.DStack_push(False)
 	else:
-		print "EMPOTY DEL"
 		avail.delFuncScope()
 		avail.DStack_push(False)
 		avail.DStack_push(False)
@@ -516,7 +515,7 @@ def p_WID(p):
 	ID = avail.IDStack_pop()
 	if(idFunc == "ass"):
 		print "DEL"
-		avail.delFuncScope()
+		#avail.delFuncScope()
 		TDim = avail.DStack_pop()		
 		declared_variables(ID)
 		print "IDD:", ID

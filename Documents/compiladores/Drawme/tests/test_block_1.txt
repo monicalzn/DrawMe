@@ -1,8 +1,8 @@
 program
 main 
 var
-int j=9 , l=4 ,p=5, k[7] = [10,1,2,3,4,5,6,7];
-float h=9.6, b=32.1, x{2} = {(3.4,33), (99,21), (31, 43)}, e;
+int j=9 , l=4 ,p=5, k[7] = [10,1,2,3,4,5,6,7], n=23;
+float h=9, b=32.1, x{2} = {(3.4,33), (99,21), (31, 43)}, e;
 {
 square(j, fill);
 circle(l);
@@ -13,13 +13,25 @@ rectangle(h, b, fill);
 lineStrip(x);
 e = 23 +43;
 arc(e);
-penColor(12, 123, 223);
+penColor(212, 123, 223);
 e = e +2;
 arc(e, fill);
 repeat 8 {
- h = 2;
+ h = h+2;
  setColor(h, 123, 223);
  penY(h);
  square(h, fill);
 }
+penY(20);
+e =80;
+repeat 7 {
+ h = h+20;
+ e = e -10;
+ setColor(100, h, 223);
+ penX(e);
+ circle(e, fill);
+}
+penPos(400,300);
+polygon(x);
+rectangle(n, 21);
 }
