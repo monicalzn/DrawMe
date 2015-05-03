@@ -23,7 +23,7 @@ class MemoryAdministrator:
 	def setGlobalMem(self, strQ, intQ, floatQ, boolQ, intTQ, floatTQ, pointQ):
 		self.globals.setMem(int(strQ), int(intQ), int(floatQ), int(boolQ), int(intTQ), int(floatTQ), int(pointQ))
 
-	def setFunction(self, intQ, floatQ, boolQ, intTQ, floatTQ, pointQ):
+	def setFunction(self, strQ, intQ, floatQ, boolQ, intTQ, floatTQ, pointQ):
 		function = Memory()
 		function.setMem(int(strQ), int(intQ), int(floatQ), int(boolQ), int(intTQ), int(floatTQ), int(pointQ))
 		
@@ -154,7 +154,7 @@ class MemoryAdministrator:
 				return str(self.constants_str[dirV-2000])
 
 
-	def writePointValue(self, dirV, value):
+	def writePointValue(self, dirV, value, scp):
 		dirV = int(dirV)		
 		if((dirV-10000) < 10000):
 			#global values
@@ -169,7 +169,7 @@ class MemoryAdministrator:
 		if((dirV-30000) < 10000):
 			#function values
 			dirV = dirV-30000
-			self.functions[self.currentScope].writeValue(dirV, value)
+			self.functions[self.currentScope+scp].writeValue(dirV, value)
 			return
 
 	def printFunctions(self):

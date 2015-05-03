@@ -35,13 +35,16 @@ reserved = {
 
 #List of token name.
 tokens = [
-	'LB', 'RB', 'C', 'LP', 'RP', 'EQ', 'VALI', 'VALF', 'SEQ', 'D', 'MT', 'LT', 'ADD', 'SUB', 'M', 'DIV', 'STR', 'SC', 'ID', 'LC', 'RC'
+	'LB', 'RB', 'C', 'LP', 'RP', 'EQ', 'VALI', 'VALF', 'SEQ', 'D', 'MT', 'LT', 'ADD', 'SUB', 'M', 'DIV', 'STR', 'SC', 'ID', 'LC', 'RC', 'MET', 'LET', 'P'
 	] + list(reserved.values())
 
 t_ignore 	= ' \t\n\r'
+t_P     	= r'&'
 t_EQ     	= r'='
 t_MT      	= r'>'
 t_LT      	= r'<'
+t_LET      	= r'<='
+t_MET      	= r'>='
 t_D             = r'<>'
 t_ADD     	= r'\+'
 t_SUB    	= r'-'

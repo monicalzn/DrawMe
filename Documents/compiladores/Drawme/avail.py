@@ -1,5 +1,5 @@
 from stack import Stack
-
+import sys
 
 	
 class avail:
@@ -40,30 +40,49 @@ class avail:
 		'>': {
 			'int': {
 				'int': 'bool',
-				'float': 'bool',
-				'TEXTO': 'error'
+				'float': 'bool'
 			},
 			'float': {
 				'int': 'bool',
-				'float': 'bool',
-				'TEXTO': 'error'
+				'float': 'bool'
 			}
 		},
 		'<': {
 			'int': {
 				'int': 'bool',
-				'float': 'bool',
-				'TEXTO': 'error'
+				'float': 'bool'
 			},
 			'float': {
 				'int': 'bool',
-				'float': 'bool',
-				'TEXTO': 'error'
+				'float': 'bool'
 			},
 			'TEXTO': {
 				'int': 'error',
-				'float': 'error',
-				'TEXTO': 'bool'
+				'float': 'error'
+			}
+		},
+		'>=': {
+			'int': {
+				'int': 'bool',
+				'float': 'bool'
+			},
+			'float': {
+				'int': 'bool',
+				'float': 'bool'
+			}
+		},
+		'<=': {
+			'int': {
+				'int': 'bool',
+				'float': 'bool'
+			},
+			'float': {
+				'int': 'bool',
+				'float': 'bool'
+			},
+			'TEXTO': {
+				'int': 'error',
+				'float': 'error'
 			}
 		},
 		'<>': {
@@ -174,7 +193,7 @@ class avail:
 
 	def expression(self):
 		if(self.OpStack.size() > 0):
-			if(self.OpStack.peek() == '>' or self.OpStack.peek() == '<' or self.OpStack.peek() == '<>' or self.OpStack.peek() == '=='):
+			if(self.OpStack.peek() == '>' or self.OpStack.peek() == '<' or self.OpStack.peek() == '<>' or self.OpStack.peek() == '==' or self.OpStack.peek() == '<=' or self.OpStack.peek() == '>='):
 				self.quad()
 
 	def add_sub(self):
@@ -355,13 +374,18 @@ class avail:
 		self.quads.append(spCuad)
 
 	def function_param(self, param):
+		cont = len(param)
+		print "PARPRPR", param
+		if self.OStack.size() < cont:
+			print "Missing parameters."
+			sys.exit(0)
 		listh = []
-		cont = len(param)-1
+		cont = 0		
 		for key in param:
 			listh.append(self.OStack.pop())
 		for key in param:
 			spCuad = ['PARAMETRO', listh[cont], -1, param[key][2]]
-			cont -= 1
+			cont += 1
 			self.numQuad += 1
 			self.quads.append(spCuad)
 
@@ -430,6 +454,11 @@ class avail:
 
 	def printS(self):
 		print self.OStack.printi()
+
+	def get_temp_point(self):
+		h = self.get_temp('$', 'dir', -1)
+		return h[0]
+		
 
 	def OpStack_pop(self):
 		self.OpStack.pop()

@@ -30,6 +30,8 @@ ID = ''
 MDim = False
 DT = False
 DTQty = 0
+pointer = False
+pointDir = 0
 
 def p_prog(p):
 	'''prog : PR p2 p3 main mainVDir block'''
@@ -72,7 +74,6 @@ def p_globals(p):
 	vaDict = dict(ht)
 	temp = [vaDict, (str_qty-1000), (int_qty-2000), (float_qty-3000)]
 	temp.extend(avail.get_temp_dirs())
-	print "GLOBAAAALS", temp
 	proDict["globals"] = temp
 	ht.clear()
 	str_qty = 1000
@@ -109,18 +110,21 @@ def p_funVDir(p):
 	float_qty = 3000
 
 def p_fun2(p):
-        '''fun2 : funBlock ID LP fun3 RP'''
+        '''fun2 : funBlock fID LP fun3 RP'''
 	vaDict = dict(funPar)
-	avail.setScope(p[2])
 	global str_qty, int_qty, float_qty, idFunc
-	idFunc = p[2]
+	idFunc = avail.getScope()
 	temp = [vaDict, avail.getfuncQuad(), (str_qty-2000), (int_qty-2000), (float_qty-3000), 0, 0, 0, 0]
-	proDict[p[2]] = temp
+	proDict[avail.getScope()] = temp
 	qty = proDict["globals"][3] + 1
-	proDict["globals"][0][p[2]] = ["float", 'func', 13000 + qty]
+	proDict["globals"][0][avail.getScope()] = ["float", 'func', 13000 + qty]
 	proDict["globals"][3] = qty
 	print proDict["globals"]
 	funPar.clear()
+
+def p_fID(p):
+	'''fID : ID '''
+	avail.setScope(p[1])
 
 def p_funBlock(p):
         '''funBlock : FUN tp'''
@@ -145,10 +149,42 @@ def p_fun4(p):
 | empty'''
 
 def p_fun5(p):
-	'''fun5 : type ID '''
-	save_var(p[2])
-	funPar[p[2]] = [vType, "var", (ht[p[2]][2]+30000)]
-	
+	'''fun5 : type arr ID arrDim'''
+	global pointer, pointDir
+	if pointer:
+		pDir = avail.get_temp_point()
+		if p[3] in ht:
+			print "Existing var, ", p[3]
+			sys.exit(0)
+		else:
+			ht[p[3]] = [aType, "point", (pDir-30000)]
+			if pointDir > 0:
+				ht[p[3]].append(pointDir)
+		pointer = False
+	else:
+		save_var(p[3])
+	funPar[p[3]] = [vType, "var", (ht[p[3]][2]+30000)]
+
+def p_arr(p):
+	'''arr : P
+| empty '''
+	global pointer
+	if p[1] == '&':
+		pointer = True
+	else:
+		pointer = False	
+
+def p_arrDim(p):
+	'''arrDim : LC exp RC 
+| empty'''
+#dir array
+	if len(p) > 2:
+		global pointDir
+		exp = avail.OStack_pop()
+		for value, vDir in const.iteritems():
+			if exp == vDir :
+				pointDir = value
+		
 
 def p_vars(p): 
 	'''vars : V var2 
@@ -392,7 +428,9 @@ def p_ex3(p):
 	'''ex3 : LT 
 | MT 
 | D 
-| SEQ'''
+| SEQ
+| LET
+| MET'''
 	avail.OpStack_push(p[1])
 
 def p_exp(p):
@@ -451,6 +489,7 @@ def p_fact4(p):
 		avail.TStack_push(type_variable(ID, "var"))
 		avail.OStack_push(var_dir(ID))
 		if(MDim):
+			print "MDIM", ID
 			avail.dim(dim(ID), pointer)
 		if not MDim:
 			if avail.DStack_pop():
@@ -511,7 +550,13 @@ def p_rep(p):
 	avail.rep_jump(const['1'], const['0'])
 
 def p_rep3(p):
-	'''rep3 : exp'''
+	'''rep3 : valExp
+| ID'''
+	print "BAH", p[1]
+	if p[1] != None:
+		declared_variables(p[1])
+		avail.TStack_push(type_variable(p[1], "var"))
+		avail.OStack_push(var_dir(p[1]))
 	avail.rep()
 	
 
@@ -658,6 +703,7 @@ def p_label(p):
 	print p[3]
 	sub = 1
 	start = str_qty - 1000
+	strDir = str_qty + (avail.getblock() * 10000)
 	word = p[3]
 	while sub < len(word)-1:
 		if word[sub] not in const:
@@ -670,7 +716,7 @@ def p_label(p):
 		sub += 1
 	finish = str_qty - 1000	-1
 	print "FIJN", finish
-	spCuad = ['208',  start , -1, finish]
+	spCuad = ['208',  strDir , start, finish]
 	avail.append_quad(spCuad)
 
 def p_block(p):

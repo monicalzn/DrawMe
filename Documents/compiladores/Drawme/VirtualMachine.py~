@@ -33,7 +33,7 @@ def substract():
 	global current_quad
 	first = memory.getValue(quads[current_quad][1])
 	second = memory.getValue(quads[current_quad][2])
-	#print "SUB ", first, " - ", second, " IN ", quads[current_quad][3]  
+	print "SUB ", first, " - ", second, " IN ", quads[current_quad][3]  
 	result = first - second
 	memory.writeValue(quads[current_quad][3], result)
 	current_quad += 1
@@ -71,6 +71,24 @@ def more_than():
 	second = memory.getValue(quads[current_quad][2])
 	#print "MOREE ", first, " / ", second, " = ", first>second, " IN ", quads[current_quad][3]  
 	result = first > second
+	memory.writeValue(quads[current_quad][3], result)
+	current_quad += 1
+
+def less_than_eq():
+	global current_quad
+	first = memory.getValue(quads[current_quad][1])
+	second = memory.getValue(quads[current_quad][2])
+	#print "LESSSS ", first, " / ", second, " = ", first<second, " IN ", quads[current_quad][3]  
+	result = first <= second
+	memory.writeValue(quads[current_quad][3], result)
+	current_quad += 1
+
+def more_than_eq():
+	global current_quad
+	first = memory.getValue(quads[current_quad][1])
+	second = memory.getValue(quads[current_quad][2])
+	#print "MOREE ", first, " / ", second, " = ", first>second, " IN ", quads[current_quad][3]  
+	result = first >= second
 	memory.writeValue(quads[current_quad][3], result)
 	current_quad += 1
 
@@ -158,9 +176,10 @@ def rectangle():
 	global current_quad, fill, fillColor, penColor, penWidth
 	x = memory.getValue('41000')
 	y = memory.getValue('41001')
+	print "RECTANGLE ", x, " ", y, " ", memory.getValue(quads[current_quad][1]), " ", memory.getValue(quads[current_quad][2]), " ", fill 
 	x2 = x + memory.getValue(quads[current_quad][1])
 	y2 = y + memory.getValue(quads[current_quad][2])
-	#print "RECTANGLE ", x, " ", y, " ", x2, " ", y2, " ", fill 
+	print "RECTANGLE ", x, " ", y, " ", x2, " ", y2, " ", fill 
 	
 	if(fill):
 		w.create_rectangle(x, y, x2, y2, fill=fillColor, outline=penColor, width=penWidth)	
@@ -256,7 +275,7 @@ def label():
 		print "COONST", constDir
 		word += memory.getValue(constDir)
 		start += 1
-	w.create_text(memory.getValue('41000'), memory.getValue('41001'), text=word, outline=penColor)
+	w.create_text(memory.getValue('41000'), memory.getValue('41001'), text=word, fill=penColor)
 	current_quad += 1
 
 def linestrip():
@@ -391,8 +410,13 @@ def era():
 
 def param():
 	global current_quad
-	print "PARAM ", quads[current_quad][3],  " ", memory.getValue(quads[current_quad][1])
-	memory.writeValueS(quads[current_quad][3], memory.getValue(quads[current_quad][1]))
+	if quads[current_quad][3][1] == '7':
+		#pointer
+		memory.writePointValue(quads[current_quad][3], quads[current_quad][1], 1)
+		print "PARAM ", quads[current_quad][3],  " ", quads[current_quad][1]
+	else:
+		memory.writeValueS(quads[current_quad][3], memory.getValue(quads[current_quad][1]))
+		print "PARAM ", quads[current_quad][3],  " ", memory.getValue(quads[current_quad][1])
 	current_quad += 1
 
 def goSub():
@@ -425,11 +449,16 @@ def dimC():
 
 def pointerDir():
 	global current_quad
-	vDir = int(quads[current_quad][1])
+	print "                    POINTER", quads[current_quad]
+	if quads[current_quad][1][1] == '7':
+		vDir = memory.getValue(quads[current_quad][1])
+		print "                    POINTER", vDir
+	else:
+		vDir = int(quads[current_quad][1])
 	vPoint = memory.getValue(quads[current_quad][2])
-	#print "VDIR " , vDir+vPoint
+	print "VDIR " , vDir+vPoint
 	vDir = vDir + vPoint
-	memory.writePointValue(quads[current_quad][3], str(vDir))
+	memory.writePointValue(quads[current_quad][3], str(vDir), 0)
 	current_quad += 1
 
 def pointerDirC():
@@ -438,7 +467,7 @@ def pointerDirC():
 	vPoint = int(quads[current_quad][2])
 	#print "VDIR " , vDir+vPoint
 	vDir = vDir + vPoint
-	memory.writePointValue(quads[current_quad][3], str(vDir))
+	memory.writePointValue(quads[current_quad][3], str(vDir), 0)
 	current_quad += 1
 
 def endPro():
@@ -458,6 +487,8 @@ options = { '+' : add,
 		'/' : divide,
 		'<' : less_than,
 		'>' : more_than,
+		'<=' : less_than_eq,
+		'>=' : more_than_eq,
 		'<>' : different_than,
 		'==' : equal_to,
 		'GOTO': goto,

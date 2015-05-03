@@ -1,41 +1,36 @@
 program
 global var 
-int j, k=2.0, d,b ;
-float f = k, c, y;
-list float h = {2};
-list int g = {23, d};
-function hola(int k, float f):
-var float h;
-list int g = {23, d};
-{ 
-	penUp;
-	forward(34, angle 56*7);
-	if(h > 5){
-		penColor(255, 245, 235);
-		if(35*7 < k){
-			setColor((12-2),10*4,20/h);
-		} else {
-			backgroundColor(k,f,j);
-		}
-	}
-	penDown;
-	penWidth(k);
+int j;
+function int fact(int f){
+rectangle(90,f,fill);
+if(f <= 1){
+ return 1;
+} else {
+ return f * fact(f-1);
 }
- main {
-	penPos(f, 7);
-	rectangle( 34*5, d/(9+2),fill);
-	triangle(23, f-2, h);
-	circle(34.6);
-	square(k, fill);
-	polygon(g, fill);
-	polygon(g);
-	lineStrip(g);
-	lineStrip(g);
-	arc(67*(8/6));
-	back(k, angle k);
-	label('hello');
-	b = 23;
-	b = d;
-	b = d/3;
-	c = {2,4,y};
+}
+main 
+var int n, cont, fa;
+float g;
+{
+	n = 2 - 3 + 10;
+	n = 2 - 4 + 90;
+	setColor(255, 45, 78);
+penWidth(3);
+	penColor(35, 45, 178);
+arc(67*(8/6));
+penY(80);
+penX(5);
+	square(fact(4));
+cont = 5;
+fa = 4;
+repeat cont {
+if(fa <= 1){
+ cont = cont * 1;
+} else {
+ cont = cont * fa;
+}
+fa = fa - 1;
+}
+circle(cont);
 }

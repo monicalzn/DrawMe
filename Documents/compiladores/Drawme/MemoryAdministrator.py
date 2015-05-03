@@ -154,7 +154,7 @@ class MemoryAdministrator:
 				return str(self.constants_str[dirV-2000])
 
 
-	def writePointValue(self, dirV, value):
+	def writePointValue(self, dirV, value, scp):
 		dirV = int(dirV)		
 		if((dirV-10000) < 10000):
 			#global values
@@ -169,8 +169,24 @@ class MemoryAdministrator:
 		if((dirV-30000) < 10000):
 			#function values
 			dirV = dirV-30000
-			self.functions[self.currentScope].writeValue(dirV, value)
+			self.functions[self.currentScope+scp].writeValue(dirV, value)
 			return
+
+	def getValuePointer(self, dirV):
+		
+		dirV = int(dirV)		
+		if((dirV-10000) < 10000):
+			#global values
+			dirV = dirV-10000
+			return self.globals.readValue(dirV)
+		if((dirV-20000) < 10000):
+			#main values
+			dirV = dirV-20000
+			return self.main.readValue(dirV)
+		if((dirV-30000) < 10000):
+			#function values
+			dirV = dirV-30000
+			return self.functions[self.currentScope].readValue(dirV)
 
 	def printFunctions(self):
 		print self.currentScope

@@ -1,5 +1,5 @@
 from stack import Stack
-
+import sys
 
 	
 class avail:
@@ -40,30 +40,49 @@ class avail:
 		'>': {
 			'int': {
 				'int': 'bool',
-				'float': 'bool',
-				'TEXTO': 'error'
+				'float': 'bool'
 			},
 			'float': {
 				'int': 'bool',
-				'float': 'bool',
-				'TEXTO': 'error'
+				'float': 'bool'
 			}
 		},
 		'<': {
 			'int': {
 				'int': 'bool',
-				'float': 'bool',
-				'TEXTO': 'error'
+				'float': 'bool'
 			},
 			'float': {
 				'int': 'bool',
-				'float': 'bool',
-				'TEXTO': 'error'
+				'float': 'bool'
 			},
 			'TEXTO': {
 				'int': 'error',
-				'float': 'error',
-				'TEXTO': 'bool'
+				'float': 'error'
+			}
+		},
+		'>=': {
+			'int': {
+				'int': 'bool',
+				'float': 'bool'
+			},
+			'float': {
+				'int': 'bool',
+				'float': 'bool'
+			}
+		},
+		'<=': {
+			'int': {
+				'int': 'bool',
+				'float': 'bool'
+			},
+			'float': {
+				'int': 'bool',
+				'float': 'bool'
+			},
+			'TEXTO': {
+				'int': 'error',
+				'float': 'error'
 			}
 		},
 		'<>': {
@@ -174,7 +193,7 @@ class avail:
 
 	def expression(self):
 		if(self.OpStack.size() > 0):
-			if(self.OpStack.peek() == '>' or self.OpStack.peek() == '<' or self.OpStack.peek() == '<>' or self.OpStack.peek() == '=='):
+			if(self.OpStack.peek() == '>' or self.OpStack.peek() == '<' or self.OpStack.peek() == '<>' or self.OpStack.peek() == '==' or self.OpStack.peek() == '<=' or self.OpStack.peek() == '>='):
 				self.quad()
 
 	def add_sub(self):
@@ -355,8 +374,13 @@ class avail:
 		self.quads.append(spCuad)
 
 	def function_param(self, param):
+		cont = len(param)
+		print "PARPRPR", param
+		if self.OStack.size() < cont:
+			print "Missing parameters."
+			sys.exit(0)
 		listh = []
-		cont = len(param)-1
+		cont = len(param)-1		
 		for key in param:
 			listh.append(self.OStack.pop())
 		for key in param:
@@ -388,6 +412,7 @@ class avail:
 	def append_quad_one(self, fun):
 		self.numQuad += 1
 		spQuad = [fun, self.OStack.pop(), -1, -1]
+		self.TStack.pop()
 		self.quads.append(spQuad)
 
 	def append_quad_two(self, fun):
@@ -429,6 +454,11 @@ class avail:
 
 	def printS(self):
 		print self.OStack.printi()
+
+	def get_temp_point(self):
+		h = self.get_temp('$', 'dir', -1)
+		return h[0]
+		
 
 	def OpStack_pop(self):
 		self.OpStack.pop()
