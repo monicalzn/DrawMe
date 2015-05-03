@@ -1,7 +1,7 @@
 program
 global var 
 int j;
-function int hoho(int h):{
+function int hoho(int h){
 rectangle(h+10,9,fill);
 if(h < 0){
  return 9;

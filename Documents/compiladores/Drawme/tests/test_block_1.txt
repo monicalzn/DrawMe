@@ -22,16 +22,23 @@ repeat 8 {
  penY(h);
  square(h, fill);
 }
-penY(20);
+penPos(300,200);
+h=300;
 e =80;
 repeat 7 {
  h = h+20;
  e = e -10;
  setColor(100, h, 223);
- penX(e);
+ penX(h);
  circle(e, fill);
 }
 penPos(400,300);
 polygon(x);
 rectangle(n, 21);
+line(129, angle 49);
+penWidth(20);
+penColor(255, 0 ,0);
+arc(45);
+line(129, angle 315);
+label('ds');
 }

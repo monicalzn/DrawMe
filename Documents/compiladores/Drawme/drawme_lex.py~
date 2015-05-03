@@ -29,7 +29,8 @@ reserved = {
    'arc' : 'ARC',
    'lineStrip' : 'LS',
    'repeat' : 'RE',
-   'return' : 'RT'
+   'return' : 'RT',
+   'label' : 'LA',
 }
 
 #List of token name.
@@ -56,7 +57,7 @@ t_LC      = r'\['
 t_RC      = r'\]'
 t_VALI  	= r'\d+'
 t_VALF  	= r'\d+\.\d+'
-t_STR   	= r'\'.*\''
+t_STR		= r'\'.*\''
 t_SEQ		= r'=='
 
 def t_ID(t):

@@ -165,7 +165,7 @@ def rectangle():
 	if(fill):
 		w.create_rectangle(x, y, x2, y2, fill=fillColor, outline=penColor, width=penWidth)	
 	else:
-		w.create_rectangle(x, y, x2, y2)
+		w.create_rectangle(x, y, x2, y2, fill='', outline=penColor, width=penWidth )
 	memory.writeValue('41000', x2)
 	memory.writeValue('41001', y2)
 	current_quad += 1
@@ -186,14 +186,17 @@ def triangle():
 	else:
 		w.create_polygon(x, y, x2, y2, x3, y3, fill='', outline=penColor, width=penWidth )
 	print quads[current_quad]
+	memory.writeValue('41000', x3)
+	memory.writeValue('41001', y3)
 	current_quad += 1
 
 def circle():
 	global current_quad, fill, fillColor, penColor, penWidth
-	x = memory.getValue('41000')
-	y = memory.getValue('41001')
-	x2 = x + memory.getValue(quads[current_quad][1])
-	y2 = y + memory.getValue(quads[current_quad][1])
+	size = memory.getValue(quads[current_quad][1])
+	x = memory.getValue('41000') - size
+	y = memory.getValue('41001') - size
+	x2 = x + (size * 2)
+	y2 = y + (size * 2)
 	#print "CIRCLE ", x, " ", y, " ", x2, " ", y2, " ", fill 
 	
 	if(fill):
@@ -206,16 +209,18 @@ def circle():
 
 def arc():
 	global current_quad, fill, fillColor, penColor, penWidth
-	x = memory.getValue('41000')
-	y = memory.getValue('41001')
-	x2 = x + memory.getValue(quads[current_quad][1])
-	y2 = y + memory.getValue(quads[current_quad][1])
+	size = memory.getValue(quads[current_quad][1])
+	x = memory.getValue('41000') - size
+	y = memory.getValue('41001') - size
+	x2 = x + (size * 2)
+	y2 = y + (size * 2)
 	#print "CIRCLE ", x, " ", y, " ", x2, " ", y2, " ", fill 
 	
 	if(fill):
 		w.create_arc(x, y, x2, y2, fill=fillColor, outline=penColor, width=penWidth)	
 	else:
-		w.create_arc(x, y, x2, y2, fill='', outline=penColor, width=penWidth)
+		w.create_arc(x, y, x2, y2, fill='', outline=penColor, width=penWidth, extent=size, style=ARC)
+	y2 = y2 - size
 	memory.writeValue('41000', x2)
 	memory.writeValue('41001', y2)
 	current_quad += 1
@@ -234,6 +239,20 @@ def square():
 		w.create_rectangle(x, y, x2, y2, fill='', outline=penColor, width=penWidth)
 	memory.writeValue('41000', x2)
 	memory.writeValue('41001', y2)
+	current_quad += 1
+
+def label():
+	global current_quad, penColor, penWidth
+	lenght = int(quads[current_quad][3])
+	direction = int(quads[current_quad][1])
+	word = ''
+	while lenght >= 0:
+		constDir = direction + lenght
+		constDir = str(constDir)
+		print "COONST", constDir
+		word += memory.getValue(constDir)
+		lenght -= 1
+	w.create_text(memory.getValue('41000'), memory.getValue('41001'), text=word)
 	current_quad += 1
 
 def linestrip():
@@ -340,6 +359,8 @@ def move():
 	pos = get_x_and_y(angle, hyp)
 	print "X Y", pos[0], " ", pos[1]
 	w.create_line(x, y,(x+pos[0]), (y+pos[1]), fill=penColor)
+	memory.writeValue('41000', (x+pos[0]))
+	memory.writeValue('41001', (y+pos[1]))
 	current_quad += 1
 	
 def goto():
@@ -360,7 +381,8 @@ def goto_false():
 def era():
 	global current_quad
 	temp = proc[quads[current_quad][3]]
-	memory.setFunction(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5])
+	print "ERA", temp
+	memory.setFunction(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6])
 	current_quad += 1
 
 def param():
@@ -446,6 +468,7 @@ options = { '+' : add,
 		'205' : polygon,
 		'206' : linestrip,
 		'207' : arc,
+		'208' : label,
 		'209' : fill,
 		'301' : pencolor,
 		'302' : color,
@@ -485,15 +508,15 @@ if(len(sys.argv) > 1):
 					else:
 						count += 0.5
 						info = line.split(' ')
-						memory.constSize(int(info[0]), int(info[1]))
+						memory.constSize(int(info[0]), int(info[1]), int(info[2]))
 				if(count == 2):
 					info = line.split(' ')
 					if(info[0] == 'main'):
-						memory.setMainMem(info[1], info[2], info[3], info[4], info[5], info[6]) 
+						memory.setMainMem(info[1], info[2], info[3], info[4], info[5], info[6], info[7]) 
 					elif(info[0] == 'globals'):
-						memory.setGlobalMem(info[1], info[2], info[3], info[4], info[5], info[6])
+						memory.setGlobalMem(info[1], info[2], info[3], info[4], info[5], info[6], info[7])
 					else:
-						proc[info[0]] = [info[1], info[2], info[3], info[4], info[5], info[6]]
+						proc[info[0]] = [info[1], info[2], info[3], info[4], info[5], info[6], info[7]]
 				if(count == 3):
 					info = line.split(' ')
 					sp = [info[0], info[1], info[2], info[3]]

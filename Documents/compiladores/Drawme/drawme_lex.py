@@ -29,12 +29,13 @@ reserved = {
    'arc' : 'ARC',
    'lineStrip' : 'LS',
    'repeat' : 'RE',
-   'return' : 'RT'
+   'return' : 'RT',
+   'label' : 'LA',
 }
 
 #List of token name.
 tokens = [
-	'LB', 'RB', 'DP', 'C', 'LP', 'RP', 'EQ', 'VALI', 'VALF', 'SEQ', 'D', 'MT', 'LT', 'ADD', 'SUB', 'M', 'DIV', 'STR', 'SC', 'ID', 'LC', 'RC'
+	'LB', 'RB', 'C', 'LP', 'RP', 'EQ', 'VALI', 'VALF', 'SEQ', 'D', 'MT', 'LT', 'ADD', 'SUB', 'M', 'DIV', 'STR', 'SC', 'ID', 'LC', 'RC'
 	] + list(reserved.values())
 
 t_ignore 	= ' \t\n\r'
@@ -56,6 +57,7 @@ t_LC      = r'\['
 t_RC      = r'\]'
 t_VALI  	= r'\d+'
 t_VALF  	= r'\d+\.\d+'
+t_STR		= r'\'.*\''
 t_SEQ		= r'=='
 
 def t_ID(t):

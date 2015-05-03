@@ -19,8 +19,10 @@ funCheck = [] #Check function parameters
 toFile = ''
 int_qty = 2000
 float_qty = 3000
+str_qty = 1000
 const_int_qty = 40000
 const_float_qty = 41002
+const_str_qty = 42000
 empty = False
 vD = 0
 offset = 0
@@ -32,7 +34,7 @@ DTQty = 0
 def p_prog(p):
 	'''prog : PR p2 p3 main mainVDir block'''
 	print ht
-	temp = [(int_qty-2000), (float_qty-3000)]
+	temp = [(str_qty-1000), (int_qty-2000), (float_qty-3000)]
 	temp.extend(avail.get_temp_dirs())
 	proDict["main"] = temp
 	if("globals" in proDict):
@@ -65,13 +67,15 @@ def p_p3(p):
 
 def p_globals(p):
 	'''globals : glob vars'''
-	global int_qty, float_qty
+	global str_qty, int_qty, float_qty
 	block_dir(ht, 1)
 	vaDict = dict(ht)
-	temp = [vaDict, (int_qty-2000), (float_qty-3000)]
+	temp = [vaDict, (str_qty-1000), (int_qty-2000), (float_qty-3000)]
 	temp.extend(avail.get_temp_dirs())
+	print "GLOBAAAALS", temp
 	proDict["globals"] = temp
 	ht.clear()
+	str_qty = 1000
 	int_qty = 2000
 	float_qty = 3000
 
@@ -84,10 +88,10 @@ def p_functions(p):
 	'''functions : fun2 funVDir block'''	
 	
 	temps = avail.get_temp_dirs()
-	proDict[avail.getScope()][4] = temps[0]
-	proDict[avail.getScope()][5] = temps[1]
-	proDict[avail.getScope()][6] = temps[2]
-	proDict[avail.getScope()][7] = temps[3]
+	proDict[avail.getScope()][5] = temps[0]
+	proDict[avail.getScope()][6] = temps[1]
+	proDict[avail.getScope()][7] = temps[2]
+	proDict[avail.getScope()][8] = temps[3]
 	ht.clear()
 	avail.function_end()
 	
@@ -96,9 +100,11 @@ def p_funVDir(p):
 	'''funVDir : vars '''
 	#print "function    ", ht, '\n'
 	block_dir(ht, 3)
-	global int_qty, float_qty, idFunc
-	proDict[idFunc][2] = (int_qty-2000)
-	proDict[idFunc][3] = (float_qty-3000)
+	global str_qty, int_qty, float_qty, idFunc
+	proDict[idFunc][2] = (str_qty-1000)
+	proDict[idFunc][3] = (int_qty-2000)
+	proDict[idFunc][4] = (float_qty-3000)
+	str_qty = 1000
 	int_qty = 2000
 	float_qty = 3000
 
@@ -106,13 +112,14 @@ def p_fun2(p):
         '''fun2 : funBlock ID LP fun3 RP'''
 	vaDict = dict(funPar)
 	avail.setScope(p[2])
-	global int_qty, float_qty, idFunc
+	global str_qty, int_qty, float_qty, idFunc
 	idFunc = p[2]
-	temp = [vaDict, avail.getfuncQuad(), (int_qty-2000), (float_qty-3000), 0, 0, 0, 0]
+	temp = [vaDict, avail.getfuncQuad(), (str_qty-2000), (int_qty-2000), (float_qty-3000), 0, 0, 0, 0]
 	proDict[p[2]] = temp
-	qty = proDict["globals"][2] + 1
+	qty = proDict["globals"][3] + 1
 	proDict["globals"][0][p[2]] = ["float", 'func', 13000 + qty]
-	proDict["globals"][2] = qty
+	proDict["globals"][3] = qty
+	print proDict["globals"]
 	funPar.clear()
 
 def p_funBlock(p):
@@ -258,11 +265,11 @@ def p_var52(p):
 	for value, vDir in const.iteritems():
 		if exp == vDir :
 			if aType == 'int':
-				int_qty += (int(value)+1)*2 + 1
+				int_qty += (int(value)+1)*2 
 			else:
-				float_qty += (int(value)+1)*2 + 1
-			print "DIR MATRIX ", (int(value)+1)*2 + 1
-			ht[ID].append((int(value)+1)*2 + 1)
+				float_qty += (int(value)+1)*2 
+			print "DIR MATRIX ", (int(value)+1)*2 
+			ht[ID].append((int(value)+1)*2 )
 	avail.DStack_push(True)
 	avail.IDStack_push(ID)
 				
@@ -501,24 +508,20 @@ def p_valExp(p):
 
 def p_rep(p):
 	'''rep : RE rep3 block'''
-	print const
 	avail.rep_jump(const['1'], const['0'])
 
 def p_rep3(p):
 	'''rep3 : exp'''
 	avail.rep()
-	print "REP"
 	
 
 def p_WID(p):
 	'''WID : factID fact5 WID2'''
 	ID = avail.IDStack_pop()
 	if(idFunc == "ass"):
-		print "DEL"
 		#avail.delFuncScope()
 		TDim = avail.DStack_pop()		
 		declared_variables(ID)
-		print "IDD:", ID
 		if(avail.DStack_pop()):
 			print "THREE" ,  avail.OStack_peek()
 			if(TDim):
@@ -565,7 +568,7 @@ def p_WID(p):
 
 def p_WID2(p):
 	'''WID2 : assigment
-| funCall SC'''
+| SC'''
 
 def p_assigment(p):
 	'''assigment : EQ tipeAss'''
@@ -584,6 +587,7 @@ def p_funCall(p):
 	if avail.getFuncScope() not in proDict:
 		print "Error, function doesn't exist"
 		sys.exit(0)
+	print "funCall", proDict[avail.getFuncScope()][0]
 	avail.function_param(proDict[avail.getFuncScope()][0])
 	vDir = 10000
 	qty = proDict["globals"][5]
@@ -648,6 +652,26 @@ def p_rtE(p):
 	avail.function_return(empty, var_dir(avail.getScope()))
 	empty = False
 
+def p_label(p):
+	'''label : LA LP STR RP SC'''
+	global str_qty, const_str_qty
+	print p[3]
+	sub = 1
+	start = str_qty + (avail.getblock() * 10000)
+	word = p[3]
+	while sub < len(word)-1:
+		if word[sub] not in const:
+			const[word[sub]] = const_str_qty
+			const_str_qty += 1
+		spCuad = ['101',  const[word[sub]], -1, (str_qty + (avail.getblock() * 10000))]
+		str_qty += 1
+		avail.append_quad(spCuad)
+		print sub
+		sub += 1
+	finish = str_qty - 1000	-1
+	spCuad = ['208',  start , -1, finish]
+	avail.append_quad(spCuad)
+
 def p_block(p):
 	'''block : LB block3 RB'''
 
@@ -661,7 +685,8 @@ def p_figure(p):
 | poly
 | lstrip
 | one_par
-| p_arc'''
+| p_arc
+| label'''
 
 def p_pen(p):
 	'''pen : colors 
@@ -754,9 +779,9 @@ def dict_to_string(convDict):
 	for key in convDict:
 		info = convDict[key]
 		if(key == 'main' or key == 'globals'):
-			s += str(key) + ' ' + str(info[0]) + ' ' + str(info[1]) + ' ' + str(info[2]) + ' ' + str(info[3]) + ' ' + str(info[4]) + ' ' + str(info[5]) + '\n'
+			s += str(key) + ' ' + str(info[0]) + ' ' + str(info[1]) + ' ' + str(info[2]) + ' ' + str(info[3]) + ' ' + str(info[4]) + ' ' + str(info[5]) + ' ' + str(info[6]) + '\n'
 		else:
-			s += str(key) + ' ' + str(info[2]) + ' ' + str(info[3]) + ' ' + str(info[4]) + ' ' + str(info[5]) + ' ' + str(info[6]) + ' ' + str(info[7]) + '\n'
+			s += str(key) + ' ' + str(info[2]) + ' ' + str(info[3]) + ' ' + str(info[4]) + ' ' + str(info[5]) + ' ' + str(info[6]) + ' ' + str(info[7]) + ' ' + str(info[8]) + '\n'
 	s += '%%' + '\n'
 	return s
 
@@ -800,7 +825,7 @@ if(len(sys.argv) > 1):
 		for line in s:
 			string += line
 		result = parser.parse(string)
-		toFile += str(const_int_qty - 40000) + " " + str(const_float_qty - 41000) + '\n'	
+		toFile += str(const_int_qty - 40000) + " " + str(const_float_qty - 41000) + " " + str(const_str_qty - 42000) + '\n'	
 		toFile += str(dict_to_string_cons(const))
 		toFile += str(dict_to_string(proDict))
 		print proDict

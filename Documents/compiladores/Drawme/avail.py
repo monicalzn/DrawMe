@@ -221,6 +221,7 @@ class avail:
 		cond_type = self.TStack.pop()
 		if(cond_type != "bool"):
 			print "error, type missmatch"
+			sys.error(0)
 		else:
 			spCuad = ['GOTOF', condition, -1, -1]
 			self.quads.append(spCuad)
@@ -261,7 +262,6 @@ class avail:
 
 	def dim(self, dim, pointer):
 		spCuad = ['DIM', dim, pointer, -1]
-		print "DIM", spCuad		
 		self.numQuad += 1
 		self.quads.append(spCuad)
 		self.numQuad += 1
@@ -280,7 +280,6 @@ class avail:
 		pointer = tem
 
 		spCuad = ['DIM', dim, pointer, -1]
-		print "DIM", dim
 		self.quads.append(spCuad)
 		
 		h = self.get_temp('$', 'dir', -1) 
@@ -378,7 +377,6 @@ class avail:
 		self.quads.append(spCuad)
 		spCuad = ['101', vDir, -1, temp]
 		self.OStack.push(temp)
-		print "SUB", self.OStack.printi()
 		self.numQuad += 1
 		self.quads.append(spCuad)
 		self.OpStack.pop()
@@ -390,6 +388,7 @@ class avail:
 	def append_quad_one(self, fun):
 		self.numQuad += 1
 		spQuad = [fun, self.OStack.pop(), -1, -1]
+		self.TStack.pop()
 		self.quads.append(spQuad)
 
 	def append_quad_two(self, fun):
@@ -424,7 +423,6 @@ class avail:
 		tem = h[0]
 		second = self.OStack.pop() 
 		spCuad = [self.OpStack.pop(), self.OStack.pop(), second, tem]
-		print spCuad
 		self.quads.append(spCuad)	
 		#meter temporal
 		self.OStack.push(tem)

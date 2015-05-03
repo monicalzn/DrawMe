@@ -1,7 +1,7 @@
 program
 global var 
 int j;
-function int hoho(int h):{
+function int hoho(int h){
 rectangle(h+10,9,fill);
 if(h < 0){
  return 9;
@@ -18,7 +18,8 @@ float g;
 	setColor(255, 45, 78);
 penWidth(3);
 	penColor(35, 45, 178);
-	hoho(8);
 arc(67*(8/6));
+penY(80);
+penX(5);
 	
 }

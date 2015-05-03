@@ -2,6 +2,7 @@
 class Memory:
 
 	def __init__(self):
+		self.str_block = []
 		self.int_block = []
 		self.float_block = []
 		self.temp_bool_block = []
@@ -9,37 +10,40 @@ class Memory:
 		self.temp_float_block = []
 		self.pointers = []
 
-	def setMem(self, intQ, floatQ, boolQ, intTQ, floatTQ, pointQ):
+	def setMem(self, strQ, intQ, floatQ, boolQ, intTQ, floatTQ, pointQ):
+		self.str_block = [0] * strQ 		
 		if intQ > 0:
 			self.int_block = [0] * (intQ + 1)
 		else:
-			self.int_block = [0] * intQ 
+		self.int_block = [0] * intQ 
 		if floatQ > 0:
 			self.float_block = [0.0] * (floatQ + 1)
 		else:
-			self.float_block = [0.0] * floatQ
+		self.float_block = [0.0] * floatQ
 		if boolQ > 0:
 			self.temp_bool_block = [True] * (boolQ + 1)
 		else:
-			self.temp_bool_block = [True] * boolQ
+		self.temp_bool_block = [True] * boolQ
 		if intTQ > 0:
 			self.temp_int_block = [0] * (intTQ + 1)
 		else:
-			self.temp_int_block = [0] * intTQ
+		self.temp_int_block = [0] * intTQ
 		if floatTQ > 0:
 			self.temp_float_block = [0.0] * (floatTQ + 1)
 		else:
-			self.temp_float_block = [0.0] * floatTQ
+		self.temp_float_block = [0.0] * floatTQ
 		if pointQ < 0:
 			self.pointers = [0] * (pointQ + 1)
 		else:
-			self.pointers = [0] * pointQ
+		self.pointers = [0] * pointQ
 	
 	def printstuff(self):
-		print "int", self.int_block, "float", self.float_block, "Tbool", self.temp_bool_block, "Tint", self.temp_int_block, "Tfloat", self.temp_float_block
+		print "str", self.str_block, "int", self.int_block, "float", self.float_block, "Tbool", self.temp_bool_block, "Tint", self.temp_int_block, "Tfloat", self.temp_float_block
 
 	def writeValue(self, vDir, value):
-		if(vDir >= 2000 and vDir <= 2999):
+		if(vDir >= 1000 and vDir <= 1999):
+			self.str_block[(vDir-1000)] = str(value)
+		elif(vDir >= 2000 and vDir <= 2999):
 			self.int_block[(vDir-2000)] = int(value)
 		elif(vDir >= 3000 and vDir <= 3999):
 			print self.float_block
@@ -54,7 +58,10 @@ class Memory:
 			self.pointers[(vDir-7000)] = int(value)
 
 	def readValue(self, vDir):
-		if(vDir >= 2000 and vDir <= 2999):
+		if(vDir >= 1000 and vDir <= 1999):
+			print self.str_block
+			return self.str_block[(vDir-1000)]
+		elif(vDir >= 2000 and vDir <= 2999):
 			return self.int_block[(vDir-2000)]
 		elif(vDir >= 3000 and vDir <= 3999):
 			return self.float_block[(vDir-3000)]
@@ -68,6 +75,7 @@ class Memory:
 			return self.pointers[(vDir-7000)]
 
 	def releseMem(self):
+		del self.str_block
 		del self.int_block
 		del self.float_block
 		del self.temp_bool_block
