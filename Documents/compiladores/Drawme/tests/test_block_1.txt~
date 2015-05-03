@@ -40,4 +40,5 @@ penWidth(20);
 penColor(255, 0 ,0);
 arc(45);
 line(129, angle 315);
+label('ds');
 }

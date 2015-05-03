@@ -657,7 +657,8 @@ def p_label(p):
 	global str_qty, const_str_qty
 	print p[3]
 	sub = 1
-	start = str_qty + (avail.getblock() * 10000)
+	start = str_qty - 1000
+	strDir = str_qty + (avail.getblock() * 10000)
 	word = p[3]
 	while sub < len(word)-1:
 		if word[sub] not in const:
@@ -669,7 +670,8 @@ def p_label(p):
 		print sub
 		sub += 1
 	finish = str_qty - 1000	-1
-	spCuad = ['208',  start , -1, finish]
+	print "FIJN", finish
+	spCuad = ['208',  strDir , start, finish]
 	avail.append_quad(spCuad)
 
 def p_block(p):

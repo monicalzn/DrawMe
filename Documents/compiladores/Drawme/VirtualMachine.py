@@ -243,16 +243,20 @@ def square():
 
 def label():
 	global current_quad, penColor, penWidth
-	lenght = int(quads[current_quad][3])
+	finish = int(quads[current_quad][3])
+	start = int(quads[current_quad][2])
+	lenght = finish - start
+	start = 0
+	print "LENG", lenght
 	direction = int(quads[current_quad][1])
 	word = ''
-	while lenght >= 0:
-		constDir = direction + lenght
+	while start <= lenght:
+		constDir = direction + start
 		constDir = str(constDir)
 		print "COONST", constDir
 		word += memory.getValue(constDir)
-		lenght -= 1
-	w.create_text(memory.getValue('41000'), memory.getValue('41001'), text=word)
+		start += 1
+	w.create_text(memory.getValue('41000'), memory.getValue('41001'), text=word, fill=penColor)
 	current_quad += 1
 
 def linestrip():

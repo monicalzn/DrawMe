@@ -590,9 +590,9 @@ def p_funCall(p):
 	print "funCall", proDict[avail.getFuncScope()][0]
 	avail.function_param(proDict[avail.getFuncScope()][0])
 	vDir = 10000
-	qty = proDict["globals"][5]
+	qty = proDict["globals"][6]
 	vDir += 6000 + qty
-	proDict["globals"][5] = qty + 1
+	proDict["globals"][6] = qty + 1
 	avail.call_function_end(proDict[avail.getFuncScope()][1], var_dir(avail.getFuncScope()), vDir)
 	empty = False
 
@@ -657,7 +657,7 @@ def p_label(p):
 	global str_qty, const_str_qty
 	print p[3]
 	sub = 1
-	start = str_qty + (avail.getblock() * 10000)
+	start = str_qty - 1000
 	word = p[3]
 	while sub < len(word)-1:
 		if word[sub] not in const:
@@ -669,6 +669,7 @@ def p_label(p):
 		print sub
 		sub += 1
 	finish = str_qty - 1000	-1
+	print "FIJN", finish
 	spCuad = ['208',  start , -1, finish]
 	avail.append_quad(spCuad)
 

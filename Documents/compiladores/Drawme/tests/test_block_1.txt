@@ -27,6 +27,7 @@ h=300;
 e =80;
 repeat 7 {
  h = h+20;
+label('doop');
  e = e -10;
  setColor(100, h, 223);
  penX(h);
