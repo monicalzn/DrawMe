@@ -2,17 +2,6 @@ program
 global var 
 int x{2} = {(3.4,33), (99,21), (31, 43)}, l{2} = {(100,33), (199,21), (131, 43)};
 main {
-backgroundColor(255,110,70); 
-
-penColor(255,0,70);  
-
-penPos(100,100); 
-
-square (20); 
-
-penWidth(3); 
-
-penLeft(50); 
-
-square (20,fill);
+penPos(100,100);
+penColor(255,0,70); line (200, angle 45); 
 }

@@ -4,7 +4,7 @@ from Tkinter import *
 from MemoryAdministrator import MemoryAdministrator
 from stack import Stack
 
-actionPointer = Stack()
+
 memory = MemoryAdministrator()
 quads = []
 proc = dict()
@@ -448,7 +448,7 @@ def param():
 def goSub():
 	global current_quad
 	memory.changeScope()
-	actionPointer.push(current_quad+1)
+	memory.actionPointer_push(current_quad+1)
 	current_quad = int(quads[current_quad][3])
 
 def return_f():
@@ -497,9 +497,10 @@ def pointerDirC():
 	current_quad += 1
 
 def endPro():
+#ends the procedure that was running, deletes all its data and returns to the point where the function call was made
 	global current_quad
 	memory.printFunctions()
-	current_quad = int(actionPointer.pop())
+	current_quad = int(memory.actionPointer_pop())
 	memory.delete_function()
 	memory.printFunctions()
 

@@ -1,4 +1,5 @@
 from memory import Memory
+from stack import Stack
 
 class MemoryAdministrator:
 
@@ -6,7 +7,7 @@ class MemoryAdministrator:
 		self.constants_int = []
 		self.constants_float = []
 		self.constants_str = []
-		self.pointers = []
+		self.actionPointer = Stack()
 		self.globals = Memory()
 		self.main = Memory()
 		self.currentScope = 0
@@ -199,3 +200,9 @@ class MemoryAdministrator:
 
 	def constPrint(self):
 		print self.constants_int, " ", self.constants_float
+	
+	def actionPointer_push(self, value):
+		self.actionPointer(value)
+
+	def actionPointer_pop(self):
+		return self.actionPointer.pop()
