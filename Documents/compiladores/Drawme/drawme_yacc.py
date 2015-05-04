@@ -353,11 +353,23 @@ def p_p_width(p):
 
 def p_penwrite(p):
 	'''penwrite : PENX LP exp RP SC 
-| PENY LP exp RP SC'''
+| PENY LP exp RP SC
+| PENU LP exp RP SC
+| PEND LP exp RP SC
+| PENL LP exp RP SC
+| PENR LP exp RP SC'''
 	if(p[1] == 'penX'):
 		spCuad = 308
-	else:
+	elif p[1] == 'penY':
 		spCuad = 309
+	elif p[1] == 'penUp':
+		spCuad = 310
+	elif p[1] == 'penDown':
+		spCuad = 311
+	elif p[1] == 'penLeft':
+		spCuad = 312
+	else:
+		spCuad = 313
 	avail.append_quad_one(spCuad)
 
 def p_move(p):

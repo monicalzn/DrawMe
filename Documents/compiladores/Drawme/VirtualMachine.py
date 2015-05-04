@@ -162,7 +162,8 @@ def backColor():
 
 def penwidth():
 	global current_quad, penWidth
-	penwidth = quads[current_quad][1]
+	penWidth = memory.getValue(quads[current_quad][1])
+	print "                   sdfdg", penWidth
 	current_quad += 1
 
 def assign():
@@ -251,7 +252,7 @@ def square():
 	x2 = x + memory.getValue(quads[current_quad][1])
 	y2 = y + memory.getValue(quads[current_quad][1])
 	#print "SQUARE ", x, " ", y, " ", x2, " ", y2, " ", memory.getValue(quads[current_quad][1]) 
-	
+	print "SADSADSA", penWidth
 	if(fill):
 		w.create_rectangle(x, y, x2, y2, fill=fillColor, outline=penColor, width=penWidth)	
 	else:
@@ -324,6 +325,7 @@ def fill():
 	else:
 		fill = False
 	current_quad += 1
+	print "DSFDGFDSFGRSFG", penWidth
 
 def get_x_and_y(angle, hypotenus):
 	if(angle < 45):
@@ -371,6 +373,30 @@ def penX():
 def penY():
 	global current_quad
 	memory.writeValue('41001', memory.getValue(quads[current_quad][1]))
+	current_quad += 1
+
+def penUp():
+	global current_quad
+	up = memory.getValue('41001') - memory.getValue(quads[current_quad][1])
+	memory.writeValue('41001', up)
+	current_quad += 1
+
+def penDown():
+	global current_quad
+	up = memory.getValue(quads[current_quad][1]) + memory.getValue('41001')
+	memory.writeValue('41001', up)
+	current_quad += 1
+
+def penLeft():
+	global current_quad
+	up = memory.getValue('41000') - memory.getValue(quads[current_quad][1])
+	memory.writeValue('41000', up)
+	current_quad += 1
+
+def penRight():
+	global current_quad
+	up = memory.getValue(quads[current_quad][1]) + memory.getValue('41000')
+	memory.writeValue('41000', up)
 	current_quad += 1
 
 def move():
@@ -513,6 +539,10 @@ options = { '+' : add,
 		'308' : penX,
 		'309' : penY,
 		'305' : move,
+		'310' : penUp,
+		'311' : penDown,
+		'312' : penLeft,
+		'313' : penRight,
 		'ERA' : era,
 		'PARAMETRO' : param,
 		'GOSUB' : goSub,

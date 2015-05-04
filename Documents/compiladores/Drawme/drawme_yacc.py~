@@ -489,7 +489,7 @@ def p_fact4(p):
 		avail.TStack_push(type_variable(ID, "var"))
 		avail.OStack_push(var_dir(ID))
 		if(MDim):
-			print "MDIM", ID
+			print "MDIM", dim(ID)
 			avail.dim(dim(ID), pointer)
 		if not MDim:
 			if avail.DStack_pop():
