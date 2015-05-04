@@ -4,7 +4,7 @@ from Tkinter import *
 from MemoryAdministrator import MemoryAdministrator
 from stack import Stack
 
-actionPointer = Stack()
+
 memory = MemoryAdministrator()
 quads = []
 proc = dict()
@@ -448,7 +448,8 @@ def param():
 def goSub():
 	global current_quad
 	memory.changeScope()
-	memory.actionPointer_push(current_quad+1)
+	value = current_quad+1
+	memory.actionPointer_push(value)
 	current_quad = int(quads[current_quad][3])
 
 def return_f():

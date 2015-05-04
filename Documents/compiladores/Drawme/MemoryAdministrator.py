@@ -202,7 +202,7 @@ class MemoryAdministrator:
 		print self.constants_int, " ", self.constants_float
 	
 	def actionPointer_push(self, value):
-		self.actionPointer(value)
+		self.actionPointer.push(value)
 
 	def actionPointer_pop(self):
 		return self.actionPointer.pop()
