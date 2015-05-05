@@ -61,14 +61,17 @@ def p_mainVDir(p):
 def p_p2(p):
 	'''p2 : globals 
 | empty'''
+#creates main's goto.
 	avail.main()
 
 def p_p3(p):
 	'''p3 : functions p3
 | empty'''
+#checks if functions exist.
 
 def p_globals(p):
 	'''globals : glob vars'''
+#sets vcomplete direction of all variables and adds memory qty to the end of the global entry in the procedure dictionary.
 	global str_qty, int_qty, float_qty
 	block_dir(ht, 1)
 	vaDict = dict(ht)
@@ -82,12 +85,13 @@ def p_globals(p):
 
 def p_glob(p):
 	'''glob : GL'''
+#sets current block (for directions) (1).
 	avail.setblock(1)
 	
 
 def p_functions(p): 
 	'''functions : fun2 funVDir block'''	
-	
+#gets the rest of the memory qty (temporals), clears the variables dictionary for the procedure and creates 'ENDPROC' quad.
 	temps = avail.get_temp_dirs()
 	proDict[avail.getScope()][5] = temps[0]
 	proDict[avail.getScope()][6] = temps[1]
@@ -99,7 +103,7 @@ def p_functions(p):
 
 def p_funVDir(p):
 	'''funVDir : vars '''
-	#print "function    ", ht, '\n'
+#sets complete direction of all variables and adds memory qty, resets the variables for the next block.
 	block_dir(ht, 3)
 	global str_qty, int_qty, float_qty, idFunc
 	proDict[idFunc][2] = (str_qty-1000)
@@ -111,6 +115,7 @@ def p_funVDir(p):
 
 def p_fun2(p):
         '''fun2 : funBlock fID LP fun3 RP'''
+#turns the function parameters to a dictionary, along with the quad it starts on and the memory qty it's added to the procedure dictionary, a global variable its created for the function.
 	vaDict = dict(funPar)
 	global str_qty, int_qty, float_qty, idFunc
 	idFunc = avail.getScope()
@@ -124,16 +129,19 @@ def p_fun2(p):
 
 def p_fID(p):
 	'''fID : ID '''
+#set the current scope. (name)
 	avail.setScope(p[1])
 
 def p_funBlock(p):
         '''funBlock : FUN tp'''
+#saves the quad where the function starts and sets block (3)
 	avail.setfuncQuad()
 	avail.setblock(3)
 
 def p_tp(p):
         '''tp : VD 
 | type'''
+#save the return type of the function.
 	global vType
 	if(p[1] == 'void'):
 		vType = p[1]
@@ -142,14 +150,16 @@ def p_tp(p):
 def p_fun3(p):
 	'''fun3 : fun5 fun4
 | empty'''
-	
+#function parameters.
 
 def p_fun4(p):
 	'''fun4 : C fun5 fun4  
 | empty'''
+#more than one parameter.
 
 def p_fun5(p):
 	'''fun5 : type arr ID arrDim'''
+#if it's a pointer get a pointer direction and assign the correct block direction and if it's also an array add the proper size. If not save the variable as normal. Add the varibale to the dictionary of parameters.
 	global pointer, pointDir
 	if pointer:
 		pDir = avail.get_temp_point()
@@ -168,6 +178,7 @@ def p_fun5(p):
 def p_arr(p):
 	'''arr : P
 | empty '''
+#check if it's a parameter by reference.
 	global pointer
 	if p[1] == '&':
 		pointer = True
@@ -177,7 +188,7 @@ def p_arr(p):
 def p_arrDim(p):
 	'''arrDim : LC exp RC 
 | empty'''
-#dir array
+#if it's an array get size.
 	if len(p) > 2:
 		global pointDir
 		exp = avail.OStack_pop()
@@ -189,20 +200,25 @@ def p_arrDim(p):
 def p_vars(p): 
 	'''vars : V var2 
 | empty'''
+#check if variables where created.
 
 def p_var2(p):
         '''var2 : type var3 SC var2
 | empty'''
+#declared by type.
 
 def p_var3(p):
 	'''var3 : varSave var5 var4 var33 '''
+#ids.
 
 def p_var33(p):
 	'''var33 : C varSave var5 var4 var33 
 | empty '''
+#more than one varibale.
 
 def p_varSave(p):
 	'''varSave : ID '''
+#saves the variable, assigns it a real direction temporaily and push to the IDStack.
 	save_var(p[1])
 	global vD
 	vD = var_dir(p[1]) + (avail.getblock() * 10000)
@@ -211,6 +227,7 @@ def p_varSave(p):
 def p_var4(p):
         '''var4 : EQ var6 
 | empty'''
+#checks if something is being assigned to the variable. If it's empty it removes the false from the dimension stack.
 	if len(p) != 3:
 		avail.DStack_pop()
 
@@ -218,6 +235,7 @@ def p_var5(p):
 	'''var5 : LC var51
 | LB var52
 | empty'''
+#checks if its an array or a matrix if it's not push a false to the dimension stack.
 	if(len(p) < 3):
 		avail.DStack_push(False)
 
@@ -225,10 +243,10 @@ def p_var6(p):
 	'''var6 : exp
 | LB LP exp C exp RP var61 RB
 | LC exp var62 RC'''
-#whe declaring variables and you have an assing you have to check the type of assignation
+#when declaring variables and you have an assing you have to check the type of assignation
 	global vD, vType, DTQty
 	if len(p) == 2: 
-#if it's a normal asign k=0 or k=j, i
+#if it's a normal assign k=0 or k=j, i
 		if(avail.OStack_peek() < 10000):
 		#if the variable that is being assigned is from that bolck the correct direction is needed
 			dV = avail.OStack_pop() + (avail.getblock() * 10000)
@@ -246,11 +264,12 @@ def p_var6(p):
 			DTQty = 0
 		else:
 			print "error, missmatch types"
+			sys.exit(0)
 	else:
 	#matrix
-		print "MATRIX", p[1]
 		if not avail.DStack_pop():
 			print "error, missmatch types"
+			sys.exit(0)
 		else:
 			ID = avail.IDStack_pop()
 			vDim = dim(ID)
@@ -264,6 +283,7 @@ def p_var6(p):
 def p_var61(p):
 	'''var61 : C LP exp C exp RP var61
 | empty'''
+#assing to a matrix, count the rows.
 	if(len(p) > 2):
 		global DTQty
 		DTQty += 1
@@ -271,13 +291,14 @@ def p_var61(p):
 def p_var62(p):
 	'''var62 : C exp var62
 | empty'''
+#assign to an array, count total.
 	if(len(p) > 2):
 		global DTQty
 		DTQty += 1
 
 def p_var51(p):
 	'''var51 : exp RC '''
-#dir array
+#array dimension.
 	global aType, int_qty, float_qty
 	ID = avail.IDStack_pop()
 	exp = avail.OStack_pop()
@@ -292,7 +313,7 @@ def p_var51(p):
 	avail.IDStack_push(ID)
 	
 def p_var52(p):
-#dir matrix
+#matrix dimension.
 	'''var52 : exp RB'''
 	global aType, int_qty, float_qty
 	ID = avail.IDStack_pop()
@@ -313,31 +334,21 @@ def p_var52(p):
 def p_type(p):
 	'''type : INT 
 | FLOAT  '''
+#save type.
 	global vType, aType
 	vType = p[1]
 	aType = p[1]
 
-#def p_val(p):
-#	'''val : VALI 
-#| VALF  '''
-#	if p[1] not in const:
-#		global const_int_qty, const_float_qty
-#		a = re.compile('\d+\.\d+')
-#		if(a.match(p[1])):
-#			const[p[1]] = const_float_qty
-#			const_float_qty += 1
-#		else:
-#			const[p[1]] = const_int_qty
-#			const_int_qty += 1
-
 def p_position(p):
 	'''position : PENP LP exp C exp RP SC'''
+#pen position quad.
 	avail.append_quad_two(307)
 
 def p_colors(p):
 	'''colors : PENC LP exp C exp C exp RP SC 
 | SETC LP exp C exp C exp RP SC 
 | BACO LP exp C exp C exp RP SC '''
+#pen, set and background color quad.
 	if(p[1] == 'penColor'):
 		fun = 301
 	elif(p[1] == 'setColor'):
@@ -349,6 +360,7 @@ def p_colors(p):
 
 def p_p_width(p):
 	'''p_width : PENW LP exp RP SC '''
+#penWidth quad.
 	avail.append_quad_one(304)
 
 def p_penwrite(p):
@@ -358,6 +370,7 @@ def p_penwrite(p):
 | PEND LP exp RP SC
 | PENL LP exp RP SC
 | PENR LP exp RP SC'''
+#pen x, y, up, down, left, right quad.
 	if(p[1] == 'penX'):
 		spCuad = 308
 	elif p[1] == 'penY':
@@ -373,19 +386,19 @@ def p_penwrite(p):
 	avail.append_quad_one(spCuad)
 
 def p_move(p):
-	'''move : LI mueve2 '''
+	'''move : LI LP exp C A exp RP SC'''
+#line quad.
 	avail.append_quad_two(305)
-
-def p_mueve2(p):
-	'''mueve2 : LP exp C A exp RP SC'''
 
 def p_rect(p):
 	'''rect : REC LP exp C exp p_fill RP SC'''
+#rectangle quad.
 	avail.append_quad_two(201)
 
 def p_p_fill(p):
 	'''p_fill : C FILL 
 | empty'''
+#check if it has fill.
 	if(len(p) == 3):
 		spCuad = [209, -1, -1, 1]
 	else:
@@ -394,11 +407,13 @@ def p_p_fill(p):
 
 def p_tria(p):
 	'''tria : TRI LP LC exp C exp RC C LC exp C exp RC C LC exp C exp RC p_fill RP SC'''
+#triangle quad.
 	avail.append_quad_tri(202)
 
 def p_one_par(p):
 	'''one_par : CIR LP exp p_fill RP SC
 | SQ LP exp p_fill RP SC'''
+#circle and square quads.
 	if(p[1] == 'circle'):
 		spCuad = 203
 	else:
@@ -407,25 +422,29 @@ def p_one_par(p):
 
 def p_poly(p):
 	'''poly : POL LP idList p_fill RP SC'''
+#polygon quad.
 	avail.append_quad_two(205)
 
 def p_lstrip(p):
 	'''lstrip : LS LP idList RP SC'''
+#line strip quad.
 	avail.append_quad_two(206)
 
 def p_idList(p):
 	'''idList : ID'''
+#check if the variable exits and that it has a dimension.
 	declared_variables(p[1])
 	dimention = dim(p[1])
 	if dim(p[1]) == -1:
-		print "dimention error"
+		print "dimension error"
 		sys.error(0)
 	avail.OStack_push(var_dir(p[1]))
 	avail.OStack_push(dimention)
-#id debe ser tipo list not var
+
 
 def p_p_arc(p):
 	'''p_arc : ARC LP exp p_fill RP SC'''
+#arc quad.
 	avail.append_quad_one(207)
 
 def p_expresion(p):
@@ -434,6 +453,7 @@ def p_expresion(p):
 def p_ex2(p):
 	'''ex2 : ex3 exp 
 | empty'''
+#checks if there is any expression that has to be resolved.
 	avail.expression()
 
 def p_ex3(p):
@@ -443,6 +463,7 @@ def p_ex3(p):
 | SEQ
 | LET
 | MET'''
+#stores the operator.
 	avail.OpStack_push(p[1])
 
 def p_exp(p):
@@ -456,11 +477,13 @@ def p_exp2(p):
 
 def p_exp4(p):
 	'''exp4 : empty'''
+#checks if there is any addition or substraction that has to be resolved.
 	avail.add_sub()
 
 def p_exp3(p):
 	'''exp3 : ADD 
 | SUB'''
+#stores the operator.
 	avail.OpStack_push(p[1])
 
 def p_term(p):
@@ -472,26 +495,31 @@ def p_term2(p):
 
 def p_term4(p):
 	'''term4 : empty'''
+#checks if there is any multiplication or division that has to be resolved.
 	avail.mul_div()	
 
 def p_term3(p):
 	'''term3 : M 
 | DIV'''
+#stores the operator.
 	avail.OpStack_push(p[1])
 
 def p_fact(p):
 	'''fact : fact2 exp RP 
 | fact4'''
+#if you are returning from an expression that had ()
 	if(len(p) == 4):
 		avail.OpStack_pop()
 
 def p_fact2(p):
 	'''fact2 : LP '''
+#stores a false "bottom"
 	avail.OpStack_push(p[1])
 
 def p_fact4(p):
 	'''fact4 : valExp 
 | factID fact5'''
+#if it has dimenssion it must get the value.
 	if(len(p) == 3):
 		ID = avail.IDStack_pop()
 		MDim = avail.DStack_pop()
@@ -501,16 +529,16 @@ def p_fact4(p):
 		avail.TStack_push(type_variable(ID, "var"))
 		avail.OStack_push(var_dir(ID))
 		if(MDim):
-			print "MDIM", dim(ID)
 			avail.dim(dim(ID), pointer)
 		if not MDim:
 			if avail.DStack_pop():
-				print avail.OStack_pop()
+				avail.OStack_pop()
 				avail.TStack_pop()
 				
 
 def p_factID(p):
 	'''factID : ID '''
+#get the variable ID.
 	avail.setFuncScope(p[1])
 	avail.IDStack_push(p[1])
 
@@ -559,12 +587,13 @@ def p_valExp(p):
 
 def p_rep(p):
 	'''rep : RE rep3 block'''
+#repeat cicle.
 	avail.rep_jump(const['1'], const['0'])
 
 def p_rep3(p):
 	'''rep3 : valExp
 | ID'''
-	print "BAH", p[1]
+#repeat number.
 	if p[1] != None:
 		declared_variables(p[1])
 		avail.TStack_push(type_variable(p[1], "var"))
