@@ -1,14 +1,33 @@
 program
 global var 
-int x{2} = {(3.4,33), (99,21), (31, 43)}, l{2} = {(100,33), (199,21), (131, 43)};
+int l{2} = {(100,33), (199,21), (131, 43)};
+function int search(int &d[6], int number)
+var int pos, cont = 0;
+{
+ square(d[1], fill);
+square(d[2]);
+square(d[3], fill);
+square(d[4]);
+square(d[5], fill);
+repeat 6{
+if(d[cont] == number){
+pos = cont;
+}
+cont = cont + 1;
+}
+return pos;
+}
 main 
 var
+int x[6] = [3.4,33, 99,21, 31, 4];
 float h=9;
 {
+rectangle(90,100);
 repeat 8 {
  h = h+2;
  setColor(h, 123, 223);
  penY(h);
  square(h, fill);
 } 
+h = search(x, 4);
 }

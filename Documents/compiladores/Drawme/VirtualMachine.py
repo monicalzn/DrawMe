@@ -107,7 +107,7 @@ def equal_to():
 	memory.printFunctions()
 	first = memory.getValue(quads[current_quad][1])
 	second = memory.getValue(quads[current_quad][2])
-	#print "Equal ", first, " / ", second, " =  IN ", quads[current_quad][3]  
+	#print "                 Equal ", first, " / ", second, " =  IN ", quads[current_quad][3]  
 	result = first == second
 	memory.writeValue(quads[current_quad][3], result)
 	current_quad += 1
@@ -251,8 +251,7 @@ def square():
 	y = memory.getValue('41001')
 	x2 = x + memory.getValue(quads[current_quad][1])
 	y2 = y + memory.getValue(quads[current_quad][1])
-	#print "SQUARE ", x, " ", y, " ", x2, " ", y2, " ", memory.getValue(quads[current_quad][1]) 
-	print "SADSADSA", penWidth
+	print "SQUARE ", x, " ", y, " ", x2, " ", y2, " ", memory.getValue(quads[current_quad][1]) 
 	if(fill):
 		w.create_rectangle(x, y, x2, y2, fill=fillColor, outline=penColor, width=penWidth)	
 	else:
@@ -482,7 +481,7 @@ def pointerDir():
 	else:
 		vDir = int(quads[current_quad][1])
 	vPoint = memory.getValue(quads[current_quad][2])
-	print "VDIR " , vDir+vPoint
+	#print "VDIR " , vDir+vPoint
 	vDir = vDir + vPoint
 	memory.writePointValue(quads[current_quad][3], str(vDir), 0)
 	current_quad += 1
@@ -521,7 +520,6 @@ options = { '+' : add,
 		'GOTO': goto,
 		'GOTOF' : goto_false,
 		'ENDPROG': endProg,
-		'CLR' : setColor,
 		'101': assign,
 		'201' : rectangle,
 		'202' : triangle,

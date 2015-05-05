@@ -375,19 +375,20 @@ class avail:
 
 	def function_param(self, param):
 		cont = len(param)
-		print "PARPRPR", param
+		print "PARPRPR", param, len(param) -1
 		if self.OStack.size() < cont:
 			print "Missing parameters."
 			sys.exit(0)
 		listh = []
-		cont = 0		
-		for key in param:
-			listh.append(self.OStack.pop())
-		for key in param:
-			spCuad = ['PARAMETRO', listh[cont], -1, param[key][2]]
-			cont += 1
-			self.numQuad += 1
-			self.quads.append(spCuad)
+		cont = len(param) -1		
+		while cont >= 0:
+			for key in param:
+				if cont == param[key][1]:
+					spCuad = ['PARAMETRO', self.OStack.pop(), -1, param[key][2]]
+					print spCuad
+					cont -= 1
+					self.numQuad += 1
+					self.quads.append(spCuad)
 
 	def call_function(self, var):
 		spCuad = ['ERA', -1, -1, var]

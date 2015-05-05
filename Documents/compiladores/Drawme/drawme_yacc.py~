@@ -173,6 +173,7 @@ def p_fun5(p):
 		pointer = False
 	else:
 		save_var(p[3])
+	print "VAR", p[3]
 	funPar[p[3]] = [vType, "var", (ht[p[3]][2]+30000)]
 
 def p_arr(p):
@@ -538,6 +539,7 @@ def p_fact4(p):
 
 def p_factID(p):
 	'''factID : ID '''
+#get the variable ID.
 	avail.setFuncScope(p[1])
 	avail.IDStack_push(p[1])
 
@@ -586,12 +588,13 @@ def p_valExp(p):
 
 def p_rep(p):
 	'''rep : RE rep3 block'''
+#repeat cicle.
 	avail.rep_jump(const['1'], const['0'])
 
 def p_rep3(p):
 	'''rep3 : valExp
 | ID'''
-	print "BAH", p[1]
+#repeat number.
 	if p[1] != None:
 		declared_variables(p[1])
 		avail.TStack_push(type_variable(p[1], "var"))

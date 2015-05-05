@@ -32,6 +32,7 @@ DT = False
 DTQty = 0
 pointer = False
 pointDir = 0
+contParam = 0
 
 def p_prog(p):
 	'''prog : PR p2 p3 main mainVDir block'''
@@ -117,7 +118,7 @@ def p_fun2(p):
         '''fun2 : funBlock fID LP fun3 RP'''
 #turns the function parameters to a dictionary, along with the quad it starts on and the memory qty it's added to the procedure dictionary, a global variable its created for the function.
 	vaDict = dict(funPar)
-	global str_qty, int_qty, float_qty, idFunc
+	global str_qty, int_qty, float_qty, idFunc, contParam
 	idFunc = avail.getScope()
 	temp = [vaDict, avail.getfuncQuad(), (str_qty-2000), (int_qty-2000), (float_qty-3000), 0, 0, 0, 0]
 	proDict[avail.getScope()] = temp
@@ -126,6 +127,7 @@ def p_fun2(p):
 	proDict["globals"][3] = qty
 	print proDict["globals"]
 	funPar.clear()
+	contParam = 0
 
 def p_fID(p):
 	'''fID : ID '''
@@ -160,7 +162,7 @@ def p_fun4(p):
 def p_fun5(p):
 	'''fun5 : type arr ID arrDim'''
 #if it's a pointer get a pointer direction and assign the correct block direction and if it's also an array add the proper size. If not save the variable as normal. Add the varibale to the dictionary of parameters.
-	global pointer, pointDir
+	global pointer, pointDir, contParam
 	if pointer:
 		pDir = avail.get_temp_point()
 		if p[3] in ht:
@@ -173,7 +175,9 @@ def p_fun5(p):
 		pointer = False
 	else:
 		save_var(p[3])
-	funPar[p[3]] = [vType, "var", (ht[p[3]][2]+30000)]
+	print "VAR", p[3]
+	funPar[p[3]] = [vType, contParam, (ht[p[3]][2]+30000)]
+	contParam += 1
 
 def p_arr(p):
 	'''arr : P
