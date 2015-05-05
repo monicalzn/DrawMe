@@ -30,7 +30,7 @@ class avail:
 		'=': {
 			'int': {
 				'int': 'int',
-				'float': 'error'
+				'float': 'float'
 			},
 			'float': {
 				'int': 'error',
@@ -55,10 +55,6 @@ class avail:
 			'float': {
 				'int': 'bool',
 				'float': 'bool'
-			},
-			'TEXTO': {
-				'int': 'error',
-				'float': 'error'
 			}
 		},
 		'>=': {
@@ -79,10 +75,6 @@ class avail:
 			'float': {
 				'int': 'bool',
 				'float': 'bool'
-			},
-			'TEXTO': {
-				'int': 'error',
-				'float': 'error'
 			}
 		},
 		'<>': {

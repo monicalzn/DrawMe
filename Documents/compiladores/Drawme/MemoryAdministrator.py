@@ -35,6 +35,7 @@ class MemoryAdministrator:
 		self.currentScope += 1
 
 	def delete_function(self):
+		self.functions[self.currentScope].printstuff()
 		self.functions[self.currentScope].releseMem()
 		del self.functions[self.currentScope]
 		self.currentScope -= 1

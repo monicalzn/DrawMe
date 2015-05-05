@@ -17,14 +17,14 @@ penWidth = 1
 
 def actions():
 	while(run):
-		print "QUADS", quads[current_quad], " ", memory.getValue('40000')
+		#print "QUADS", quads[current_quad], " ", memory.getValue('40000')
 		options[quads[current_quad][0]]()
 
 def add():
 	global current_quad
 	first = memory.getValue(quads[current_quad][1])
 	second = memory.getValue(quads[current_quad][2])
-	#print "ADD ", quads[current_quad][1], " + ", second, " IN ", quads[current_quad][3]  
+	print "ADD ", first, " + ", second, " IN ", quads[current_quad][3]  
 	result = first + second
 	memory.writeValue(quads[current_quad][3], result)
 	current_quad += 1
@@ -107,7 +107,7 @@ def equal_to():
 	memory.printFunctions()
 	first = memory.getValue(quads[current_quad][1])
 	second = memory.getValue(quads[current_quad][2])
-	print "                 Equal ", first, " / ", second, " =  IN ", quads[current_quad][3]  
+	#print "                 Equal ", first, " / ", second, " =  IN ", quads[current_quad][3]  
 	result = first == second
 	memory.writeValue(quads[current_quad][3], result)
 	current_quad += 1
@@ -252,7 +252,6 @@ def square():
 	x2 = x + memory.getValue(quads[current_quad][1])
 	y2 = y + memory.getValue(quads[current_quad][1])
 	print "SQUARE ", x, " ", y, " ", x2, " ", y2, " ", memory.getValue(quads[current_quad][1]) 
-	print "SADSADSA", penWidth
 	if(fill):
 		w.create_rectangle(x, y, x2, y2, fill=fillColor, outline=penColor, width=penWidth)	
 	else:
@@ -325,7 +324,6 @@ def fill():
 	else:
 		fill = False
 	current_quad += 1
-	print "DSFDGFDSFGRSFG", penWidth
 
 def get_x_and_y(angle, hypotenus):
 	if(angle < 45):
@@ -460,7 +458,7 @@ def dim():
 	value = memory.getValue(quads[current_quad][2])
 	dim = int(quads[current_quad][1])
 	if value < 0 or value > dim:
-		print "Out of bounds."
+		print "Out of bounds.", value, " ", dim
 		sys.exit(0)
 	current_quad += 1
 
@@ -469,7 +467,7 @@ def dimC():
 	value = int(quads[current_quad][2])
 	dim = int(quads[current_quad][1])
 	if value < 0 or value > dim:
-		print "Out of bounds."
+		print "Out of bounds.", value, " ", dim
 		sys.exit(0)
 	current_quad += 1
 
@@ -482,7 +480,7 @@ def pointerDir():
 	else:
 		vDir = int(quads[current_quad][1])
 	vPoint = memory.getValue(quads[current_quad][2])
-	print "VDIR " , vDir+vPoint
+	#print "VDIR " , vDir+vPoint
 	vDir = vDir + vPoint
 	memory.writePointValue(quads[current_quad][3], str(vDir), 0)
 	current_quad += 1

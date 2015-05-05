@@ -190,7 +190,7 @@ class MemoryAdministrator:
 			return self.functions[self.currentScope].readValue(dirV)
 
 	def printFunctions(self):
-		print self.currentScope
+		print self.functions[self.currentScope].printstuff()
 
 	def printMain(self):
 		self.main.printstuff()
@@ -202,7 +202,7 @@ class MemoryAdministrator:
 		print self.constants_int, " ", self.constants_float
 	
 	def actionPointer_push(self, value):
-		self.actionPointer(value)
+		self.actionPointer.push(value)
 
 	def actionPointer_pop(self):
 		return self.actionPointer.pop()

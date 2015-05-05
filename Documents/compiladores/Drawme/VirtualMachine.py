@@ -17,14 +17,14 @@ penWidth = 1
 
 def actions():
 	while(run):
-		print "QUADS", quads[current_quad], " ", memory.getValue('40000')
+		#print "QUADS", quads[current_quad], " ", memory.getValue('40000')
 		options[quads[current_quad][0]]()
 
 def add():
 	global current_quad
 	first = memory.getValue(quads[current_quad][1])
 	second = memory.getValue(quads[current_quad][2])
-	#print "ADD ", quads[current_quad][1], " + ", second, " IN ", quads[current_quad][3]  
+	print "ADD ", first, " + ", second, " IN ", quads[current_quad][3]  
 	result = first + second
 	memory.writeValue(quads[current_quad][3], result)
 	current_quad += 1
@@ -169,7 +169,7 @@ def penwidth():
 def assign():
 	global current_quad
 	result = memory.getValue(quads[current_quad][1])
-	#print "ASS", result, " ", quads[current_quad][3] 
+	print "ASS", result, " ", quads[current_quad][3] 
 	memory.writeValue(quads[current_quad][3], result)
 	current_quad += 1
 
@@ -324,7 +324,6 @@ def fill():
 	else:
 		fill = False
 	current_quad += 1
-	print "DSFDGFDSFGRSFG", penWidth
 
 def get_x_and_y(angle, hypotenus):
 	if(angle < 45):
@@ -459,7 +458,7 @@ def dim():
 	value = memory.getValue(quads[current_quad][2])
 	dim = int(quads[current_quad][1])
 	if value < 0 or value > dim:
-		print "Out of bounds."
+		print "Out of bounds.", value, " ", dim
 		sys.exit(0)
 	current_quad += 1
 
@@ -468,7 +467,7 @@ def dimC():
 	value = int(quads[current_quad][2])
 	dim = int(quads[current_quad][1])
 	if value < 0 or value > dim:
-		print "Out of bounds."
+		print "Out of bounds.", value, " ", dim
 		sys.exit(0)
 	current_quad += 1
 

@@ -1,8 +1,0 @@
-program
-global var 
-int j, k, d,b ;
-main {
-	rectangle(3,d);
-	square(9*9, fill);
-	if ( 5 < 6 ){}
-}
