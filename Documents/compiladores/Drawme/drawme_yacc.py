@@ -60,8 +60,7 @@ def p_mainVDir(p):
 	block_dir(ht, 2)
 
 def p_p2(p):
-	'''p2 : globals 
-| empty'''
+	'''p2 : globals'''
 #creates main's goto.
 	avail.main()
 
@@ -71,7 +70,8 @@ def p_p3(p):
 #checks if functions exist.
 
 def p_globals(p):
-	'''globals : glob vars'''
+	'''globals : glob vars
+| empty'''
 #sets vcomplete direction of all variables and adds memory qty to the end of the global entry in the procedure dictionary.
 	global str_qty, int_qty, float_qty
 	block_dir(ht, 1)
@@ -685,6 +685,7 @@ def p_funCall(p):
 	proDict["globals"][6] = qty + 1
 	avail.call_function_end(proDict[avail.getFuncScope()][1], var_dir(avail.getFuncScope()), vDir)
 	empty = False
+	print "end"
 
 def p_funEra(p):
 	'''funEra : LP '''

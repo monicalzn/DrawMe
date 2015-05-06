@@ -7,10 +7,10 @@ Rule 1     prog -> PR p2 p3 main mainVDir block
 Rule 2     main -> MAIN
 Rule 3     mainVDir -> vars
 Rule 4     p2 -> globals
-Rule 5     p2 -> empty
-Rule 6     p3 -> functions p3
-Rule 7     p3 -> empty
-Rule 8     globals -> glob vars
+Rule 5     p3 -> functions p3
+Rule 6     p3 -> empty
+Rule 7     globals -> glob vars
+Rule 8     globals -> empty
 Rule 9     glob -> GL
 Rule 10    functions -> fun2 funVDir block
 Rule 11    funVDir -> vars
@@ -233,7 +233,7 @@ con2                 : 122
 con3                 : 125
 condRP               : 122
 condition            : 147
-empty                : 5 7 18 20 23 25 27 29 32 35 38 43 45 64 74 83 84 89 90 102 117 119 124 129 133
+empty                : 6 8 18 20 23 25 27 29 32 35 38 43 45 64 74 83 84 89 90 102 117 119 124 129 133
 ex2                  : 72
 ex3                  : 73
 exp                  : 24 39 40 40 41 42 42 44 46 47 50 50 51 51 51 52 52 52 53 53 53 54 55 56 57 58 59 60 61 61 62 62 65 65 65 65 65 65 66 67 71 72 73 82 93 99 100 112 120 121 121 128
@@ -259,8 +259,8 @@ funVDir              : 10
 func2                : 114
 func3                : 116 118
 func4                : 116 118
-functions            : 6
-glob                 : 8
+functions            : 5
+glob                 : 7
 globals              : 4
 idList               : 68 69
 label                : 140
@@ -271,7 +271,7 @@ mainVDir             : 1
 move                 : 143
 one_par              : 138
 p2                   : 1
-p3                   : 1 6
+p3                   : 1 5
 p_arc                : 139
 p_fill               : 62 65 66 67 68 71
 p_width              : 142
@@ -305,7 +305,7 @@ var6                 : 34
 var61                : 40 42
 var62                : 41 44
 varSave              : 30 31
-vars                 : 3 8 11
+vars                 : 3 7 11
 
 Parsing method: LALR
 
@@ -322,14 +322,14 @@ state 1
 
     (1) prog -> PR . p2 p3 main mainVDir block
     (4) p2 -> . globals
-    (5) p2 -> . empty
-    (8) globals -> . glob vars
-    (152) empty -> .
+    (7) globals -> . glob vars
+    (8) globals -> . empty
     (9) glob -> . GL
+    (152) empty -> .
 
+    GL              shift and go to state 4
     FUN             reduce using rule 152 (empty -> .)
     MAIN            reduce using rule 152 (empty -> .)
-    GL              shift and go to state 4
 
     p2                             shift and go to state 3
     glob                           shift and go to state 5
@@ -345,8 +345,8 @@ state 2
 state 3
 
     (1) prog -> PR p2 . p3 main mainVDir block
-    (6) p3 -> . functions p3
-    (7) p3 -> . empty
+    (5) p3 -> . functions p3
+    (6) p3 -> . empty
     (10) functions -> . fun2 funVDir block
     (152) empty -> .
     (12) fun2 -> . funBlock fID LP fun3 RP
@@ -372,7 +372,7 @@ state 4
 
 state 5
 
-    (8) globals -> glob . vars
+    (7) globals -> glob . vars
     (26) vars -> . V var2
     (27) vars -> . empty
     (152) empty -> .
@@ -394,17 +394,17 @@ state 6
 
 state 7
 
-    (5) p2 -> empty .
+    (8) globals -> empty .
 
-    FUN             reduce using rule 5 (p2 -> empty .)
-    MAIN            reduce using rule 5 (p2 -> empty .)
+    FUN             reduce using rule 8 (globals -> empty .)
+    MAIN            reduce using rule 8 (globals -> empty .)
 
 
 state 8
 
-    (6) p3 -> functions . p3
-    (6) p3 -> . functions p3
-    (7) p3 -> . empty
+    (5) p3 -> functions . p3
+    (5) p3 -> . functions p3
+    (6) p3 -> . empty
     (10) functions -> . fun2 funVDir block
     (152) empty -> .
     (12) fun2 -> . funBlock fID LP fun3 RP
@@ -445,9 +445,9 @@ state 10
 
 state 11
 
-    (7) p3 -> empty .
+    (6) p3 -> empty .
 
-    MAIN            reduce using rule 7 (p3 -> empty .)
+    MAIN            reduce using rule 6 (p3 -> empty .)
 
 
 state 12
@@ -485,10 +485,10 @@ state 14
 
 state 15
 
-    (8) globals -> glob vars .
+    (7) globals -> glob vars .
 
-    FUN             reduce using rule 8 (globals -> glob vars .)
-    MAIN            reduce using rule 8 (globals -> glob vars .)
+    FUN             reduce using rule 7 (globals -> glob vars .)
+    MAIN            reduce using rule 7 (globals -> glob vars .)
 
 
 state 16
@@ -512,9 +512,9 @@ state 16
 
 state 17
 
-    (6) p3 -> functions p3 .
+    (5) p3 -> functions p3 .
 
-    MAIN            reduce using rule 6 (p3 -> functions p3 .)
+    MAIN            reduce using rule 5 (p3 -> functions p3 .)
 
 
 state 18

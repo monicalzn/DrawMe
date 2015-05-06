@@ -72,7 +72,6 @@ class Memory:
 		elif vDir >= 6000 and vDir <= 6999:
 			return self.temp_float_block[(vDir-6000)]
 		elif vDir >= 7000 and vDir <= 7999:
-			print "PODSFPD", self.pointers[(vDir-7000)]
 			return self.pointers[(vDir-7000)]
 
 	def releseMem(self):

@@ -16,29 +16,33 @@ fillColor = '#000000000'
 penWidth = 1
 
 def actions():
+#function that runs while you haven't reached the end of the program
 	while(run):
 		#print "QUADS", quads[current_quad], " ", memory.getValue('40000')
 		options[quads[current_quad][0]]()
 
 def add():
+#function that adds two numbers
 	global current_quad
 	first = memory.getValue(quads[current_quad][1])
 	second = memory.getValue(quads[current_quad][2])
-	print "ADD ", first, " + ", second, " IN ", quads[current_quad][3]  
+	#print "ADD ", first, " + ", second, " IN ", quads[current_quad][3]  
 	result = first + second
 	memory.writeValue(quads[current_quad][3], result)
 	current_quad += 1
 
 def substract():
+#function that substracts two numbers
 	global current_quad
 	first = memory.getValue(quads[current_quad][1])
 	second = memory.getValue(quads[current_quad][2])
-	print "SUB ", first, " - ", second, " IN ", quads[current_quad][3]  
+	#print "SUB ", first, " - ", second, " IN ", quads[current_quad][3]  
 	result = first - second
 	memory.writeValue(quads[current_quad][3], result)
 	current_quad += 1
 
 def multiply():
+#function that multiplies two numbers
 	global current_quad
 	first = memory.getValue(quads[current_quad][1])
 	second = memory.getValue(quads[current_quad][2])
@@ -48,6 +52,7 @@ def multiply():
 	current_quad += 1
 
 def divide():
+#function that divides two numbers
 	global current_quad
 	first = memory.getValue(quads[current_quad][1])
 	second = memory.getValue(quads[current_quad][2])
@@ -57,6 +62,7 @@ def divide():
 	current_quad += 1
 
 def less_than():
+#function that compares if one number is less than another
 	global current_quad
 	first = memory.getValue(quads[current_quad][1])
 	second = memory.getValue(quads[current_quad][2])
@@ -66,6 +72,7 @@ def less_than():
 	current_quad += 1
 
 def more_than():
+#function that compares if one number is more than another
 	global current_quad
 	first = memory.getValue(quads[current_quad][1])
 	second = memory.getValue(quads[current_quad][2])
@@ -75,6 +82,7 @@ def more_than():
 	current_quad += 1
 
 def less_than_eq():
+#function that compares if one number is less than or equal to another
 	global current_quad
 	first = memory.getValue(quads[current_quad][1])
 	second = memory.getValue(quads[current_quad][2])
@@ -84,6 +92,7 @@ def less_than_eq():
 	current_quad += 1
 
 def more_than_eq():
+#function that compares if one number is more than or equal to another
 	global current_quad
 	first = memory.getValue(quads[current_quad][1])
 	second = memory.getValue(quads[current_quad][2])
@@ -93,6 +102,7 @@ def more_than_eq():
 	current_quad += 1
 
 def different_than():
+#function that compares if one number is different than another
 	global current_quad
 	first = memory.getValue(quads[current_quad][1])
 	second = memory.getValue(quads[current_quad][2])
@@ -102,9 +112,9 @@ def different_than():
 	current_quad += 1
 
 def equal_to():
+#function that compares if one number is equal to another
 	global current_quad
 	#print "EQUAL ", quads[current_quad]
-	memory.printFunctions()
 	first = memory.getValue(quads[current_quad][1])
 	second = memory.getValue(quads[current_quad][2])
 	#print "                 Equal ", first, " / ", second, " =  IN ", quads[current_quad][3]  
@@ -112,11 +122,8 @@ def equal_to():
 	memory.writeValue(quads[current_quad][3], result)
 	current_quad += 1
 
-def setColor():
-	global current_quad
-	current_quad += 1
-
 def stringColor(red, green, blue):
+#gets the hexadecimal string for the color
 	red = int(red)
 	if(red > 255):
 		red = 255
@@ -131,6 +138,7 @@ def stringColor(red, green, blue):
 	return color
 
 def pencolor():
+#changes the pen color
 	global current_quad, penColor
 	red = memory.getValue(quads[current_quad][1])
 	green = memory.getValue(quads[current_quad][2])
@@ -141,6 +149,7 @@ def pencolor():
 	current_quad += 1
 
 def color():
+#changes the color of the fill
 	global current_quad, fillColor
 	red = memory.getValue(quads[current_quad][1])
 	green = memory.getValue(quads[current_quad][2])
@@ -151,6 +160,7 @@ def color():
 	current_quad += 1
 	
 def backColor():
+#changes the background color
 	global current_quad, penWidth
 	red = memory.getValue(quads[current_quad][1])
 	green = memory.getValue(quads[current_quad][2])
@@ -161,26 +171,28 @@ def backColor():
 	current_quad += 1
 
 def penwidth():
+#changes the width of the pen
 	global current_quad, penWidth
 	penWidth = memory.getValue(quads[current_quad][1])
-	print "                   sdfdg", penWidth
 	current_quad += 1
 
 def assign():
+#assigns a value to a variable
 	global current_quad
 	result = memory.getValue(quads[current_quad][1])
-	print "ASS", result, " ", quads[current_quad][3] 
+	#print "ASS", result, " ", quads[current_quad][3] 
 	memory.writeValue(quads[current_quad][3], result)
 	current_quad += 1
 
 def rectangle():
+#creates a rectangle with the proper requirements, moves the pen to the lower right corner
 	global current_quad, fill, fillColor, penColor, penWidth
 	x = memory.getValue('41000')
 	y = memory.getValue('41001')
-	print "RECTANGLE ", x, " ", y, " ", memory.getValue(quads[current_quad][1]), " ", memory.getValue(quads[current_quad][2]), " ", fill 
+	#print "RECTANGLE ", x, " ", y, " ", memory.getValue(quads[current_quad][1]), " ", memory.getValue(quads[current_quad][2]), " ", fill 
 	x2 = x + memory.getValue(quads[current_quad][1])
 	y2 = y + memory.getValue(quads[current_quad][2])
-	print "RECTANGLE ", x, " ", y, " ", x2, " ", y2, " ", fill 
+	#print "RECTANGLE ", x, " ", y, " ", x2, " ", y2, " ", fill 
 	
 	if(fill):
 		w.create_rectangle(x, y, x2, y2, fill=fillColor, outline=penColor, width=penWidth)	
@@ -191,6 +203,7 @@ def rectangle():
 	current_quad += 1
 
 def triangle():
+#creates a triangle with the proper requirements
 	global current_quad, fill, fillColor, penColor, penWidth
 	x = memory.getValue(quads[current_quad][1])
 	y = memory.getValue(quads[current_quad][2])
@@ -205,12 +218,12 @@ def triangle():
 		w.create_polygon(x, y, x2, y2, x3, y3, fill=fillColor, outline=penColor, width=penWidth )	
 	else:
 		w.create_polygon(x, y, x2, y2, x3, y3, fill='', outline=penColor, width=penWidth )
-	print quads[current_quad]
 	memory.writeValue('41000', x3)
 	memory.writeValue('41001', y3)
 	current_quad += 1
 
 def circle():
+#creates a circle taking the curren position as its center, moves the pen to the lower right corner
 	global current_quad, fill, fillColor, penColor, penWidth
 	size = memory.getValue(quads[current_quad][1])
 	x = memory.getValue('41000') - size
@@ -228,6 +241,7 @@ def circle():
 	current_quad += 1
 
 def arc():
+#creates an arc taking the current position as its center, moves the pen to the lower right corner
 	global current_quad, fill, fillColor, penColor, penWidth
 	size = memory.getValue(quads[current_quad][1])
 	x = memory.getValue('41000') - size
@@ -246,12 +260,13 @@ def arc():
 	current_quad += 1
 
 def square():
+#creates a square with the proper requirements, moves the pen to the lower right corner
 	global current_quad, fill, fillColor, penColor, penWidth
 	x = memory.getValue('41000')
 	y = memory.getValue('41001')
 	x2 = x + memory.getValue(quads[current_quad][1])
 	y2 = y + memory.getValue(quads[current_quad][1])
-	print "SQUARE ", x, " ", y, " ", x2, " ", y2, " ", memory.getValue(quads[current_quad][1]) 
+	#print "SQUARE ", x, " ", y, " ", x2, " ", y2, " ", memory.getValue(quads[current_quad][1]) 
 	if(fill):
 		w.create_rectangle(x, y, x2, y2, fill=fillColor, outline=penColor, width=penWidth)	
 	else:
@@ -261,51 +276,48 @@ def square():
 	current_quad += 1
 
 def label():
+#prints a text label
 	global current_quad, penColor, penWidth
 	finish = int(quads[current_quad][3])
 	start = int(quads[current_quad][2])
 	lenght = finish - start
 	start = 0
-	print "LENG", lenght
 	direction = int(quads[current_quad][1])
 	word = ''
 	while start <= lenght:
 		constDir = direction + start
 		constDir = str(constDir)
-		print "COONST", constDir
+		#print "COONST", constDir
 		word += memory.getValue(constDir)
 		start += 1
 	w.create_text(memory.getValue('41000'), memory.getValue('41001'), text=word, fill=penColor)
 	current_quad += 1
 
 def linestrip():
+#creates a series of lines taking into account the current position
 	global current_quad, penWidth, penColor
-	print quads[current_quad][2]
 	dire = int(quads[current_quad][1])
 	ren = int(quads[current_quad][2])
 	points = []
 	help = (memory.getValue('41000'), memory.getValue('41001'))
 	points.append(help)
 	cRen = 0
-	print dire
 	while cRen < ren:
 		help = (memory.getValue(str(cRen + dire)), memory.getValue(str(cRen + 1 + dire)))
 		points.append(help)
 		cRen += 2
-	print help
 	w.create_line(points, fill=penColor)
 	current_quad += 1
 
 def polygon():
+#creates a polygon with the given coordenates with the proper requirements
 	global current_quad, penWidth, penColor
-	print quads[current_quad][2]
 	dire = int(quads[current_quad][1])
 	ren = int(quads[current_quad][2])
 	points = []
 	help = (memory.getValue('41000'), memory.getValue('41001'))
 	points.append(help)
 	cRen = 0
-	print dire
 	while cRen < ren:
 		help = (memory.getValue(str(cRen + dire)), memory.getValue(str(cRen + 1 + dire)))
 		points.append(help)
@@ -317,6 +329,7 @@ def polygon():
 	current_quad += 1
 
 def fill():
+#determines if the figure will have filling or not
 	global current_quad, fill
 	#print "FILL ", quads[current_quad][3]
 	if(quads[current_quad][3] == '1'):
@@ -326,6 +339,7 @@ def fill():
 	current_quad += 1
 
 def get_x_and_y(angle, hypotenus):
+#detetrmines the end of the line, basic mathematics
 	if(angle < 45):
 		return [ hypotenus * (math.cos(math.radians(angle))), (-1 * (hypotenus * (math.sin(math.radians(angle)))))]
 	elif(angle < 90):
@@ -358,65 +372,75 @@ def get_x_and_y(angle, hypotenus):
 		return [hypotenus, 0]
 	
 def penpos():
+#changes the pen position
 	global current_quad
 	memory.writeValue('41001', memory.getValue(quads[current_quad][1]))
 	memory.writeValue('41000', memory.getValue(quads[current_quad][2]))
 	current_quad += 1
 
 def penX():
+#changes the x of the pen position
 	global current_quad
 	memory.writeValue('41000', memory.getValue(quads[current_quad][1]))
 	current_quad += 1
 
 def penY():
+#changes the y of the pen position
 	global current_quad
 	memory.writeValue('41001', memory.getValue(quads[current_quad][1]))
 	current_quad += 1
 
 def penUp():
+#moves the y of the pen upwards
 	global current_quad
 	up = memory.getValue('41001') - memory.getValue(quads[current_quad][1])
 	memory.writeValue('41001', up)
 	current_quad += 1
 
 def penDown():
+#moves the y of the pen downwards
 	global current_quad
 	up = memory.getValue(quads[current_quad][1]) + memory.getValue('41001')
 	memory.writeValue('41001', up)
 	current_quad += 1
 
 def penLeft():
+#moves the x of the pen to the left
 	global current_quad
 	up = memory.getValue('41000') - memory.getValue(quads[current_quad][1])
 	memory.writeValue('41000', up)
 	current_quad += 1
 
 def penRight():
+#moves the x of the pen to the right
 	global current_quad
 	up = memory.getValue(quads[current_quad][1]) + memory.getValue('41000')
 	memory.writeValue('41000', up)
 	current_quad += 1
 
 def move():
+#creates a line, has to calculate the end position of the line.
 	global current_quad, penColor
 	x = memory.getValue('41000')
 	y = memory.getValue('41001')
 	hyp = memory.getValue(quads[current_quad][1])
 	angle = memory.getValue(quads[current_quad][2])
 	pos = get_x_and_y(angle, hyp)
-	print "X Y", pos[0], " ", pos[1]
+	#print "X Y", pos[0], " ", pos[1]
 	w.create_line(x, y,(x+pos[0]), (y+pos[1]), fill=penColor)
 	memory.writeValue('41000', (x+pos[0]))
 	memory.writeValue('41001', (y+pos[1]))
 	current_quad += 1
 	
 def goto():
+#changes the current_quad
 	global current_quad
-	print "GOTO", current_quad
+	#print "GOTO", current_quad
 	current_quad = int(quads[current_quad][3])
-	print quads[current_quad][3], "  ", current_quad
+	#print quads[current_quad][3], "  ", current_quad
 
 def goto_false():
+#if the condition is false changes the current_quad
 	global current_quad
 	temp = memory.getValue(quads[current_quad][1])
 	if(temp):
@@ -426,34 +450,34 @@ def goto_false():
 	#print "GOTOF", quads[current_quad][3], "  ", current_quad
 
 def era():
+#creates the memory necesary for the function that is being called.
 	global current_quad
 	temp = proc[quads[current_quad][3]]
-	print "ERA", temp
+	#print "ERA", temp
 	memory.setFunction(temp[0], temp[1], temp[2], temp[3], temp[4], temp[5], temp[6])
 	current_quad += 1
 
 def param():
+#function that assigns the values that are being sent to the function, has to check if its a pointer to make the proper write call.
 	global current_quad
 	if quads[current_quad][3][1] == '7':
 		#pointer
 		memory.writePointValue(quads[current_quad][3], quads[current_quad][1], 1)
-		print "PARAM ", quads[current_quad][3],  " ", quads[current_quad][1]
+		#print "PARAM ", quads[current_quad][3],  " ", quads[current_quad][1]
 	else:
 		memory.writeValueS(quads[current_quad][3], memory.getValue(quads[current_quad][1]))
-		print "PARAM ", quads[current_quad][3],  " ", memory.getValue(quads[current_quad][1])
+		#print "PARAM ", quads[current_quad][3],  " ", memory.getValue(quads[current_quad][1])
 	current_quad += 1
 
 def goSub():
+#saves the current quad, position it will return to and changes the current scope and current quad.
 	global current_quad
 	memory.changeScope()
 	memory.actionPointer_push(current_quad+1)
 	current_quad = int(quads[current_quad][3])
 
-def return_f():
-	global current_quad
-	current_quad += 1
-
 def dim():
+#arrays when you want to access a value form an array check if the square is not out of bounds.
 	global current_quad
 	value = memory.getValue(quads[current_quad][2])
 	dim = int(quads[current_quad][1])
@@ -463,6 +487,7 @@ def dim():
 	current_quad += 1
 
 def dimC():
+#matrix when you want to access a value form an matrix check if the square is not out of bounds.
 	global current_quad
 	value = int(quads[current_quad][2])
 	dim = int(quads[current_quad][1])
@@ -472,11 +497,12 @@ def dimC():
 	current_quad += 1
 
 def pointerDir():
+#retrieve the direction of the value you want to access, if its a pointer you have to retrieve its real base direction and add the position you want. store the direction to the pointer.
 	global current_quad
-	print "                    POINTER", quads[current_quad]
+	#print "         POINTER", quads[current_quad]
 	if quads[current_quad][1][1] == '7':
 		vDir = memory.getValuePointer(quads[current_quad][1])
-		print "                    POINTER", vDir
+	#	print "                    POINTER", vDir
 	else:
 		vDir = int(quads[current_quad][1])
 	vPoint = memory.getValue(quads[current_quad][2])
@@ -486,6 +512,7 @@ def pointerDir():
 	current_quad += 1
 
 def pointerDirC():
+#gets the direction for the value and stores it to the pointer
 	global current_quad
 	vDir = int(quads[current_quad][1])
 	vPoint = int(quads[current_quad][2])
@@ -497,12 +524,11 @@ def pointerDirC():
 def endPro():
 #ends the procedure that was running, deletes all its data and returns to the point where the function call was made
 	global current_quad
-	memory.printFunctions()
 	current_quad = int(memory.actionPointer_pop())
 	memory.delete_function()
-	memory.printFunctions()
 
 def endProg():
+#you have reached the end of the program.
 	global run
 	run = False	
 
@@ -544,7 +570,6 @@ options = { '+' : add,
 		'ERA' : era,
 		'PARAMETRO' : param,
 		'GOSUB' : goSub,
-		'RET' : return_f,
 		'RETURN' : param,
 		'DIM' : dim,
 		'DIMC' : dimC,

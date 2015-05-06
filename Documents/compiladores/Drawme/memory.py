@@ -55,11 +55,9 @@ class Memory:
 			self.temp_float_block[(vDir-6000)] = float(value)
 		elif(vDir >= 7000 and vDir <= 7999):
 			self.pointers[(vDir-7000)] = int(value)
-			print "WRITE", self.pointers
 
 	def readValue(self, vDir):
 		if(vDir >= 1000 and vDir <= 1999):
-			print "STR", self.str_block, vDir-1000
 			return self.str_block[(vDir-1000)]
 		elif(vDir >= 2000 and vDir <= 2999):
 			return self.int_block[(vDir-2000)]

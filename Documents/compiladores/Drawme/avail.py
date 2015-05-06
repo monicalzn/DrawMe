@@ -317,6 +317,7 @@ class avail:
 		self.numQuad += 4
 
 	def dimTP(self, direction, row, dim):
+	#when initializing a matrix, check dimension, create the pointer for the assign do the assign samething with the next value. 
 		row *= 2
 		spCuad = ['DIMC', dim, row, -1]
 		self.quads.append(spCuad)
