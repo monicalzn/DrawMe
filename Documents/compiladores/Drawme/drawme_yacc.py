@@ -36,7 +36,7 @@ contParam = 0
 
 def p_prog(p):
 	'''prog : PR p2 p3 main mainVDir block'''
-	print ht
+	#print ht
 	temp = [(str_qty-1000), (int_qty-2000), (float_qty-3000)]
 	temp.extend(avail.get_temp_dirs())
 	proDict["main"] = temp
@@ -125,7 +125,7 @@ def p_fun2(p):
 	qty = proDict["globals"][3] + 1
 	proDict["globals"][0][avail.getScope()] = ["float", 'func', 13000 + qty]
 	proDict["globals"][3] = qty
-	print proDict["globals"]
+	#print proDict["globals"]
 	funPar.clear()
 	contParam = 0
 
@@ -175,7 +175,6 @@ def p_fun5(p):
 		pointer = False
 	else:
 		save_var(p[3])
-	print "VAR", p[3]
 	funPar[p[3]] = [vType, contParam, (ht[p[3]][2]+30000)]
 	contParam += 1
 
@@ -260,7 +259,6 @@ def p_var6(p):
 	#array
 		if(avail.DStack_pop()):
 			ID = avail.IDStack_pop()
-			print ID
 			vDim = dim(ID)
 			while DTQty >= 0 :
 				avail.dimP(vD, DTQty, vDim)
@@ -278,7 +276,6 @@ def p_var6(p):
 			ID = avail.IDStack_pop()
 			vDim = dim(ID)
 			while DTQty >= 0:
-				print "while", DTQty
 				avail.dimTP(vD, DTQty, vDim)
 				DTQty -= 1
 			DTQty = 0
@@ -322,14 +319,12 @@ def p_var52(p):
 	global aType, int_qty, float_qty
 	ID = avail.IDStack_pop()
 	exp = avail.OStack_pop()
-	print "DIR MATRIX "
 	for value, vDir in const.iteritems():
 		if exp == vDir :
 			if aType == 'int':
 				int_qty += (int(value)+1)*2 
 			else:
 				float_qty += (int(value)+1)*2 
-			print "DIR MATRIX ", (int(value)+1)*2 
 			ht[ID].append((int(value)+1)*2 )
 	avail.DStack_push(True)
 	avail.IDStack_push(ID)
@@ -572,6 +567,7 @@ def p_fact5(p):
 def p_valExp(p):
 	'''valExp : VALI 
 | VALF  '''
+#constants if the constant hasn't been saved and doesn't have a direction one is assigned to it depending on its type
 	a = re.compile('\d+\.\d+')
 	if p[1] not in const:
 		global const_int_qty, const_float_qty
@@ -607,13 +603,13 @@ def p_rep3(p):
 
 def p_WID(p):
 	'''WID : factID fact5 WID2'''
+#has to check if it was an assign or a function call, if it was a function call check the parameters ir its an assign check it the variable has a dimetion if not just make a normal assign, if it has a dimentio check which type and arrange the information so the proper quads can be created right.
 	ID = avail.IDStack_pop()
 	if(idFunc == "ass"):
 		#avail.delFuncScope()
 		TDim = avail.DStack_pop()		
 		declared_variables(ID)
 		if(avail.DStack_pop()):
-			print "THREE" ,  avail.OStack_peek()
 			if(TDim):
 				par = avail.OStack_pop()
 				par2 = avail.OStack_pop()
@@ -643,7 +639,6 @@ def p_WID(p):
 			sys.exit(0)	
 		else:
 			if((len(proDict[ID][0])) != len(funCheck)):
-				print funCheck
 				print "Error, function call, ", ID
 				sys.error(0)
 			else:
@@ -659,25 +654,27 @@ def p_WID(p):
 def p_WID2(p):
 	'''WID2 : assigment
 | SC'''
+#function call or assigment
 
 def p_assigment(p):
 	'''assigment : EQ tipeAss'''
+#set type to assignment
 	global idFunc
 	idFunc = "ass"
 
 def p_tipeAss(p):
 	'''tipeAss : exp SC
 | listAss '''
+#type os assign normal or with dimention
 
 def p_funCall(p):
 	'''funCall : funEra func2 RP '''
+#create proper quads for the call of the function
 	global idFunc, empty
 	idFunc = "func"
-	print "funCall", avail.getFuncScope()
 	if avail.getFuncScope() not in proDict:
 		print "Error, function doesn't exist"
 		sys.exit(0)
-	print "funCall", proDict[avail.getFuncScope()][0]
 	avail.function_param(proDict[avail.getFuncScope()][0])
 	vDir = 10000
 	qty = proDict["globals"][6]
@@ -685,26 +682,30 @@ def p_funCall(p):
 	proDict["globals"][6] = qty + 1
 	avail.call_function_end(proDict[avail.getFuncScope()][1], var_dir(avail.getFuncScope()), vDir)
 	empty = False
-	print "end"
 
 def p_funEra(p):
 	'''funEra : LP '''
+#create the era of the function
 	avail.call_function(avail.getScope())
 
 def p_func2(p):
 	'''func2 : func4 func3
 | empty'''
+#can have zero parameters
 
 def p_func3(p):
 	'''func3 : C func4 func3
 | empty'''
+#can have more than one parameter.
 
 def p_func4(p):
 	'''func4 : exp '''
+#function call store value to help check later
 	funCheck.append(vType)
 	
 def p_listAss(p):
 	'''listAss : LB exp C exp RB SC'''
+#assign to a matrix
 	global DT
 	if(not DT):
 		print "Dimension error"
@@ -714,39 +715,44 @@ def p_listAss(p):
 
 def p_condition(p):
 	'''condition : IF LP expresion condRP block con2'''
+#fills the last goto
 	avail.condition_start()
 
 def p_condRP(p):
 	'''condRP : RP'''
+#the first goto of the if
 	avail.condition()
 				
 
 def p_con2(p):
 	'''con2 : empty  
 | con3 block'''
+#check if the condition has an else
 
 def p_con3(p):
 	'''con3 : ELSE '''
+#create else quad
 	avail.condition_else()
 
 def p_rt(p):	
 	'''rt : RT rtE SC'''
+#return
 	if(avail.getScope() == 'main'):
 		print "ERROR, no return in main"
+		sys.exit(0)
 
 def p_rtE(p):
 	'''rtE : exp 
 | empty'''
 	global empty, vType
 	
-	print "RETURN", avail.getScope()
 	avail.function_return(empty, var_dir(avail.getScope()))
 	empty = False
 
 def p_label(p):
 	'''label : LA LP STR RP SC'''
+#label reads the string stores the necessary constants and assigns a proper direction, creates the quad for label, sends the position where the string starts and where it ends as well as the base direction.
 	global str_qty, const_str_qty
-	print p[3]
 	sub = 1
 	start = str_qty - 1000
 	strDir = str_qty + (avail.getblock() * 10000)
@@ -758,19 +764,19 @@ def p_label(p):
 		spCuad = ['101',  const[word[sub]], -1, (str_qty + (avail.getblock() * 10000))]
 		str_qty += 1
 		avail.append_quad(spCuad)
-		print sub
 		sub += 1
 	finish = str_qty - 1000	-1
-	print "FIJN", finish
 	spCuad = ['208',  strDir , start, finish]
 	avail.append_quad(spCuad)
 
 def p_block(p):
 	'''block : LB block3 RB'''
+#block must be within brackets
 
 def p_block3(p):
 	'''block3 : block2 block3
 | empty '''
+#can have more than one block instruction
 
 def p_figure(p):
 	'''figure : rect
@@ -780,6 +786,7 @@ def p_figure(p):
 | one_par
 | p_arc
 | label'''
+#figure options
 
 def p_pen(p):
 	'''pen : colors 
@@ -787,7 +794,7 @@ def p_pen(p):
 | move 
 | position 
 | penwrite '''
-
+#pen options
 
 def p_block2(p):
 	'''block2 : figure 
@@ -796,6 +803,7 @@ def p_block2(p):
 | WID
 | rep
 | rt'''
+#block options
 
 def p_empty(p):
 	'''empty : '''
@@ -803,6 +811,7 @@ def p_empty(p):
 	empty = True
 
 def save_var(var):
+#save a variable to the dictionary, verify it doesn' exist and depending on the type assign the correct direction value.
 	global aType
 	if var in ht:
 		print "Existing var, ", var
@@ -818,12 +827,14 @@ def save_var(var):
 			float_qty += 1
 
 def block_dir(blockDict, block):
+#sets the block for all the variables created.
 	for key in blockDict:
 		info = blockDict[key]
 		info[2] = info[2] + (block * 10000)
 		blockDict[key] = info
 
 def declared_variables(p):
+#check if the variable is declared
 	global vType
 	if(p != None):
 		if(p not in ht):
@@ -841,6 +852,7 @@ def declared_variables(p):
 # Error rule for syntax errors
 
 def type_variable(p, type_v):
+#get the type of a variable
 	if p in ht:
 		return ht[p][0]
 	else:
@@ -848,6 +860,7 @@ def type_variable(p, type_v):
 			return proDict["globals"][0][p][0]
 
 def var_dir(p):
+#retieve the direction of a variable
 	if p in ht:
 		return ht[p][2]
 	else:
@@ -855,6 +868,7 @@ def var_dir(p):
 			return proDict["globals"][0][p][2]
 
 def dim(p):
+#get the dimention for a variable, if it doesn't have dimention then return -1
 	if p in ht:
 		try:
 			return ht[p][3]
@@ -868,6 +882,7 @@ def dim(p):
 				return -1
 
 def dict_to_string(convDict):
+#function that creates the string with information for the memory and the dictionary with the information of the functions.
 	s = ''
 	for key in convDict:
 		info = convDict[key]
@@ -879,6 +894,7 @@ def dict_to_string(convDict):
 	return s
 
 def dict_to_string_cons(convDict):
+#constants information
 	s = ''
 	for key in convDict:
 		info = convDict[key]
@@ -887,12 +903,14 @@ def dict_to_string_cons(convDict):
 	return s
 
 def quads_to_file():
+#quads information to a string
 	global toFile
 	quads = avail.get_quads()
 	for q in quads:
 		toFile += str(q[0]) + " " + str(q[1]) + " " + str(q[2]) + " " + str(q[3]) + " " + '\n'
 
 def one():
+#makes sure the value for 1, 0 and 2 is added to the constants
 	global const_int_qty
 	if 1 not in const:
 		const['1'] = const_int_qty
@@ -921,7 +939,7 @@ if(len(sys.argv) > 1):
 		toFile += str(const_int_qty - 40000) + " " + str(const_float_qty - 41000) + " " + str(const_str_qty - 42000) + '\n'	
 		toFile += str(dict_to_string_cons(const))
 		toFile += str(dict_to_string(proDict))
-		print proDict
+		#print proDict
 		quads_to_file()
 		#print toFile
 		wFile = open('program.txt', 'w+')
