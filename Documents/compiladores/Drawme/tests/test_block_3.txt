@@ -1,0 +1,30 @@
+program
+global var 
+int l{2} = {(100,33), (199,21), (131, 43)};
+function int search(int &d[6], int number, int cant)
+var int pos, cont = 0;
+{
+	cant = cant + 1;
+	repeat cant{
+		if(d[cont] == number){
+			pos = cont;
+		}
+		square(d[cont], fill);
+		cont = cont + 1;
+	}
+	return pos;
+}
+main 
+var
+int x[6] = [3.4,33, 99,21, 31, 4];
+float h=9;
+{
+rectangle(90,100);
+repeat 8 {
+ h = h+2;
+ setColor(h, 123, 223);
+ penY(h);
+ square(h, fill);
+} 
+h = search(x, 4, 6);
+}

@@ -1,0 +1,54 @@
+program
+global var 
+int j;
+function int bah(int f, int cant, int &l[7])
+var int i, pos, menor, ci, j;
+{
+f = 5;
+if(l[7] == 7){
+circle(1);
+}
+l[1] = 100;
+i = 0;
+repeat cant {
+	menor = l[i];
+	pos = i;
+	j = i + 1;
+	ci = cant - j;
+	
+	square(j);
+square(ci, fill);
+square(i);
+if(ci >0){
+	repeat ci{
+square(j);
+		if(l[j] < menor){
+			menor = l[j];
+			pos = j;
+		}
+		j = j+1;
+	}
+
+	l[pos] = l[i];
+	l[i] = menor;
+	i = i + 1;
+}
+}
+return;
+}
+main 
+var 
+int j=9 , n=4 ,p=5, k[7] = [10,1,2,32,21,15,6,7];
+int  cont, fa;
+float g;
+{
+	n = 2 - 3 + 10;
+	n = 2 - 4 + 90;
+	setColor(255, 45, 78);
+penWidth(3);
+	penColor(35, 45, 178);
+arc(67*(8/6));
+penPos(200, 200);
+rectangle(k[7], k[0]);
+bah(j, 7, k);
+}
